@@ -5,6 +5,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/';
 import { LoginService } from '../shared/services/login.service';
+import { ChoixRoleComponent } from './choix-role/choix-role.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { LoginService } from '../shared/services/login.service';
   ],
   providers: [LoginService, NgbModal],
   exports: [LoginPageComponent],
-  declarations: [LoginPageComponent]
+  entryComponents: [ChoixRoleComponent],
+  declarations: [LoginPageComponent, ChoixRoleComponent]
 })
 export class LoginModule {}

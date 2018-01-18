@@ -3,6 +3,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from '../../shared/services/login.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { ChoixRoleComponent } from '../choix-role/choix-role.component';
 
 @Component({
   selector: 'app-login-page',
@@ -22,21 +23,21 @@ export class LoginPageComponent implements OnInit {
 
   login() {
     console.log(this.credentials);
-    this.ls.login(this.credentials).subscribe();
+    this.ls.login(this.credentials).subscribe(
+      role => {
+        this.openModal(role);
+        console.log(role);
+      },
+      err => {
+        //display error message
+      }
+    );
     //const httpOptions = {headers:new HttpHeaders({"Content-Type":"application/json"})};
   }
 
-  openModal(content) {
-    this.modalService.open(content).result.then(
-      result => {
-        this.closeResult = `Closed with: ${result}`;
-        console.log(this.closeResult);
-      },
-      reason => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        console.log(this.closeResult);
-      }
-    );
+  openModal(role) {
+    const modalRef = this.modalService.open(ChoixRoleComponent);
+    modalRef.componentInstance.role = role;
   }
 
   private getDismissReason(reason: any): string {
