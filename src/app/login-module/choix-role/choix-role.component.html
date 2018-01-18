@@ -4,15 +4,15 @@
 <div class="modal-body">
   {{role}}
   <div class="row">
-    <div class="col-md-4" (click)="goTo('collaborateur')">
+    <div class="col-md-4" (click)="goToHomepage('collaborateur')">
       <img src="../../../assets/img/person.png" alt="Collab" />
       <p>Collaborateur</p>
     </div>
-    <div class="col-md-4" *ngIf="role == 'ADMIN' || role == 'CHAUFFEUR'">
+    <div class="col-md-4" (click)="goToHomepage('chauffeur')" *ngIf="role == 'ADMIN' || role == 'CHAUFFEUR'">
       <img src="../../../assets/img/person.png" alt="Chauf" />
       <p>Chauffeur</p>
     </div>
-    <div class="col-md-4" *ngIf="role == 'ADMIN'">
+    <div class="col-md-4" (click)="goToHomepage('admin')" *ngIf="role == 'ADMIN'">
       <img src="../../../assets/img/person.png" alt="Admin" />
       <p>Administrateur</p>
     </div>
