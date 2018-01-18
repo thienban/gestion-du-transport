@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { environment } from '../environments/environment';
+import { JwtModule } from '@auth0/angular-jwt';
 
 const routes: Routes = [
   {
@@ -33,10 +34,10 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes, { enableTracing: true }),
-    SharedModule.forRoot()
+    SharedModule.forRoot(),
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetterFunc,
+        tokenGetter: () => localStorage.getItem('access_token'),
         whitelistedDomains: [environment.endpoint, 'localhost:8080'],
         throwNoTokenError: false
       }
