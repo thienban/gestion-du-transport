@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <h4>Choisissez votre profil</h4>
+</div>
+<div class="modal-body">
+  {{role}}
+  <div class="row">
+    <div class="col-md-4" (click)="goTo('collaborateur')">
+      <img src="../../../assets/img/person.png" alt="Collab" />
+      <p>Collaborateur</p>
+    </div>
+    <div class="col-md-4" *ngIf="role == 'ADMIN' || role == 'CHAUFFEUR'">
+      <img src="../../../assets/img/person.png" alt="Chauf" />
+      <p>Chauffeur</p>
+    </div>
+    <div class="col-md-4" *ngIf="role == 'ADMIN'">
+      <img src="../../../assets/img/person.png" alt="Admin" />
+      <p>Administrateur</p>
+    </div>
+  </div>
+</div>
+<div class="modal-footer"></div>

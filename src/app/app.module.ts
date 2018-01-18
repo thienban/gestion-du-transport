@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   {
@@ -33,6 +34,13 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes, { enableTracing: true }),
     SharedModule.forRoot()
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetterFunc,
+        whitelistedDomains: [environment.endpoint, 'localhost:8080'],
+        throwNoTokenError: false
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

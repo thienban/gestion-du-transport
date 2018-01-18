@@ -18,33 +18,10 @@
           name="password">
       </div>
 
-      <input type="submit" value="Se connecter" class="btn btn-success" (click)="login()">
+      <input type="submit" value="Se connecter" class="btn btn-success" (click)="login();">
 
     </form>
 
 
   </div>
 </div>
-
-<ng-template #content let-c="close" let-d="dismiss">
-  <div class="modal-header">
-    <h4>Choisissez votre profil</h4>
-  </div>
-  <div class="modal-body">
-    <div class="row">
-      <div class="col-md-4">
-        <img src="../../../assets/img/person.png" alt="Collab" />
-        <p>Collaborateur</p>
-      </div>
-      <div class="col-md-4">
-        <img src="../../../assets/img/person.png" alt="Chauf" />
-        <p>Chauffeur</p>
-      </div>
-      <div class="col-md-4">
-        <img src="../../../assets/img/person.png" alt="Admin" />
-        <p>Administrateur</p>
-      </div>
-    </div>
-  </div>
-  <div class="modal-footer"></div>
-</ng-template>

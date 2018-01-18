@@ -8,6 +8,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 
 const loginRoutes: Routes = [{ path: '', component: LoginPageComponent }];
+import { LoginService } from '../shared/services/login.service';
+import { ChoixRoleComponent } from './choix-role/choix-role.component';
 
 @NgModule({
   imports: [
@@ -17,7 +19,9 @@ const loginRoutes: Routes = [{ path: '', component: LoginPageComponent }];
     RouterModule.forChild(loginRoutes),
     SharedModule
   ],
-  providers: [NgbModal],
-  declarations: [LoginPageComponent]
+  providers: [LoginService, NgbModal],
+  exports: [LoginPageComponent],
+  entryComponents: [ChoixRoleComponent],
+  declarations: [LoginPageComponent, ChoixRoleComponent]
 })
 export class LoginModule {}
