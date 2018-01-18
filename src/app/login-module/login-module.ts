@@ -5,6 +5,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginService } from '../shared/services/login.service';
+
 const loginRoutes: Routes = [{ path: '', component: LoginPageComponent }];
 
 @NgModule({
@@ -12,10 +14,9 @@ const loginRoutes: Routes = [{ path: '', component: LoginPageComponent }];
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule.forRoot(),
     RouterModule.forChild(loginRoutes)
   ],
-  providers: [NgbModal],
+  providers: [LoginService, NgbModal],
   exports: [LoginPageComponent],
   declarations: [LoginPageComponent]
 })

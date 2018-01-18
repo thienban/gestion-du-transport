@@ -21,7 +21,7 @@ const routes: Routes = [
     path: 'login',
     loadChildren: './login-module/login-module#LoginModule'
   },
-  { path: '', redirectTo: 'collaborateur', pathMatch: 'full' }
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({
