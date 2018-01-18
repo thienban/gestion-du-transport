@@ -1,5 +1,14 @@
 # GestionTransport
 
+# Front gestion-du-transport
+
+Projet de réservation de transport : covoiturage, voiture, voiture avec chauffeur
+Equipe de 4 personnes de développeur
+1 Scrum Master, 1 Prodcut Owner
+
+Technologie du Front : Angular
+Back : Spring Boot
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
 
 ## Development server
