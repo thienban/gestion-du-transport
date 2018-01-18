@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login-page',
@@ -7,23 +7,24 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
+  model: { email: string; password: string } = { email: '', password: '' };
+  closeResult: string = '';
 
-  model:{email:string, password:string} = {email:'', password:''};
-  closeResult:string =""
+  constructor(private modalService: NgbModal) {}
 
-  constructor(private modalService:NgbModal) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   openModal(content) {
-    this.modalService.open(content).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-      console.log(this.closeResult)
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      console.log(this.closeResult)
-    });
+    this.modalService.open(content).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+        console.log(this.closeResult);
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        console.log(this.closeResult);
+      }
+    );
   }
 
   private getDismissReason(reason: any): string {
@@ -32,8 +33,7 @@ export class LoginPageComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
-
 }
