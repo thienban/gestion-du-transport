@@ -5,7 +5,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap/';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginService } from '../shared/services/login.service';
+import { SharedModule } from '../shared/shared.module';
 
 const loginRoutes: Routes = [{ path: '', component: LoginPageComponent }];
 
@@ -14,10 +14,10 @@ const loginRoutes: Routes = [{ path: '', component: LoginPageComponent }];
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forChild(loginRoutes)
+    RouterModule.forChild(loginRoutes),
+    SharedModule
   ],
-  providers: [LoginService, NgbModal],
-  exports: [LoginPageComponent],
+  providers: [NgbModal],
   declarations: [LoginPageComponent]
 })
 export class LoginModule {}
