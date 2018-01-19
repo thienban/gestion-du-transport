@@ -38,4 +38,8 @@ export class LoginService {
     localStorage.removeItem('access_token');
     this.router.navigateByUrl('/login');
   }
+
+  get token() {
+    return localStorage.getItem('access_token');
+  }
 }

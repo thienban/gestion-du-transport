@@ -29,10 +29,10 @@ export class LoginPageComponent implements OnInit {
         console.log(role);
       },
       err => {
-        //display error message
+        // display error message
       }
     );
-    //const httpOptions = {headers:new HttpHeaders({"Content-Type":"application/json"})};
+    // const httpOptions = {headers:new HttpHeaders({"Content-Type":"application/json"})};
   }
 
   openModal(role) {
