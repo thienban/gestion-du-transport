@@ -20,7 +20,7 @@ export class LoginService {
       });
   }
 
-  get userRole() {
+  get userRole(): string {
     const token = localStorage.getItem('access_token');
     return this.jwt.decodeToken(token)['role'];
   }
