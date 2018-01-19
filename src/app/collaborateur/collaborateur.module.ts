@@ -5,6 +5,7 @@ import { WrapperCollaborateurComponent } from './wrapper-collaborateur/wrapper-c
 import { SharedModule } from '../shared/shared.module';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
+import { CreerReservationComponent } from './creer-reservation/creer-reservation.component';
 
 const collabRoutes: Routes = [
   {
@@ -28,7 +29,8 @@ const collabRoutes: Routes = [
   declarations: [
     WrapperCollaborateurComponent,
     ReservationsComponent,
-    AnnoncesComponent
+    AnnoncesComponent,
+    CreerReservationComponent
   ]
 })
 export class CollaborateurModule {}
