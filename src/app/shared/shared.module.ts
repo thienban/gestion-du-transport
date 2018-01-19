@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReservationsService } from './services/reservations.service';
 
 @NgModule({
   imports: [CommonModule, RouterModule, HttpClientModule, NgbModule.forRoot()],
@@ -15,7 +16,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [LoginService]
+      providers: [LoginService, ReservationsService]
     };
   }
 }

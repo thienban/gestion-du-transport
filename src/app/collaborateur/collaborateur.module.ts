@@ -5,6 +5,7 @@ import { WrapperCollaborateurComponent } from './wrapper-collaborateur/wrapper-c
 import { SharedModule } from '../shared/shared.module';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
+import { NgbModule, NgbAccordion, NgbPanel } from '@ng-bootstrap/ng-bootstrap';
 
 const collabRoutes: Routes = [
   {
@@ -23,12 +24,14 @@ const collabRoutes: Routes = [
     CommonModule,
     SharedModule,
     RouterModule.forChild(collabRoutes),
-    SharedModule
+    SharedModule,
+    NgbModule.forRoot()
   ],
   declarations: [
     WrapperCollaborateurComponent,
     ReservationsComponent,
     AnnoncesComponent
-  ]
+  ],
+  providers: [NgbAccordion, NgbPanel]
 })
 export class CollaborateurModule {}
