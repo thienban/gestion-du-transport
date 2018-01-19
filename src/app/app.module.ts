@@ -4,26 +4,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
-
-const routes: Routes = [
-  {
-    path: 'collaborateur',
-    loadChildren: './collaborateur/collaborateur.module#CollaborateurModule'
-  },
-  {
-    path: 'chauffeur',
-    loadChildren: './chauffeur/chauffeur.module#ChauffeurModule'
-  },
-  {
-    path: 'admin',
-    loadChildren: './admin/admin.module#AdminModule'
-  },
-  {
-    path: 'login',
-    loadChildren: './login-module/login-module#LoginModule'
-  },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
-];
+import { environment } from '../environments/environment';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,8 +14,15 @@ const routes: Routes = [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes, { enableTracing: true }),
-    SharedModule.forRoot()
+    SharedModule.forRoot(),
+    AppRoutingModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('access_token'),
+        whitelistedDomains: [environment.endpoint, 'localhost:8080'],
+        throwNoTokenError: false
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
