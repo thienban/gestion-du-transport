@@ -11,6 +11,7 @@ const routes: Routes = [
     path: 'collaborateur',
     loadChildren: './collaborateur/collaborateur.module#CollaborateurModule',
     canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       requiredRoles: [Role.ADMIN, Role.CHAUFFEUR, Role.COLLABORATEUR]
     }
@@ -19,6 +20,7 @@ const routes: Routes = [
     path: 'chauffeur',
     loadChildren: './chauffeur/chauffeur.module#ChauffeurModule',
     canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       requiredRoles: [Role.ADMIN, Role.CHAUFFEUR]
     }
@@ -27,6 +29,7 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
     canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       requiredRoles: [Role.ADMIN]
     }
