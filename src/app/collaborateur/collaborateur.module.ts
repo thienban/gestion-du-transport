@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { CreerReservationComponent } from './creer-reservation/creer-reservation.component';
+import { patch } from 'webdriver-js-extender';
 
 const collabRoutes: Routes = [
   {
@@ -13,7 +14,11 @@ const collabRoutes: Routes = [
     component: WrapperCollaborateurComponent,
     children: [
       { path: 'annonces', component: AnnoncesComponent },
-      { path: 'reservations', component: ReservationsComponent },
+      {
+        path: 'reservations',
+        component: ReservationsComponent
+      },
+      { path: 'reservations/creer', component: CreerReservationComponent },
       { path: '', redirectTo: 'reservations' }
     ]
   }
