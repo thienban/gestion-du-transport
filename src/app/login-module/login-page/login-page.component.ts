@@ -19,6 +19,7 @@ export class LoginPageComponent implements OnInit {
     password: ''
   };
   closeResult = '';
+  badCredentials = false;
 
   constructor(private ls: LoginService, private modalService: NgbModal) {}
 
@@ -28,11 +29,12 @@ export class LoginPageComponent implements OnInit {
     console.log(this.credentials);
     this.ls.login(this.credentials).subscribe(
       role => {
+        this.badCredentials = false;
         this.openModal(role);
         console.log(role);
       },
       err => {
-        //display error message
+        this.badCredentials = true;
       }
     );
     //const httpOptions = {headers:new HttpHeaders({"Content-Type":"application/json"})};
