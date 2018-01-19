@@ -4,8 +4,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment.prod';
-
+import { environment } from '../../../environments/environment';
+console.log(environment);
 @Injectable()
 export class LoginService {
   constructor(

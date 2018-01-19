@@ -4,7 +4,7 @@ import { AuthGuard } from './auth.guard';
 import { Role } from './domain/role';
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   {
