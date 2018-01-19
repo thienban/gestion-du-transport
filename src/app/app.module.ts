@@ -1,35 +1,49 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
-import { LoginModule } from './login-module/login-module';
-import { JwtModule } from '@auth0/angular-jwt';
+import { SharedModule } from './shared/shared.module';
 import { environment } from '../environments/environment';
-import { HttpClient, HttpClientModule } from '@angular/common/http/';
+import { JwtModule } from '@auth0/angular-jwt';
 
-function tokenGetterFunc() {
-  return localStorage.getItem('access_token');
-}
+const routes: Routes = [
+  {
+    path: 'collaborateur',
+    loadChildren: './collaborateur/collaborateur.module#CollaborateurModule'
+  },
+  {
+    path: 'chauffeur',
+    loadChildren: './chauffeur/chauffeur.module#ChauffeurModule'
+  },
+  {
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule'
+  },
+  {
+    path: 'login',
+    loadChildren: './login-module/login-module#LoginModule'
+  },
+  { path: '', redirectTo: 'login', pathMatch: 'full' }
+];
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    LoginModule,
+    RouterModule.forRoot(routes, { enableTracing: true }),
+    SharedModule.forRoot(),
     JwtModule.forRoot({
       config: {
-        tokenGetter: tokenGetterFunc,
+        tokenGetter: () => localStorage.getItem('access_token'),
         whitelistedDomains: [environment.endpoint, 'localhost:8080'],
         throwNoTokenError: false
       }
     })
   ],
-  providers: [LoginModule, HttpClient],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

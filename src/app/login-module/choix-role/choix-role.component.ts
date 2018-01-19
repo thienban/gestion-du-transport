@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-choix-role',
@@ -9,9 +9,10 @@ import { Router } from '@angular/router';
 export class ChoixRoleComponent implements OnInit {
   constructor(private router: Router) {}
 
-  ngOnInit() {}
-
   goToHomepage(profil) {
     this.router.navigateByUrl(profil);
   }
+  @Input() role: string;
+
+  ngOnInit() {}
 }

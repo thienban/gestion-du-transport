@@ -15,7 +15,7 @@ export class LoginPageComponent implements OnInit {
     email: '',
     password: ''
   };
-  closeResult: string = '';
+  closeResult = '';
 
   constructor(private ls: LoginService, private modalService: NgbModal) {}
 

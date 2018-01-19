@@ -21,7 +21,7 @@ export class LoginService {
   }
 
   get userRole() {
-    let token = localStorage.getItem('access_token');
+    const token = localStorage.getItem('access_token');
     return this.jwt.decodeToken(token)['role'];
   }
 }
