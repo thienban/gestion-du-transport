@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from '../../shared/services/login.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
 import { ChoixRoleComponent } from '../choix-role/choix-role.component';
 import { ValidatorFn } from '@angular/forms/src/directives/validators';
 import { AbstractControl } from '@angular/forms/src/model';
@@ -21,13 +20,12 @@ export class LoginPageComponent implements OnInit {
   closeResult = '';
   badCredentials = false;
 
-  constructor(private ls: LoginService, private modalService: NgbModal) {}
+  constructor(private loginSvc: LoginService, private modalService: NgbModal) {}
 
   ngOnInit() {}
 
   login() {
-    console.log(this.credentials);
-    this.ls.login(this.credentials).subscribe(
+    this.loginSvc.login(this.credentials).subscribe(
       role => {
         this.badCredentials = false;
         this.openModal(role);
@@ -37,7 +35,7 @@ export class LoginPageComponent implements OnInit {
         this.badCredentials = true;
       }
     );
-    //const httpOptions = {headers:new HttpHeaders({"Content-Type":"application/json"})};
+    // const httpOptions = {headers:new HttpHeaders({"Content-Type":"application/json"})};
   }
 
   openModal(role) {

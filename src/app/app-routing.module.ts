@@ -4,12 +4,14 @@ import { AuthGuard } from './auth.guard';
 import { Role } from './domain/role';
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { environment } from '../environments/environment';
 
 const routes: Routes = [
   {
     path: 'collaborateur',
     loadChildren: './collaborateur/collaborateur.module#CollaborateurModule',
     canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       requiredRoles: [Role.ADMIN, Role.CHAUFFEUR, Role.COLLABORATEUR]
     }
@@ -18,6 +20,7 @@ const routes: Routes = [
     path: 'chauffeur',
     loadChildren: './chauffeur/chauffeur.module#ChauffeurModule',
     canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       requiredRoles: [Role.ADMIN, Role.CHAUFFEUR]
     }
@@ -26,6 +29,7 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
     canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
     data: {
       requiredRoles: [Role.ADMIN]
     }
@@ -34,13 +38,16 @@ const routes: Routes = [
     path: 'login',
     loadChildren: './login-module/login-module#LoginModule'
   },
-  { path: '', redirectTo: 'login', pathMatch: 'full' }
+  { path: '', redirectTo: 'collaborateur', pathMatch: 'full' }
 ];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes, { enableTracing: true })
+    RouterModule.forRoot(routes, {
+      enableTracing: !environment.production,
+      useHash: true
+    })
   ],
   exports: [RouterModule],
   providers: [AuthGuard]
