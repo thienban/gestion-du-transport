@@ -10,8 +10,13 @@ export class AuthGuard implements CanLoad {
     console.log('voila la route : ', route);
     const role = this.loginSvc.userRole;
     const requiredRoles: string[] = route.data.requiredRoles;
-    console.log('required roles : ',requiredRoles, 'current user role :',role);
-    if (requiredRoles.includes(role)) {
+    console.log(
+      'required roles : ',
+      requiredRoles,
+      'current user role :',
+      role
+    );
+    if (requiredRoles.includes(role.toLowerCase())) {
       return true;
     } else {
       this.router.navigateByUrl('login');
