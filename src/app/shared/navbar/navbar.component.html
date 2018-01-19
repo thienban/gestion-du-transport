@@ -2,4 +2,5 @@
   <div class="btn-group" role="group">
     <a *ngFor="let b of buttons;" class="btn btn-outline-primary" [routerLink]="b.route" routerLinkActive="active">{{b.nom}}</a>
   </div>
+  <button class="btn btn-danger" (click)="logout()">Déconnexion</button>
 </nav>
