@@ -7,12 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./choix-role.component.css']
 })
 export class ChoixRoleComponent implements OnInit {
+  @Input() role: string;
+
   constructor(private router: Router) {}
 
   goToHomepage(profil) {
     this.router.navigateByUrl(profil);
   }
-  @Input() role: string;
 
   ngOnInit() {}
 }
