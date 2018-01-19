@@ -4,6 +4,9 @@ import { LoginService } from '../../shared/services/login.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ChoixRoleComponent } from '../choix-role/choix-role.component';
+import { ValidatorFn } from '@angular/forms/src/directives/validators';
+import { AbstractControl } from '@angular/forms/src/model';
+import { concat } from 'rxjs/observable/concat';
 
 @Component({
   selector: 'app-login-page',
@@ -38,6 +41,7 @@ export class LoginPageComponent implements OnInit {
   openModal(role) {
     const modalRef = this.modalService.open(ChoixRoleComponent);
     modalRef.componentInstance.role = role;
+    console.log(modalRef.componentInstance);
   }
 
   private getDismissReason(reason: any): string {
@@ -49,4 +53,12 @@ export class LoginPageComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+  // getInvalidMsg(): string {
+  //   if (!this.credentials.email) {
+  //     return 'Veuillez entrer un email valide.';
+  //   } else if (!this.credentials.password) {
+  //     return 'Veuillez entrer le mot de passe.';
+  //   }
+  // }
 }
