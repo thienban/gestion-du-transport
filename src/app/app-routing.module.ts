@@ -4,6 +4,7 @@ import { AuthGuard } from './auth.guard';
 import { Role } from './domain/role';
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
+import { environment } from '../environments/environment.prod';
 
 const routes: Routes = [
   {
@@ -40,7 +41,10 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forRoot(routes, { enableTracing: true })
+    RouterModule.forRoot(routes, {
+      enableTracing: !environment.production,
+      useHash: true
+    })
   ],
   exports: [RouterModule],
   providers: [AuthGuard]
