@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs';
-import { Annonce } from '../../shared/domain/annonce';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { Annonce } from '../../shared/domain/annonce';
+import { AnnonceService} from '../../shared/services/annonce.service'
 
 @Component({
   selector: 'app-creer-reservation',
@@ -10,18 +12,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./creer-reservation.component.css']
 })
 export class CreerReservationComponent implements OnInit {
-  annonceSubject: BehaviorSubject<Annonce[]> = new BehaviorSubject([]);
-  constructor(private http: HttpClient) {}
 
-  ngOnInit() {}
+  constructor(private annonceService : AnnonceService) {}
+  annonces: Annonce[];
+  limite: string;
 
-  trouverAnnonceByDateAdresse(
-    adresseDepart: string,
-    adresseDestination: string,
-    dateDepart: Date
-  ): Observable<Annonce[]> {
-    return this.http.get<Annonce[]>(
-      `http://localhost:8080/reservations/?adresseDepart=${adresseDepart}&adresseDestination=${adresseDestination}&dateDepart=${dateDepart}`
-    );
+  ngOnInit() {
+      //lister
+  this.annonceService.listerAnnonces().subscribe(annonces => (this.annonces = annonces));
+
+  this.annonceService.getFiltreObservable().subscribe(valeurLimite => (this.limite = valeurLimite));
   }
+
 }
