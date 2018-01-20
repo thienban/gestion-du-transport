@@ -3,6 +3,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from '../../shared/services/login.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ChoixRoleComponent } from '../choix-role/choix-role.component';
+import { ValidatorFn } from '@angular/forms/src/directives/validators';
+import { AbstractControl } from '@angular/forms/src/model';
+import { concat } from 'rxjs/observable/concat';
 
 @Component({
   selector: 'app-login-page',
@@ -15,6 +18,7 @@ export class LoginPageComponent implements OnInit {
     password: ''
   };
   closeResult = '';
+  badCredentials = false;
 
   constructor(private loginSvc: LoginService, private modalService: NgbModal) {}
 
@@ -23,11 +27,12 @@ export class LoginPageComponent implements OnInit {
   login() {
     this.loginSvc.login(this.credentials).subscribe(
       role => {
+        this.badCredentials = false;
         this.openModal(role);
         console.log(role);
       },
       err => {
-        // display error message
+        this.badCredentials = true;
       }
     );
     // const httpOptions = {headers:new HttpHeaders({"Content-Type":"application/json"})};
@@ -36,5 +41,7 @@ export class LoginPageComponent implements OnInit {
   openModal(role) {
     const modalRef = this.modalService.open(ChoixRoleComponent);
     modalRef.componentInstance.role = role;
+    console.log(modalRef.componentInstance);
   }
+
 }
