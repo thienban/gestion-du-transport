@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, HostListener } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { BehaviorSubject } from "rxjs";
 import { Observable } from "rxjs/Observable";
@@ -10,7 +10,7 @@ export class AnnonceService {
   annonceSubject: BehaviorSubject<Annonce[]> = new BehaviorSubject([]);
   filtreSubject: BehaviorSubject<string> = new BehaviorSubject("");
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   listerAnnonces(): Observable<Annonce[]> {
     // Make the HTTP request:

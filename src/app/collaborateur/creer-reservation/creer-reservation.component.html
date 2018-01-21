@@ -29,6 +29,7 @@
     </div>
     </div>
     -->
+    </div>
     <!--ListeRéservation-->
     <p>Covoiturage</p>
     <div>
@@ -45,13 +46,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>john@example.com</td>
+          <tr *ngFor="let an of annonces">
+            <td>{{an.dateDepart}}</td>
+            <td>{{an.adresseDepart}}</td>
+            <td>{{an.adresseArrive}}</td>
             <td>Audi</td>
-            <td>Big Chris</td>
-            <td>3</td>
+            <td>{{an.Collaborateur.nom}}</td>
+            <td>{{an.nbPlacesDispos}}</td>
             <td>
               <button type="button" class="btn btn-success">Réserver</button>
             </td>
@@ -60,7 +61,5 @@
       </table>
     </div>
   </div>
-
 </body>
-
 </html>
