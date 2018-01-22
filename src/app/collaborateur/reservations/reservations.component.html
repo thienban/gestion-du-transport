@@ -40,7 +40,7 @@
               <th></th>
             </tr>
           </thead>
-          <tbody *ngFor="let reservationHisto of reservations | slice:startLimit:maxSize">
+          <tbody *ngFor="let reservationHisto of reservations | slice:startLimit:endLimit">
             <tr *ngIf="(reservationHisto.dateDepart | date:'dd/MM/yyyy') < (currentDate | date:'dd/MM/yyyy')">
               <td>{{ reservationHisto.dateDepart | date:'dd/MM/yyyy'}} {{ reservationHisto.dateDepart | date:'HH:ss'}}</td>
               <td>{{ reservationHisto.adresseDepart.numero }} {{ reservationHisto.adresseDepart.rue }} {{ reservationHisto.adresseDepart.ville
@@ -53,7 +53,10 @@
             </tr>
           </tbody>
         </table>
-        <ngb-pagination [collectionSize]="reservations.length" [(page)]="page" [maxSize]="5" (pageChange)="onChange()" class="float-right m-3"></ngb-pagination>
+        <!--<app-liste-annonces [libelleListe]="CovoitEnCours" [titre]="'Réservations en cours'" [reservations]="reservations"></app-liste-annonces>
+        <app-liste-annonces [libelleListe]="CovoitHisto" [titre]="Historique" [reservations]="reservations"></app-liste-annonces>-->
+        <ngb-pagination [collectionSize]="reservations.length" [(page)]="page" [pageSize]="5" [maxSize]="5" (pageChange)="onChange()"
+          class="float-right m-3"></ngb-pagination>
       </ng-template>
     </ngb-panel>
     <ngb-panel title="Véhicule de société">

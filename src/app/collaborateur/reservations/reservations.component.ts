@@ -17,11 +17,11 @@ import { DetailCovoiturageComponent } from '../detail-covoiturage/detail-covoitu
 })
 export class ReservationsComponent implements OnInit {
   reservations: Annonce[];
-  title = 'app';
   page;
   startLimit;
+  endLimit;
+  @Input() pageSize;
   @Input() maxSize;
-  itemPerPage = 5;
   currentDate;
 
   constructor(
@@ -37,16 +37,15 @@ export class ReservationsComponent implements OnInit {
     this.currentDate = Date.now();
 
     this.page = 1;
-
-    this.startLimit = 1;
-    this.maxSize = this.itemPerPage;
+    this.pageSize = 5;
+    this.startLimit = 0;
+    this.endLimit = this.pageSize;
   }
 
   onChange() {
-    this.startLimit =
-      this.page * this.itemPerPage - this.itemPerPage + (this.page - 1);
+    this.startLimit = this.page * this.pageSize - this.pageSize;
 
-    this.maxSize = this.startLimit + this.itemPerPage;
+    this.endLimit = this.startLimit + this.pageSize;
   }
 
   detailAnnonce(reservation) {
