@@ -1,5 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbModule, NgbAccordion, NgbPanel } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModule,
+  NgbAccordion,
+  NgbPanel,
+  NgbPagination
+} from '@ng-bootstrap/ng-bootstrap';
 import { Annonce } from '../../domain/Annonce';
 import { ReservationsService } from '../../shared/services/reservations.service';
 

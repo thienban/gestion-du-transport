@@ -24,7 +24,6 @@ const collabRoutes: Routes = [
     CommonModule,
     SharedModule,
     RouterModule.forChild(collabRoutes),
-    SharedModule,
     NgbModule.forRoot()
   ],
   declarations: [
