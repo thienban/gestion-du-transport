@@ -9,6 +9,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginService } from './shared/services/login.service';
 import { getToken } from './token-getter';
+import { ListeAnnoncesComponent } from './collaborateur/liste-annonces/liste-annonces.component';
 
 @NgModule({
   declarations: [AppComponent],

@@ -16,15 +16,15 @@
               <th></th>
             </tr>
           </thead>
-          <tbody *ngFor="let reservation of reservations">
-            <tr *ngIf="(reservation.dateDepart | date:'dd/MM/yyyy') >= (currentDate | date:'dd/MM/yyyy')">
-              <td>{{ reservation.dateDepart | date:'dd/MM/yyyy'}} {{ reservation.dateDepart | date:'HH:ss'}}</td>
-              <td>{{ reservation.adresseDepart.numero }} {{ reservation.adresseDepart.rue }} {{ reservation.adresseDepart.ville
-                }} {{ reservation.adresseDepart.codePostal }}</td>
-              <td>{{ reservation.adresseArrive.numero }} {{ reservation.adresseArrive.rue }} {{ reservation.adresseArrive.ville
-                }} {{ reservation.adresseArrive.codePostal }}</td>
+          <tbody *ngFor="let reservationEnCours of reservations">
+            <tr *ngIf="(reservationEnCours.dateDepart | date:'dd/MM/yyyy') >= (currentDate | date:'dd/MM/yyyy')">
+              <td>{{ reservationEnCours.dateDepart | date:'dd/MM/yyyy'}} {{ reservationEnCours.dateDepart | date:'HH:ss'}}</td>
+              <td>{{ reservationEnCours.adresseDepart.numero }} {{ reservationEnCours.adresseDepart.rue }} {{ reservationEnCours.adresseDepart.ville
+                }} {{ reservationEnCours.adresseDepart.codePostal }}</td>
+              <td>{{ reservationEnCours.adresseArrive.numero }} {{ reservationEnCours.adresseArrive.rue }} {{ reservationEnCours.adresseArrive.ville
+                }} {{ reservationEnCours.adresseArrive.codePostal }}</td>
               <td>
-                <button class="btn">Détails</button>
+                <button class="btn" (click)="detailAnnonce(reservationEnCours)">Détails</button>
               </td>
             </tr>
           </tbody>
@@ -40,15 +40,15 @@
               <th></th>
             </tr>
           </thead>
-          <tbody *ngFor="let reservation of reservations | slice:startLimit:maxSize">
-            <tr *ngIf="(reservation.dateDepart | date:'dd/MM/yyyy') < (currentDate | date:'dd/MM/yyyy')">
-              <td>{{ reservation.dateDepart | date:'dd/MM/yyyy'}} {{ reservation.dateDepart | date:'HH:ss'}}</td>
-              <td>{{ reservation.adresseDepart.numero }} {{ reservation.adresseDepart.rue }} {{ reservation.adresseDepart.ville
-                }} {{ reservation.adresseDepart.codePostal }}</td>
-              <td>{{ reservation.adresseArrive.numero }} {{ reservation.adresseArrive.rue }} {{ reservation.adresseArrive.ville
-                }} {{ reservation.adresseArrive.codePostal }}</td>
+          <tbody *ngFor="let reservationHisto of reservations | slice:startLimit:maxSize">
+            <tr *ngIf="(reservationHisto.dateDepart | date:'dd/MM/yyyy') < (currentDate | date:'dd/MM/yyyy')">
+              <td>{{ reservationHisto.dateDepart | date:'dd/MM/yyyy'}} {{ reservationHisto.dateDepart | date:'HH:ss'}}</td>
+              <td>{{ reservationHisto.adresseDepart.numero }} {{ reservationHisto.adresseDepart.rue }} {{ reservationHisto.adresseDepart.ville
+                }} {{ reservationHisto.adresseDepart.codePostal }}</td>
+              <td>{{ reservationHisto.adresseArrive.numero }} {{ reservationHisto.adresseArrive.rue }} {{ reservationHisto.adresseArrive.ville
+                }} {{ reservationHisto.adresseArrive.codePostal }}</td>
               <td>
-                <button class="btn">Détails</button>
+                <button class="btn" (click)="detailAnnonce(reservationHisto)">Détails</button>
               </td>
             </tr>
           </tbody>

@@ -3,10 +3,12 @@ import {
   NgbModule,
   NgbAccordion,
   NgbPanel,
-  NgbPagination
+  NgbPagination,
+  NgbModal
 } from '@ng-bootstrap/ng-bootstrap';
 import { Annonce } from '../../domain/Annonce';
 import { ReservationsService } from '../../shared/services/reservations.service';
+import { DetailCovoiturageComponent } from '../detail-covoiturage/detail-covoiturage.component';
 
 @Component({
   selector: 'app-reservations',
@@ -22,7 +24,10 @@ export class ReservationsComponent implements OnInit {
   itemPerPage = 5;
   currentDate;
 
-  constructor(private rService: ReservationsService) {
+  constructor(
+    private rService: ReservationsService,
+    private modalService: NgbModal
+  ) {
     this.rService
       .ListerReservationsCollab()
       .subscribe(r => (this.reservations = r));
@@ -42,5 +47,10 @@ export class ReservationsComponent implements OnInit {
       this.page * this.itemPerPage - this.itemPerPage + (this.page - 1);
 
     this.maxSize = this.startLimit + this.itemPerPage;
+  }
+
+  detailAnnonce(reservation) {
+    const modalRef = this.modalService.open(DetailCovoiturageComponent);
+    modalRef.componentInstance.reservation = reservation;
   }
 }

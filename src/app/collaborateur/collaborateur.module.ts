@@ -6,6 +6,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { NgbModule, NgbAccordion, NgbPanel } from '@ng-bootstrap/ng-bootstrap';
+import { ListeAnnoncesComponent } from './liste-annonces/liste-annonces.component';
+import { DetailCovoiturageComponent } from './detail-covoiturage/detail-covoiturage.component';
 
 const collabRoutes: Routes = [
   {
@@ -29,8 +31,11 @@ const collabRoutes: Routes = [
   declarations: [
     WrapperCollaborateurComponent,
     ReservationsComponent,
-    AnnoncesComponent
+    AnnoncesComponent,
+    ListeAnnoncesComponent,
+    DetailCovoiturageComponent
   ],
-  providers: [NgbAccordion, NgbPanel]
+  providers: [NgbAccordion, NgbPanel],
+  entryComponents: [DetailCovoiturageComponent]
 })
 export class CollaborateurModule {}

@@ -1,0 +1,23 @@
+<h4>Historique</h4>
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Date/heure</th>
+      <th>Départ</th>
+      <th>Destination</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let reservationHisto of reservations | slice:startLimit:maxSize">
+    <tr *ngIf="(reservationHisto.dateDepart | date:'dd/MM/yyyy') < (currentDate | date:'dd/MM/yyyy')">
+      <td>{{ reservationHisto.dateDepart | date:'dd/MM/yyyy'}} {{ reservationHisto.dateDepart | date:'HH:ss'}}</td>
+      <td>{{ reservationHisto.adresseDepart.numero }} {{ reservationHisto.adresseDepart.rue }} {{ reservationHisto.adresseDepart.ville
+        }} {{ reservationHisto.adresseDepart.codePostal }}</td>
+      <td>{{ reservationHisto.adresseArrive.numero }} {{ reservationHisto.adresseArrive.rue }} {{ reservationHisto.adresseArrive.ville
+        }} {{ reservationHisto.adresseArrive.codePostal }}</td>
+      <td>
+        <button class="btn">Détails</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
