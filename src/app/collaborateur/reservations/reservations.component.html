@@ -3,7 +3,7 @@
 
 <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
   <ngb-panel title="Covoiturage">
-    <ng-template ngbPanelContent>
+    <ng-template ngbPanelContent *ngFor="let reservation of reservations">
       <h4>Réservations en cours</h4>
       <table class="table table-striped table-bordered">
         <thead>
@@ -14,11 +14,11 @@
             <th></th>
           </tr>
         </thead>
-        <tbody *ngFor="let reservation of reservations">
+        <tbody>
           <tr>
-            <td>{{ annonce.dateDepart | date:'ddMMyyyy'}} {{ annonce.dateDepart | date:'HH:ss'}}</td>
-            <td>{{ annonce.adresseDepart }}</td>
-            <td>{{ annonce.adresseDestination }}</td>
+            <td>{{ reservation.dateDepart | date:'ddMMyyyy'}} {{ reservation.dateDepart | date:'HH:ss'}}</td>
+            <td>{{ reservation.adresseDepart }}</td>
+            <td>{{ reservation.adresseDestination }}</td>
             <td>
               <button class="btn">Détails</button>
             </td>
@@ -53,4 +53,5 @@
 
     </ng-template>
   </ngb-panel>
+  <ngb-pagination [collectionSize]="items.length" [(page)]="page" [maxSize]="5" (pageChange)="onChange()"></ngb-pagination>
 </ngb-accordion>
