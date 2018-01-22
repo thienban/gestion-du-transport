@@ -1,5 +1,6 @@
 import { Collaborateur } from './collaborateur';
 export class Annonce {
+  id: number;
   statut: string;
   nbPlacesDispos: number;
   adresseDepartString: string;

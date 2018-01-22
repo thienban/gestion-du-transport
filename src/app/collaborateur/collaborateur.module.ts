@@ -6,7 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { CreerReservationComponent } from './creer-reservation/creer-reservation.component';
-import { patch } from 'webdriver-js-extender';
+import { HttpClientModule } from '@angular/common/http';
 
 const collabRoutes: Routes = [
   {
@@ -27,9 +27,9 @@ const collabRoutes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedModule,
     RouterModule.forChild(collabRoutes),
-    SharedModule
+    SharedModule,
+    HttpClientModule
   ],
   declarations: [
     WrapperCollaborateurComponent,

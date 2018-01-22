@@ -9,10 +9,8 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginService } from './shared/services/login.service';
 import { getToken } from './token-getter';
-import { HttpClientModule } from "@angular/common/http";
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AnnonceService } from './shared/services/annonce.service';
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +21,6 @@ import { AnnonceService } from './shared/services/annonce.service';
     SharedModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    HttpModule, 
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,
