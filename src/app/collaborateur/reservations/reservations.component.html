@@ -52,10 +52,8 @@
               </td>
             </tr>
           </tbody>
-          <tfoot>
-            <ngb-pagination [collectionSize]="reservations.length" [(page)]="page" [maxSize]="5" (pageChange)="onChange()" class="m-3"></ngb-pagination>
-          </tfoot>
         </table>
+        <ngb-pagination [collectionSize]="reservations.length" [(page)]="page" [maxSize]="5" (pageChange)="onChange()" class="float-right m-3"></ngb-pagination>
       </ng-template>
     </ngb-panel>
     <ngb-panel title="Véhicule de société">

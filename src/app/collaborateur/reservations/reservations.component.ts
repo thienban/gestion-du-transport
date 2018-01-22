@@ -22,26 +22,25 @@ export class ReservationsComponent implements OnInit {
   itemPerPage = 5;
   currentDate;
 
-  constructor(private rService: ReservationsService) {}
-
-  ngOnInit() {
+  constructor(private rService: ReservationsService) {
     this.rService
       .ListerReservationsCollab()
       .subscribe(r => (this.reservations = r));
+  }
 
+  ngOnInit() {
     this.currentDate = Date.now();
 
     this.page = 1;
 
-    this.startLimit = 0;
+    this.startLimit = 1;
     this.maxSize = this.itemPerPage;
   }
 
   onChange() {
-    console.log('page ', this.page);
-    this.maxSize = this.page * this.itemPerPage;
-    console.log('maxSize ', this.maxSize);
-    this.startLimit = this.maxSize - this.itemPerPage;
-    console.log('startLimit ', this.startLimit);
+    this.startLimit =
+      this.page * this.itemPerPage - this.itemPerPage + (this.page - 1);
+
+    this.maxSize = this.startLimit + this.itemPerPage;
   }
 }
