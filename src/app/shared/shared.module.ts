@@ -5,6 +5,9 @@ import { RouterModule } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FilterByAdresseDepPipe } from './pipe/filter-by-adresse-dep.pipe';
+import { Component } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -14,8 +17,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RouterModule,
     NgbModule.forRoot()
   ],
-  declarations: [NavbarComponent],
-  exports: [NavbarComponent]
+  declarations: [NavbarComponent, FilterByAdresseDepPipe],
+  exports: [NavbarComponent, FilterByAdresseDepPipe]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
@@ -23,5 +26,12 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [LoginService]
     };
+  }
+}
+export class NgbdModalContent {
+  constructor(private modalService: NgbModal) {}
+  open() {
+    const modalRef = this.modalService.open(NgbdModalContent);
+    modalRef.componentInstance.name = 'World';
   }
 }

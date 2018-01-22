@@ -13,21 +13,19 @@
     <!--Formulaire Recherche-->
     <div class="jumbotron">
       <h2>Réserver un véhicule</h2>
-        <!--Champs Filtre-->
-    <div class="input-group">
-      <span class="input-group-addon" id="basic-addon3">Adresse Départ</span>
-      <input #filtre type="text" class="form-control" aria-describedby="basic-addon3" (keyup)="setFiltre(filtre.value)">
-    </div>
-    <!--
-    <div class="input-group">
-      <span class="input-group-addon" id="basic-addon3">Adresse Arrivée</span>
-      <input #filtre type="text" class="form-control" aria-describedby="basic-addon3" (keyup)="setFiltre(filtre.value)">
-    </div>
-    <div class="input-group">
-      <span class="input-group-addon" id="basic-addon3">Date départ</span>
-      <input #filtre type="date" class="form-control" aria-describedby="basic-addon3" (keyup)="setFiltre(filtre.value)">
-    </div>
-    </div>
+      <!--Champs Filtre-->
+      <div class="input-group">
+        <span class="input-group-addon">Adresse Départ</span>
+        <input type="text" class="form-control">
+      </div>
+      <!--<div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">Adresse Arrivée</span>
+        <input #filtre type="text" class="form-control" aria-describedby="basic-addon3" (keyup)="setFiltre(filtre.value)">
+      </div>
+      <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">Date départ</span>
+        <input #filtre type="date" class="form-control" aria-describedby="basic-addon3" (keyup)="setFiltre(filtre.value)">
+      </div>
     -->
     </div>
     <!--ListeRéservation-->
@@ -46,15 +44,30 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let an of annonces">
-            <td>{{an.dateDepart}}</td>
-            <td>{{an.adresseDepart}}</td>
-            <td>{{an.adresseArrive}}</td>
-            <td>Audi</td>
-            <td>{{an.Collaborateur.nom}}</td>
-            <td>{{an.nbPlacesDispos}}</td>
+          <tr *ngFor="let an of annonces | filterByAdresseDep:filter">
+            <td>{{an.dateDepart | date:'dd-MM-yyyy HH:mm'}}</td>
+            <td>{{an.adresseDepartString}}</td>
+            <td>{{an.adresseArriveString}}</td>
+            <td>???</td>
+            <td>{{an.auteur.nom}}</td>
+            <td>{{an.nbPlacesRestantes}}</td>
             <td>
-              <button type="button" class="btn btn-success">Réserver</button>
+              <ng-template #content let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                  <h4 class="modal-title">Modal title</h4>
+                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>One fine body&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+                </div>
+              </ng-template>
+
+              <button class="btn btn-lg btn-outline-primary" (click)="open()">Réserver</button>
             </td>
           </tr>
         </tbody>
@@ -62,4 +75,5 @@
     </div>
   </div>
 </body>
+
 </html>
