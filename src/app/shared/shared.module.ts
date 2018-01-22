@@ -4,10 +4,13 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FilterByAdresseDepPipe } from './pipe/filter-by-adresse-dep.pipe';
 import { Component } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModule,
+  NgbModal,
+  ModalDismissReasons
+} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
