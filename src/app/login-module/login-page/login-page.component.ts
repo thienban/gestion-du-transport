@@ -43,22 +43,4 @@ export class LoginPageComponent implements OnInit {
     modalRef.componentInstance.role = role;
     console.log(modalRef.componentInstance);
   }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
-  // getInvalidMsg(): string {
-  //   if (!this.credentials.email) {
-  //     return 'Veuillez entrer un email valide.';
-  //   } else if (!this.credentials.password) {
-  //     return 'Veuillez entrer le mot de passe.';
-  //   }
-  // }
 }
