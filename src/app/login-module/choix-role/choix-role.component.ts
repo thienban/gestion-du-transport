@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/';
 
 @Component({
   selector: 'app-choix-role',

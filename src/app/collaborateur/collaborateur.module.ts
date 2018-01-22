@@ -5,6 +5,9 @@ import { WrapperCollaborateurComponent } from './wrapper-collaborateur/wrapper-c
 import { SharedModule } from '../shared/shared.module';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
+import { AgmCoreModule } from '@agm/core';
+import { TestAutocompletionComponent } from './test-autocompletion/test-autocompletion.component';
+import { FormsModule } from '@angular/forms';
 
 const collabRoutes: Routes = [
   {
@@ -13,6 +16,7 @@ const collabRoutes: Routes = [
     children: [
       { path: 'annonces', component: AnnoncesComponent },
       { path: 'reservations', component: ReservationsComponent },
+      { path: 'reservations-test', component: TestAutocompletionComponent },
       { path: '', redirectTo: 'reservations' }
     ]
   }
@@ -22,13 +26,14 @@ const collabRoutes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(collabRoutes),
-    SharedModule
+    FormsModule,
+    RouterModule.forChild(collabRoutes)
   ],
   declarations: [
     WrapperCollaborateurComponent,
     ReservationsComponent,
-    AnnoncesComponent
+    AnnoncesComponent,
+    TestAutocompletionComponent
   ]
 })
 export class CollaborateurModule {}
