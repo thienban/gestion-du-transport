@@ -7,7 +7,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, HttpClientModule, NgbModule.forRoot()],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HttpClientModule,
+    RouterModule,
+    NgbModule.forRoot()
+  ],
   declarations: [NavbarComponent],
   exports: [NavbarComponent]
 })

@@ -7,6 +7,8 @@ import { SharedModule } from './shared/shared.module';
 import { environment } from '../environments/environment';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AppRoutingModule } from './app-routing.module';
+import { LoginService } from './shared/services/login.service';
+import { getToken } from './token-getter';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +20,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => localStorage.getItem('access_token'),
+        tokenGetter: getToken,
         whitelistedDomains: [environment.endpoint, 'localhost:8080'],
         throwNoTokenError: false
       }
