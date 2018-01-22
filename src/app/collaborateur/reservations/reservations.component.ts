@@ -19,8 +19,8 @@ export class ReservationsComponent implements OnInit {
   page;
   startLimit;
   @Input() maxSize;
-  items;
   itemPerPage = 5;
+  currentDate;
 
   constructor(private rService: ReservationsService) {}
 
@@ -29,12 +29,10 @@ export class ReservationsComponent implements OnInit {
       .ListerReservationsCollab()
       .subscribe(r => (this.reservations = r));
 
-    this.page = 1;
-    this.items = [0];
+    this.currentDate = Date.now();
 
-    for (let i = 0; i < 100; i++) {
-      this.items[i] = i;
-    }
+    this.page = 1;
+
     this.startLimit = 0;
     this.maxSize = this.itemPerPage;
   }

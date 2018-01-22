@@ -1,10 +1,11 @@
-<h1>Vos réservations</h1>
-<button class="btn float-right">Réserver un transport</button>
+<div class="container">
+  <h1>Vos réservations</h1>
+  <button class="btn m-3">Réserver un transport</button>
 
-<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-  <ngb-panel title="Covoiturage">
-    <ng-template ngbPanelContent>
-      <div *ngFor="let reservation of reservations">
+  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel title="Covoiturage">
+      <ng-template ngbPanelContent>
+
         <h4>Réservations en cours</h4>
         <table class="table table-striped table-bordered">
           <thead>
@@ -15,14 +16,17 @@
               <th></th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>{{ reservation.dateDepart | date:'ddMMyyyy'}} {{ reservation.dateDepart | date:'HH:ss'}}</td>
-              <td>{{ reservation.adresseDepart }}</td>
-              <td>{{ reservation.adresseDestination }}</td>
+          <tbody *ngFor="let reservation of reservations">
+            <tr *ngIf="(reservation.dateDepart | date:'dd/MM/yyyy') >= (currentDate | date:'dd/MM/yyyy')">
+              <td>{{ reservation.dateDepart | date:'dd/MM/yyyy'}} {{ reservation.dateDepart | date:'HH:ss'}}</td>
+              <td>{{ reservation.adresseDepart.numero }} {{ reservation.adresseDepart.rue }} {{ reservation.adresseDepart.ville
+                }} {{ reservation.adresseDepart.codePostal }}</td>
+              <td>{{ reservation.adresseArrive.numero }} {{ reservation.adresseArrive.rue }} {{ reservation.adresseArrive.ville
+                }} {{ reservation.adresseArrive.codePostal }}</td>
               <td>
                 <button class="btn">Détails</button>
               </td>
+            </tr>
           </tbody>
         </table>
 
@@ -36,24 +40,28 @@
               <th></th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-            </tr>
-            <tr>
-            </tr>
-            <tr>
-            </tr>
-            <tr>
+          <tbody *ngFor="let reservation of reservations | slice:startLimit:maxSize">
+            <tr *ngIf="(reservation.dateDepart | date:'dd/MM/yyyy') < (currentDate | date:'dd/MM/yyyy')">
+              <td>{{ reservation.dateDepart | date:'dd/MM/yyyy'}} {{ reservation.dateDepart | date:'HH:ss'}}</td>
+              <td>{{ reservation.adresseDepart.numero }} {{ reservation.adresseDepart.rue }} {{ reservation.adresseDepart.ville
+                }} {{ reservation.adresseDepart.codePostal }}</td>
+              <td>{{ reservation.adresseArrive.numero }} {{ reservation.adresseArrive.rue }} {{ reservation.adresseArrive.ville
+                }} {{ reservation.adresseArrive.codePostal }}</td>
+              <td>
+                <button class="btn">Détails</button>
+              </td>
             </tr>
           </tbody>
+          <tfoot>
+            <ngb-pagination [collectionSize]="reservations.length" [(page)]="page" [maxSize]="5" (pageChange)="onChange()" class="m-3"></ngb-pagination>
+          </tfoot>
         </table>
-      </div>
-    </ng-template>
-  </ngb-panel>
-  <ngb-panel title="Véhicule de société">
-    <ng-template ngbPanelContent>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel title="Véhicule de société">
+      <ng-template ngbPanelContent>
 
-    </ng-template>
-  </ngb-panel>
-  <ngb-pagination [collectionSize]="items.length" [(page)]="page" [maxSize]="5" (pageChange)="onChange()"></ngb-pagination>
-</ngb-accordion>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

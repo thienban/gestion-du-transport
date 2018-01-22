@@ -8,7 +8,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReservationsService } from './services/reservations.service';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, HttpClientModule, NgbModule.forRoot()],
+  imports: [
+    CommonModule,
+    RouterModule,
+    HttpClientModule,
+    RouterModule,
+    NgbModule.forRoot()
+  ],
   declarations: [NavbarComponent],
   exports: [NavbarComponent]
 })
