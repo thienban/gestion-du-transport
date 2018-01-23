@@ -1,16 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'filterByAdresseDep'
+  name: 'filterByDateDep'
 })
-export class FilterByAdresseDepPipe implements PipeTransform {
+export class FilterByDateDepPipe implements PipeTransform {
   transform(value: any[], arg?: string): any[] {
     console.log('filtering annonces by departure', value, arg);
     if (!arg) {
       return value;
     } else {
       return value.filter(ans => {
-        return ans.adresseDepart.toLowerCase().includes(arg.toLowerCase());
+        return ans.dateDepart.toLowerCase().includes(arg.toLowerCase());
       });
     }
   }

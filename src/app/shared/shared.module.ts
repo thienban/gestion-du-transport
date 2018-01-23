@@ -4,7 +4,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { LoginService } from './services/login.service';
 import { HttpClientModule } from '@angular/common/http';
-import { FilterByAdresseDepPipe } from './pipe/filter-by-adresse-dep.pipe';
 import { Component } from '@angular/core';
 import {
   NgbModule,
@@ -13,6 +12,9 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { ReservationsService } from './services/reservations.service';
 import { AnnonceService } from './services/annonce.service';
+import { FilterByAdresseDepPipe } from './pipe/filter-by-adresse-dep.pipe';
+import { FilterByAdresseArPipe } from './pipe/filter-by-adresse-ar.pipe';
+import { FilterByDateDepPipe } from './pipe/filter-by-date-dep.pipe';
 
 @NgModule({
   imports: [
@@ -22,8 +24,18 @@ import { AnnonceService } from './services/annonce.service';
     RouterModule,
     NgbModule.forRoot()
   ],
-  declarations: [NavbarComponent, FilterByAdresseDepPipe],
-  exports: [NavbarComponent, FilterByAdresseDepPipe]
+  declarations: [
+    NavbarComponent,
+    FilterByAdresseDepPipe,
+    FilterByAdresseArPipe,
+    FilterByDateDepPipe
+  ],
+  exports: [
+    NavbarComponent,
+    FilterByAdresseDepPipe,
+    FilterByAdresseArPipe,
+    FilterByDateDepPipe
+  ]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

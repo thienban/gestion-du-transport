@@ -3,10 +3,11 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import { Annonce } from '../../domain/annonce';
+import { Annonce } from '../../domain/Annonce';
 import { AnnonceService } from '../../shared/services/annonce.service';
 import { environment } from '../../../environments/environment';
 import { LoginService } from '../../shared/services/login.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-creer-reservation',
@@ -16,8 +17,14 @@ import { LoginService } from '../../shared/services/login.service';
 export class CreerReservationComponent implements OnInit {
   annonces: Annonce[];
   annonce: Annonce = null;
-  limite: string;
-  filter: string = null;
+
+  filterField1: FormControl = new FormControl();
+  filterField2: FormControl = new FormControl();
+  filterField3: FormControl = new FormControl();
+  filtreAdrDep: string;
+  filtreAdrAr: string;
+  filtreDateAr: Date;
+
   closeResult: string;
 
   constructor(
@@ -38,11 +45,25 @@ export class CreerReservationComponent implements OnInit {
           );
         }))
     );
+    this.annonceService
+      .listerAnnonces()
+      .subscribe(annonces => (this.annonces = annonces));
+    this.filterField1.valueChanges.subscribe(val => {
+      this.filtreAdrDep = val;
+    });
+    this.filterField2.valueChanges.subscribe(val => {
+      this.filtreAdrAr = val;
+    });
+    this.filterField3.valueChanges.subscribe(val => {
+      this.filtreDateAr = val;
+    });
   }
 
-  setAdrDep(valeurAdresseDep: string) {
-    this.filter = valeurAdresseDep;
+  setAdrDep(valeurAdresseDep) {
+    console.log(valeurAdresseDep);
+    this.annonceService.setFiltre(valeurAdresseDep);
   }
+
   open(content) {
     this.modalService.open(content);
   }
