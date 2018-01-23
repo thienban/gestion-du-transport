@@ -1,7 +1,10 @@
 <div class="container">
-  <h1>Vos réservations</h1>
-  <button class="btn m-3" (click)="reserver()">Réserver un transport</button>
-
+  <h1> Vos réservations</h1>
+  <div class="row">
+    <div class="col-md-2 offset-md-8">
+      <a type="button" class="btn btn-secondary" [routerLink]="'creer'">Réserver un transport</a>
+    </div>
+  </div>
   <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
     <ngb-panel title="Covoiturage">
       <ng-template ngbPanelContent>
@@ -18,11 +21,12 @@
           </thead>
           <tbody *ngFor="let reservationEnCours of reservations">
             <tr *ngIf="(reservationEnCours.dateDepart | date:'dd/MM/yyyy') >= (currentDate | date:'dd/MM/yyyy')">
-              <td>{{ reservationEnCours.dateDepart | date:'dd/MM/yyyy'}} {{ reservationEnCours.dateDepart | date:'HH:ss'}}</td>
-              <td>{{ reservationEnCours.adresseDepart.numero }} {{ reservationEnCours.adresseDepart.rue }} {{ reservationEnCours.adresseDepart.ville
-                }} {{ reservationEnCours.adresseDepart.codePostal }}</td>
-              <td>{{ reservationEnCours.adresseArrive.numero }} {{ reservationEnCours.adresseArrive.rue }} {{ reservationEnCours.adresseArrive.ville
-                }} {{ reservationEnCours.adresseArrive.codePostal }}</td>
+              <td>{{ reservationEnCours.dateDepart | date:'dd/MM/yyyy'}} {{ reservationEnCours.dateDepart | date:'HH:ss'}}
+              </td>
+              <td>{{ reservationEnCours.adresseDepart }}
+              </td>
+              <td>{{ reservationEnCours.adresseArrive}}
+              </td>
               <td>
                 <button class="btn" (click)="detailAnnonce(reservationEnCours)">Détails</button>
               </td>
@@ -40,13 +44,14 @@
               <th></th>
             </tr>
           </thead>
-          <tbody *ngFor="let reservationHisto of reservationsHisto | slice:startLimit:endLimit">
+          <tbody *ngFor="let reservationHisto of reservations | slice:startLimit:endLimit">
             <tr *ngIf="(reservationHisto.dateDepart | date:'dd/MM/yyyy') < (currentDate | date:'dd/MM/yyyy')">
-              <td>{{ reservationHisto.dateDepart | date:'dd/MM/yyyy'}} {{ reservationHisto.dateDepart | date:'HH:ss'}}</td>
-              <td>{{ reservationHisto.adresseDepart.numero }} {{ reservationHisto.adresseDepart.rue }} {{ reservationHisto.adresseDepart.ville
-                }} {{ reservationHisto.adresseDepart.codePostal }}</td>
-              <td>{{ reservationHisto.adresseArrive.numero }} {{ reservationHisto.adresseArrive.rue }} {{ reservationHisto.adresseArrive.ville
-                }} {{ reservationHisto.adresseArrive.codePostal }}</td>
+              <td>{{ reservationHisto.dateDepart | date:'dd/MM/yyyy'}} {{ reservationHisto.dateDepart | date:'HH:ss'}}
+              </td>
+              <td>{{ reservationHisto.adresseDepart }}
+              </td>
+              <td>{{ reservationHisto.adresseArrive }}
+              </td>
               <td>
                 <button class="btn" (click)="detailAnnonce(reservationHisto)">Détails</button>
               </td>
@@ -54,8 +59,8 @@
           </tbody>
         </table>
         <!--<app-liste-annonces [libelleListe]="CovoitEnCours" [titre]="'Réservations en cours'" [reservations]="reservations"></app-liste-annonces>
-        <app-liste-annonces [libelleListe]="CovoitHisto" [titre]="Historique" [reservations]="reservations"></app-liste-annonces>-->
-        <ngb-pagination [collectionSize]="reservationsHisto.length" [(page)]="page" [pageSize]="5" [maxSize]="5" (pageChange)="onChange()"
+            <app-liste-annonces [libelleListe]="CovoitHisto" [titre]="Historique" [reservations]="reservations"></app-liste-annonces>-->
+        <ngb-pagination [collectionSize]="reservations.length" [(page)]="page" [pageSize]="5" [maxSize]="5" (pageChange)="onChange()"
           class="float-right m-3"></ngb-pagination>
       </ng-template>
     </ngb-panel>

@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LoginService } from './shared/services/login.service';
 import { getToken } from './token-getter';
 import { ListeAnnoncesComponent } from './collaborateur/liste-annonces/liste-annonces.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { ListeAnnoncesComponent } from './collaborateur/liste-annonces/liste-ann
     ReactiveFormsModule,
     SharedModule.forRoot(),
     AppRoutingModule,
+    HttpClientModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,

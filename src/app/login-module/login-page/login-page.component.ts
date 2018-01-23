@@ -43,5 +43,4 @@ export class LoginPageComponent implements OnInit {
     modalRef.componentInstance.role = role;
     console.log(modalRef.componentInstance);
   }
-
 }
