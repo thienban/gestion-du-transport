@@ -1,10 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  CreateNewAutocompleteGroup,
-  SelectedAutocompleteItem,
-  NgAutocompleteComponent
-} from 'ng-auto-complete';
+import { Observable } from 'rxjs/Observable';
+import { AnnonceService } from '../../shared/services/annonce.service';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/merge';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/of';
 
 @Component({
   selector: 'app-creer-annonce',
@@ -12,28 +16,13 @@ import {
   styleUrls: ['./creer-annonce.component.css']
 })
 export class CreerAnnonceComponent implements OnInit {
-  @ViewChild(NgAutocompleteComponent) public completer: NgAutocompleteComponent;
-
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private annonceSvc: AnnonceService) {}
   annonceForm: FormGroup;
-  public group = [
-    CreateNewAutocompleteGroup(
-      'Adresse',
-      'completer',
-      [
-        { title: 'Option 1', id: '1' },
-        { title: 'Option 2', id: '2' },
-        { title: 'Option 3', id: '3' },
-        { title: 'Option 4', id: '4' },
-        { title: 'Option 5', id: '5' }
-      ],
-      { titleKey: 'title', childrenKey: null }
-    )
-  ];
-
-  selected(item: SelectedAutocompleteItem) {
-    console.log(item);
-  }
+  searching = false;
+  searchFailed = false;
+  hideSearchingWhenUnsubscribed = new Observable(() => () =>
+    (this.searching = false)
+  );
 
   ngOnInit() {
     const itineraire = this.fb.group({
@@ -75,4 +64,47 @@ export class CreerAnnonceComponent implements OnInit {
       console.log(next);
     });
   }
+
+  publish() {
+    const iti = this.annonceForm.value.itineraire;
+    const dateTime = this.annonceForm.value.dateTime;
+    const vehicule = this.annonceForm.value.vehicule;
+
+    const objectToSend = {
+      adresseDepart: iti.adresseDepart,
+      adresseArrivee: iti.adresseArrivee,
+      immatriculation: vehicule.immatriculation,
+      marque: vehicule.marque,
+      modele: vehicule.modele,
+      nbPlaces: vehicule.nbPlacesDispo,
+      dateDepart: new Date(
+        dateTime.date.year,
+        dateTime.date.month,
+        dateTime.date.day,
+        dateTime.heure.hour,
+        dateTime.heure.minute
+      ).toISOString()
+    };
+    console.log(dateTime);
+    console.log(objectToSend);
+  }
+
+  search = (text$: Observable<string>) => {
+    console.log(text$);
+    return text$
+      .debounceTime(300)
+      .distinctUntilChanged()
+      .do(() => (this.searching = true))
+      .switchMap(term =>
+        this.annonceSvc
+          .autocomplete(term)
+          .do(() => (this.searchFailed = false))
+          .catch(() => {
+            this.searchFailed = true;
+            return Observable.of([]);
+          })
+      )
+      .do(() => (this.searching = true))
+      .merge(this.hideSearchingWhenUnsubscribed);
+  };
 }

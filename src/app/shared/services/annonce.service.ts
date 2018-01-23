@@ -33,4 +33,13 @@ export class AnnonceService {
         console.log(ans);
       });
   }
+
+  autocomplete(term: string): Observable<string[]> {
+    if (term.length < 4) {
+      return Observable.of([]);
+    }
+    return this.http.get<string[]>(
+      environment.endpoint + '/autocomplete/' + term
+    );
+  }
 }

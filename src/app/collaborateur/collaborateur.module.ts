@@ -10,7 +10,6 @@ import { patch } from 'webdriver-js-extender';
 import { CreerAnnonceComponent } from './creer-annonce/creer-annonce.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AdresseAutocompleteInputComponent } from './adresse-autocomplete-input/adresse-autocomplete-input.component';
 import { NgAutoCompleteModule } from 'ng-auto-complete';
 
 const collabRoutes: Routes = [
@@ -45,8 +44,7 @@ const collabRoutes: Routes = [
     ReservationsComponent,
     AnnoncesComponent,
     CreerReservationComponent,
-    CreerAnnonceComponent,
-    AdresseAutocompleteInputComponent
+    CreerAnnonceComponent
   ]
 })
 export class CollaborateurModule {}

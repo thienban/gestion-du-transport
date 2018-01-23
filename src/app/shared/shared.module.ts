@@ -11,6 +11,7 @@ import {
   NgbModal,
   ModalDismissReasons
 } from '@ng-bootstrap/ng-bootstrap';
+import { AnnonceService } from './services/annonce.service';
 
 @NgModule({
   imports: [
@@ -27,14 +28,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [LoginService]
+      providers: [LoginService, AnnonceService]
     };
-  }
-}
-export class NgbdModalContent {
-  constructor(private modalService: NgbModal) {}
-  open() {
-    const modalRef = this.modalService.open(NgbdModalContent);
-    modalRef.componentInstance.name = 'World';
   }
 }

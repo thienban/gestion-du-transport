@@ -1,9 +1,6 @@
 <div class="container">
 
   <h1>Publier une annonce</h1>
-  {{ this.annonceForm.value|json}}
-  <ng-autocomplete (selected)="selected($event)" [classes]="['form-control']" [group]="group"></ng-autocomplete>
-
   <form [formGroup]="annonceForm" novalidate>
 
     <div class="card" formGroupName="itineraire">
@@ -14,13 +11,13 @@
         <div class="form-group row">
           <label for="dep" class="col-sm-3 col-form-label">Adresse de départ</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="dep" formControlName="adresseDepart">
+            <input type="text" class="form-control" id="dep" formControlName="adresseDepart" [ngbTypeahead]="search">
           </div>
         </div>
         <div class="form-group row">
           <label for="arr" class="col-sm-3 col-form-label">Adresse d'arrivée</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="arr" formControlName="adresseArrivee">
+            <input type="text" class="form-control" id="arr" formControlName="adresseArrivee" [ngbTypeahead]="search">
           </div>
         </div>
         <div class="form-group row">
@@ -90,7 +87,7 @@
     </div>
 
     <div class="card-footer text-center">
-      <button type="submit" class="btn btn-primary">Publier</button>
+      <button type="submit" class="btn btn-primary" (click)="publish()">Publier</button>
     </div>
 
   </form>

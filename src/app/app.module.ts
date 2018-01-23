@@ -31,7 +31,7 @@ import { AnnonceService } from './shared/services/annonce.service';
       }
     })
   ],
-  providers: [AnnonceService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
