@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { AnnonceService } from '../../shared/services/annonce.service';
@@ -9,6 +9,11 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/zip';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { concat } from 'rxjs/operators/concat';
+import { AbstractControl, FormControl } from '@angular/forms/src/model';
+import { Annonce } from '../../domain/Annonce';
 
 @Component({
   selector: 'app-creer-annonce',
@@ -17,80 +22,102 @@ import 'rxjs/add/observable/of';
 })
 export class CreerAnnonceComponent implements OnInit {
   constructor(private fb: FormBuilder, private annonceSvc: AnnonceService) {}
-  annonceForm: FormGroup;
+  vehiculeForm: FormGroup;
+  dateTimeForm: FormGroup;
+
+  get heure() {
+    return this.dateTimeForm.get('heure');
+  }
+
+  get date() {
+    return this.dateTimeForm.get('date');
+  }
+
   searching = false;
   searchFailed = false;
   hideSearchingWhenUnsubscribed = new Observable(() => () =>
     (this.searching = false)
   );
 
-  ngOnInit() {
-    const itineraire = this.fb.group({
-      adresseDepart: ['', Validators.required],
-      adresseArrivee: ['', Validators.required],
-      distance: [''],
-      duration: ['']
-    });
+  origin: string;
+  destination: string;
+  distance: string;
+  duration: string;
 
-    const vehicule = this.fb.group({
+  originSelected = new BehaviorSubject<boolean>(false);
+  destinationSelected = new BehaviorSubject<boolean>(false);
+
+  validItineraire = false;
+  ngOnInit() {
+    this.vehiculeForm = this.fb.group({
       immatriculation: ['', Validators.required],
       marque: ['', Validators.required],
       modele: ['', Validators.required],
-      nbPlacesDispo: [
+      nbPlaces: [
         '',
         [Validators.required, Validators.max(20), Validators.min(1)]
       ]
     });
 
-    const dateTime = this.fb.group({
+    this.dateTimeForm = this.fb.group({
       date: ['', Validators.required],
       heure: ['', Validators.required]
     });
 
-    this.annonceForm = this.fb.group({
-      itineraire,
-      vehicule,
-      dateTime
-    });
-    this.initObservables(itineraire, vehicule, dateTime);
+    this.originSelected
+      .asObservable()
+      .merge(this.destinationSelected.asObservable())
+      .switchMap(val => {
+        if (
+          this.originSelected.getValue() &&
+          this.destinationSelected.getValue()
+        ) {
+          this.validItineraire = true;
+          return this.annonceSvc.getTrajetInfo(this.origin, this.destination);
+        } else {
+          return Observable.of(null);
+        }
+      })
+      .subscribe(val => {
+        if (val) {
+          this.distance = val.distance ? val.distance.humanReadable : 'unknown';
+          this.duration = val.duration ? val.duration.humanReadable : 'unknown';
+        }
+      });
   }
 
-  initObservables(
-    itineraire: FormGroup,
-    vehicule: FormGroup,
-    dateTime: FormGroup
-  ) {
-    itineraire.valueChanges.subscribe(next => {
-      console.log(next);
-    });
+  selectedDestination(dest: any) {
+    this.destination = dest.item;
+    this.destinationSelected.next(true);
+  }
+  selectedOrigin(origin: any) {
+    this.origin = origin.item;
+    this.originSelected.next(true);
   }
 
   publish() {
-    const iti = this.annonceForm.value.itineraire;
-    const dateTime = this.annonceForm.value.dateTime;
-    const vehicule = this.annonceForm.value.vehicule;
-
-    const objectToSend = {
-      adresseDepart: iti.adresseDepart,
-      adresseArrivee: iti.adresseArrivee,
-      immatriculation: vehicule.immatriculation,
-      marque: vehicule.marque,
-      modele: vehicule.modele,
-      nbPlaces: vehicule.nbPlacesDispo,
-      dateDepart: new Date(
-        dateTime.date.year,
-        dateTime.date.month,
-        dateTime.date.day,
-        dateTime.heure.hour,
-        dateTime.heure.minute
-      ).toISOString()
-    };
-    console.log(dateTime);
-    console.log(objectToSend);
+    const dateTime = this.dateTimeForm.value;
+    const vehicule = this.vehiculeForm.value;
+    const dateDepart = new Date(
+      dateTime.date.year,
+      dateTime.date.month,
+      dateTime.date.day,
+      dateTime.heure.hour,
+      dateTime.heure.minute
+    );
+    const newAnnonce = new Annonce(
+      this.origin,
+      this.destination,
+      dateDepart,
+      this.vehiculeForm.value
+    );
+    console.log('publish : ', newAnnonce);
+    this.annonceSvc.publishAnnonce(newAnnonce).subscribe(ann => {
+      console.log('response to publish : ', ann);
+    });
   }
 
   search = (text$: Observable<string>) => {
-    console.log(text$);
     return text$
       .debounceTime(300)
       .distinctUntilChanged()
