@@ -29,24 +29,28 @@ export class ReservationsComponent implements OnInit {
   endLimit;
   pageSize;
   maxSize;
-  currentDate: number;
+  currentDate: Date;
 
   constructor(
     private rService: ReservationsService,
     private modalService: NgbModal
   ) {
-    this.currentDate = Date.now();
+    this.currentDate = new Date(Date.now());
+    this;
 
+    console.log(this.currentDate.getFullYear());
     this.rService.ListerReservationsCollab().subscribe(r => {
       this.reservations = r;
-      r.forEach(re =>
-        console.log(Date.parse(re.dateDepart.toString()).toString())
-      );
-      console.log(this.currentDate);
-      this.reservationsHisto = r.filter(
-        re => Date.parse(re.dateDepart.toString()) < this.currentDate
-      );
-      console.log(this.reservationsHisto);
+      /*this.reservationsHisto = r.filter(
+        re =>
+          re.dateDepart.getFullYear() +
+            re.dateDepart.getMonth() +
+            re.dateDepart.getDate() <
+          this.currentDate.getFullYear() +
+            this.currentDate.getMonth() +
+            this.currentDate.getDate()
+      );*/
+      //console.log(this.reservationsHisto);
     });
   }
 
