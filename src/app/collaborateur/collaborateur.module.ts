@@ -6,7 +6,16 @@ import { SharedModule } from '../shared/shared.module';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { CreerReservationComponent } from './creer-reservation/creer-reservation.component';
+<<<<<<< HEAD
 import { HttpClientModule } from '@angular/common/http';
+=======
+import { patch } from 'webdriver-js-extender';
+import { CreerAnnonceComponent } from './creer-annonce/creer-annonce.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdresseAutocompleteInputComponent } from './adresse-autocomplete-input/adresse-autocomplete-input.component';
+import { NgAutoCompleteModule } from 'ng-auto-complete';
+>>>>>>> 1299707656033d4f8acafdf70e3a6c448a70b429
 
 const collabRoutes: Routes = [
   {
@@ -19,6 +28,7 @@ const collabRoutes: Routes = [
         component: ReservationsComponent
       },
       { path: 'reservations/creer', component: CreerReservationComponent },
+      { path: 'annonces/creer', component: CreerAnnonceComponent },
       { path: '', redirectTo: 'reservations' }
     ]
   }
@@ -28,14 +38,24 @@ const collabRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(collabRoutes),
+<<<<<<< HEAD
     SharedModule,
     HttpClientModule
+=======
+    NgbModule,
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgAutoCompleteModule
+>>>>>>> 1299707656033d4f8acafdf70e3a6c448a70b429
   ],
   declarations: [
     WrapperCollaborateurComponent,
     ReservationsComponent,
     AnnoncesComponent,
-    CreerReservationComponent
+    CreerReservationComponent,
+    CreerAnnonceComponent,
+    AdresseAutocompleteInputComponent
   ]
 })
 export class CollaborateurModule {}
