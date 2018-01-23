@@ -14,7 +14,8 @@
   <div class="row m-3">
     <div class="col-6">Destination</div>
     <div class="col-6">{{ reservation.adresseArrive.numero }} {{ reservation.adresseArrive.rue }} {{ reservation.adresseArrive.ville }} {{ reservation.adresseArrive.codePostal
-      }}</div>
+      }}
+    </div>
   </div>
   <div class="row m-3">
     <div class="col-6">Date/heure</div>
@@ -22,11 +23,11 @@
   </div>
   <div class="row m-3">
     <div class="col-6">Véhicule</div>
-    <div class="col-6">{{ reservation.vehicule }}</div>
+    <div class="col-6">{{ reservation.vehicule.immatriculation }}</div>
   </div>
   <div class="row m-3">
     <div class="col-6">Chauffeur</div>
-    <div class="col-6">{{ reservation.chauffeur }}</div>
+    <div class="col-6">{{ reservation.auteur.nom }} {{ reservation.auteur.prenom }}</div>
   </div>
 </div>
 <div class="modal-footer">
