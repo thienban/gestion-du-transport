@@ -63,7 +63,7 @@
         <div class="form-group row">
           <label for="dispo" class="col-sm-3 col-form-label">Places disponibles</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="dispo" formControlName="nbPlacesDispo">
+            <input type="text" class="form-control" id="dispo" formControlName="nbPlaces">
           </div>
         </div>
       </div>
@@ -76,20 +76,25 @@
         <div class="form-group row">
           <label for="date" class="col-sm-2 col-form-label">Date</label>
           <div class="col-sm-4">
-            <input id="date" class="form-control" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker"
+            <input id="date" required class="form-control" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker"
               formControlName="date">
           </div>
           <label for="heure" class="col-sm-2 col-form-label">Heure</label>
           <div class="col-sm-4">
-            <ngb-timepicker id="heure" [minuteStep]="10" formControlName="heure"></ngb-timepicker>
+            <ngb-timepicker required id="heure" [minuteStep]="10" formControlName="heure"></ngb-timepicker>
           </div>
         </div>
-
+        <div *ngIf="dateTimeForm.invalid && (dateTimeForm.dirty || dateTimeForm.touched)" class="alert alert-danger">
+          <div *ngIf="heure.errors.required">
+            La date et l'heure sont obligatoires
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="card-footer text-center">
-      <button type="submit" class="btn btn-primary" (click)="publish()">Publier</button>
+      <button type="submit" [disabled]="!validItineraire || dateTimeForm.invalid || vehiculeForm.invalid" class="btn btn-primary"
+        (click)="publish()">Publier</button>
     </div>
 
   </form>

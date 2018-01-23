@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import { Annonce } from '../domain/annonce';
+import { Annonce } from '../../domain/Annonce';
 import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/do';
 
@@ -44,6 +44,14 @@ export class AnnonceService {
     return this.http.get<string[]>(
       environment.endpoint + '/maps/autocomplete/' + term
     );
+  }
+
+  publishAnnonce(nouvAnnonce: Annonce) {
+    return this.http
+      .post<Annonce[]>(environment.endpoint + '/annonces/creer', nouvAnnonce)
+      .do(ann => {
+        this.annonceSubject.next(ann);
+      });
   }
 
   getTrajetInfo(origin: string, destination: string): Observable<any> {

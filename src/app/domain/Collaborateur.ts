@@ -1,13 +1,10 @@
 export class Collaborateur {
   constructor(
-    private _matricule: string,
-    private _nom: string,
-    private _prenom: string,
-    private _email: string,
-    private _photo: string
+    public matricule?: string,
+    public nom?: string,
+    public prenom?: string,
+    public email?: string,
+    public role?: string,
+    public photo?: string
   ) {}
-
-  get matricule() {
-    return this._matricule;
-  }
 }

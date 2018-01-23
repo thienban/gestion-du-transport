@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import { Annonce } from '../../shared/domain/annonce';
+import { Annonce } from '../../domain/annonce';
 import { AnnonceService } from '../../shared/services/annonce.service';
 import { environment } from '../../../environments/environment';
 
@@ -26,7 +25,6 @@ export class CreerReservationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //lister
     this.annonceService
       .listerAnnonces()
       .subscribe(annonces => (this.annonces = annonces));

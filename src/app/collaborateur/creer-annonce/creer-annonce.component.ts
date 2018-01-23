@@ -12,6 +12,8 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/zip';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { concat } from 'rxjs/operators/concat';
+import { AbstractControl, FormControl } from '@angular/forms/src/model';
+import { Annonce } from '../../domain/Annonce';
 
 @Component({
   selector: 'app-creer-annonce',
@@ -22,6 +24,14 @@ export class CreerAnnonceComponent implements OnInit {
   constructor(private fb: FormBuilder, private annonceSvc: AnnonceService) {}
   vehiculeForm: FormGroup;
   dateTimeForm: FormGroup;
+
+  get heure() {
+    return this.dateTimeForm.get('heure');
+  }
+
+  get date() {
+    return this.dateTimeForm.get('date');
+  }
 
   searching = false;
   searchFailed = false;
@@ -37,12 +47,13 @@ export class CreerAnnonceComponent implements OnInit {
   originSelected = new BehaviorSubject<boolean>(false);
   destinationSelected = new BehaviorSubject<boolean>(false);
 
+  validItineraire = false;
   ngOnInit() {
     this.vehiculeForm = this.fb.group({
       immatriculation: ['', Validators.required],
       marque: ['', Validators.required],
       modele: ['', Validators.required],
-      nbPlacesDispo: [
+      nbPlaces: [
         '',
         [Validators.required, Validators.max(20), Validators.min(1)]
       ]
@@ -53,12 +64,15 @@ export class CreerAnnonceComponent implements OnInit {
       heure: ['', Validators.required]
     });
 
-    Observable.zip(
-      this.originSelected.asObservable(),
-      this.destinationSelected.asObservable()
-    )
+    this.originSelected
+      .asObservable()
+      .merge(this.destinationSelected.asObservable())
       .switchMap(val => {
-        if (val[0] && val[1]) {
+        if (
+          this.originSelected.getValue() &&
+          this.destinationSelected.getValue()
+        ) {
+          this.validItineraire = true;
           return this.annonceSvc.getTrajetInfo(this.origin, this.destination);
         } else {
           return Observable.of(null);
@@ -81,27 +95,26 @@ export class CreerAnnonceComponent implements OnInit {
     this.originSelected.next(true);
   }
 
-  initObservables(vehicule: FormGroup, dateTime: FormGroup) {}
-
   publish() {
     const dateTime = this.dateTimeForm.value;
     const vehicule = this.vehiculeForm.value;
-
-    const objectToSend = {
-      adresseDepart: this.origin,
-      adresseArrivee: this.destination,
-      immatriculation: vehicule.immatriculation,
-      marque: vehicule.marque,
-      modele: vehicule.modele,
-      nbPlaces: vehicule.nbPlacesDispo,
-      dateDepart: new Date(
-        dateTime.date.year,
-        dateTime.date.month,
-        dateTime.date.day,
-        dateTime.heure.hour,
-        dateTime.heure.minute
-      ).toISOString()
-    };
+    const dateDepart = new Date(
+      dateTime.date.year,
+      dateTime.date.month,
+      dateTime.date.day,
+      dateTime.heure.hour,
+      dateTime.heure.minute
+    );
+    const newAnnonce = new Annonce(
+      this.origin,
+      this.destination,
+      dateDepart,
+      this.vehiculeForm.value
+    );
+    console.log('publish : ', newAnnonce);
+    this.annonceSvc.publishAnnonce(newAnnonce).subscribe(ann => {
+      console.log('response to publish : ', ann);
+    });
   }
 
   search = (text$: Observable<string>) => {

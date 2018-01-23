@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Annonce } from '../domain/annonce';
+import { Annonce } from '../../domain/annonce';
 
 @Pipe({
   name: 'filterByAdresseDep'
@@ -11,7 +11,7 @@ export class FilterByAdresseDepPipe implements PipeTransform {
       return value;
     } else {
       return value.filter(ans =>
-        ans.adresseDepartString.toLowerCase().includes(arg.toLowerCase())
+        ans.adresseDepart.toLowerCase().includes(arg.toLowerCase())
       );
     }
   }
