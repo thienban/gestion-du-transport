@@ -9,6 +9,12 @@ import {
 import { Annonce } from '../../domain/Annonce';
 import { ReservationsService } from '../../shared/services/reservations.service';
 import { DetailCovoiturageComponent } from '../detail-covoiturage/detail-covoiturage.component';
+import {
+  getLocaleDateTimeFormat,
+  getLocaleDateFormat,
+  FormatWidth
+} from '@angular/common';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-reservations',
@@ -17,25 +23,34 @@ import { DetailCovoiturageComponent } from '../detail-covoiturage/detail-covoitu
 })
 export class ReservationsComponent implements OnInit {
   reservations: Annonce[];
+  reservationsHisto: Annonce[];
   page;
   startLimit;
   endLimit;
-  @Input() pageSize;
-  @Input() maxSize;
-  currentDate;
+  pageSize;
+  maxSize;
+  currentDate: number;
 
   constructor(
     private rService: ReservationsService,
     private modalService: NgbModal
   ) {
-    this.rService
-      .ListerReservationsCollab()
-      .subscribe(r => (this.reservations = r));
+    this.currentDate = Date.now();
+
+    this.rService.ListerReservationsCollab().subscribe(r => {
+      this.reservations = r;
+      r.forEach(re =>
+        console.log(Date.parse(re.dateDepart.toString()).toString())
+      );
+      console.log(this.currentDate);
+      this.reservationsHisto = r.filter(
+        re => Date.parse(re.dateDepart.toString()) < this.currentDate
+      );
+      console.log(this.reservationsHisto);
+    });
   }
 
   ngOnInit() {
-    this.currentDate = Date.now();
-
     this.page = 1;
     this.pageSize = 5;
     this.startLimit = 0;
