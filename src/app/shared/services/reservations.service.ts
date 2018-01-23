@@ -5,13 +5,26 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Annonce } from '../../domain/Annonce';
 import { environment } from '../../../environments/environment';
+import { LoginService } from './login.service';
 
 @Injectable()
 export class ReservationsService {
   reservationsCovoit: BehaviorSubject<Annonce[]> = new BehaviorSubject([]);
 
-  constructor(private http: HttpClient, private jwt: JwtHelperService) {
+  constructor(
+    private http: HttpClient,
+    private jwt: JwtHelperService,
+    private loginSvc: LoginService
+  ) {
     this.refreshData();
+    this.loginSvc.logged_in.subscribe(loggedIn => {
+      console.log('login service logged in event : ', loggedIn);
+      if (loggedIn) {
+        this.refreshData();
+      } else {
+        this.reservationsCovoit.next([]);
+      }
+    });
   }
 
   refreshData() {

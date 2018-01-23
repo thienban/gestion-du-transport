@@ -110,6 +110,7 @@ export class CreerAnnonceComponent implements OnInit {
       dateDepart,
       this.vehiculeForm.value
     );
+    delete newAnnonce.nbPlacesRestantes;
     console.log('publish : ', newAnnonce);
     this.annonceSvc.publishAnnonce(newAnnonce).subscribe(ann => {
       console.log('response to publish : ', ann);

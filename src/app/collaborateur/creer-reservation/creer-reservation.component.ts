@@ -41,13 +41,13 @@ export class CreerReservationComponent implements OnInit {
           return (
             new Date(a.dateDepart).getTime() >= Date.now() &&
             a.nbPlacesRestantes > 0 &&
-            !a.passagers.some(p => p.matricule === this.loginSvc.user.matricule)
+            !a.passagers.some(
+              p => p.matricule === this.loginSvc.user.matricule
+            ) &&
+            a.auteur.matricule !== this.loginSvc.user.matricule
           );
         }))
     );
-    this.annonceService
-      .listerAnnonces()
-      .subscribe(annonces => (this.annonces = annonces));
     this.filterField1.valueChanges.subscribe(val => {
       this.filtreAdrDep = val;
     });

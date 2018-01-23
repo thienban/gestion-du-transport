@@ -8,6 +8,7 @@ import { Annonce } from '../../domain/Annonce';
 import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/do';
 import { ReservationsService } from './reservations.service';
+import { LoginService } from './login.service';
 
 @Injectable()
 export class AnnonceService {
@@ -17,9 +18,18 @@ export class AnnonceService {
 
   constructor(
     private http: HttpClient,
+    private loginSvc: LoginService,
     private reservationSvc: ReservationsService
   ) {
-    this.refresh();
+    this.refreshData();
+    this.loginSvc.logged_in.subscribe(loggedIn => {
+      console.log('login service logged in event : ', loggedIn);
+      if (loggedIn) {
+        this.refreshData();
+      } else {
+        this.annonceSubject.next([]);
+      }
+    });
   }
 
   listerAnnonces(): Observable<Annonce[]> {
@@ -32,7 +42,7 @@ export class AnnonceService {
   setFiltre(value) {
     this.filtreSubject.next(value);
   }
-  refresh() {
+  refreshData() {
     this.http
       .get<Annonce[]>(environment.endpoint + '/reservations')
       .subscribe(ans => {
@@ -71,7 +81,7 @@ export class AnnonceService {
     const body = { annonce_id: annonce.id };
     return this.http
       .post<Annonce>(environment.endpoint + '/reservations/creer', body)
-      .do(this.refresh.bind(this))
+      .do(this.refreshData.bind(this))
       .do(() => {
         this.reservationSvc.refreshData();
       });
