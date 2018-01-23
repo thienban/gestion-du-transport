@@ -3,19 +3,17 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { WrapperCollaborateurComponent } from './wrapper-collaborateur/wrapper-collaborateur.component';
 import { SharedModule } from '../shared/shared.module';
-import { ReservationsComponent } from './reservations/reservations.component';
-import { AnnoncesComponent } from './annonces/annonces.component';
-import { CreerReservationComponent } from './creer-reservation/creer-reservation.component';
-<<<<<<< HEAD
 import { HttpClientModule } from '@angular/common/http';
-=======
 import { patch } from 'webdriver-js-extender';
 import { CreerAnnonceComponent } from './creer-annonce/creer-annonce.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AdresseAutocompleteInputComponent } from './adresse-autocomplete-input/adresse-autocomplete-input.component';
-import { NgAutoCompleteModule } from 'ng-auto-complete';
->>>>>>> 1299707656033d4f8acafdf70e3a6c448a70b429
+import { NgbModule, NgbAccordion, NgbPanel } from '@ng-bootstrap/ng-bootstrap';
+
+import { DetailCovoiturageComponent } from './detail-covoiturage/detail-covoiturage.component';
+import { ListeAnnoncesComponent } from './liste-annonces/liste-annonces.component';
+import { ReservationsComponent } from './reservations/reservations.component';
+import { AnnoncesComponent } from './annonces/annonces.component';
+import { CreerReservationComponent } from './creer-reservation/creer-reservation.component';
 
 const collabRoutes: Routes = [
   {
@@ -38,16 +36,11 @@ const collabRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(collabRoutes),
-<<<<<<< HEAD
     SharedModule,
-    HttpClientModule
-=======
-    NgbModule,
-    SharedModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgAutoCompleteModule
->>>>>>> 1299707656033d4f8acafdf70e3a6c448a70b429
+    NgbModule.forRoot()
   ],
   declarations: [
     WrapperCollaborateurComponent,
@@ -55,7 +48,10 @@ const collabRoutes: Routes = [
     AnnoncesComponent,
     CreerReservationComponent,
     CreerAnnonceComponent,
-    AdresseAutocompleteInputComponent
-  ]
+    ListeAnnoncesComponent,
+    DetailCovoiturageComponent
+  ],
+  providers: [NgbAccordion, NgbPanel],
+  entryComponents: [DetailCovoiturageComponent]
 })
 export class CollaborateurModule {}
