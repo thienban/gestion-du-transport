@@ -44,7 +44,6 @@ export class ReservationsComponent implements OnInit {
 
   onChange() {
     this.startLimit = this.page * this.pageSize - this.pageSize;
-
     this.endLimit = this.startLimit + this.pageSize;
   }
 

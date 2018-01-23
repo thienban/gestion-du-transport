@@ -21,7 +21,6 @@ export class ReservationsService {
   }
 
   ListerReservationsCollab(): Observable<Annonce[]> {
-    console.log(this.reservationsCovoit);
     return this.reservationsCovoit.asObservable();
   }
 }
