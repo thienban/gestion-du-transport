@@ -1,5 +1,13 @@
 <div class="container">
 
+  <ng-template #rtarrival let-r="result" let-t="term">
+    <div (click)="arrivalClicked(r)" (submit)="arrivalClicked(r)" (keyup)="arrivalClicked(r)">{{r}}</div>
+  </ng-template>
+
+  <ng-template #rtdeparture let-r="result" let-t="term">
+    {{r}}
+  </ng-template>
+
   <h1>Publier une annonce</h1>
   <form [formGroup]="annonceForm" novalidate>
 
@@ -11,13 +19,15 @@
         <div class="form-group row">
           <label for="dep" class="col-sm-3 col-form-label">Adresse de départ</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="dep" formControlName="adresseDepart" [ngbTypeahead]="search">
+            <input type="text" class="form-control" id="dep" formControlName="adresseDepart" [ngbTypeahead]="searchDeparture.bind(this)"
+              [resultTemplate]="rtdeparture">
           </div>
         </div>
         <div class="form-group row">
           <label for="arr" class="col-sm-3 col-form-label">Adresse d'arrivée</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="arr" formControlName="adresseArrivee" [ngbTypeahead]="search">
+            <input type="text" class="form-control" id="arr" formControlName="adresseArrivee" [ngbTypeahead]="searchArrival.bind(this)"
+              [resultTemplate]="rtarrival">
           </div>
         </div>
         <div class="form-group row">

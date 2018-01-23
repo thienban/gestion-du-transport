@@ -62,6 +62,17 @@ export class CreerAnnonceComponent implements OnInit {
   ) {
     itineraire.valueChanges.subscribe(next => {
       console.log(next);
+      if (
+        next.adresseDepart &&
+        next.adresseArrivee &&
+        next.adresseArrivee.length > 5
+      ) {
+        this.annonceSvc
+          .getTrajetInfo(next.adresseDepart, next.adresseArrivee)
+          .subscribe(trajetInfo => {
+            console.log('trajet info :', trajetInfo);
+          });
+      }
     });
   }
 
@@ -85,8 +96,6 @@ export class CreerAnnonceComponent implements OnInit {
         dateTime.heure.minute
       ).toISOString()
     };
-    console.log(dateTime);
-    console.log(objectToSend);
   }
 
   search = (text$: Observable<string>) => {
@@ -107,4 +116,18 @@ export class CreerAnnonceComponent implements OnInit {
       .do(() => (this.searching = true))
       .merge(this.hideSearchingWhenUnsubscribed);
   };
+
+  searchArrival(text$: Observable<string>) {
+    return this.search(text$).do(resp => {
+      console.log('arrival searched', resp);
+    });
+  }
+
+  searchDeparture(text$: Observable<string>) {
+    return this.search(text$).do(resp => {});
+  }
+
+  arrivalClicked(r) {
+    console.log('arrival clicked', r);
+  }
 }

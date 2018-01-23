@@ -42,8 +42,17 @@ export class AnnonceService {
       return Observable.of([]);
     }
     return this.http.get<string[]>(
-      environment.endpoint + '/autocomplete/' + term
+      environment.endpoint + '/maps/autocomplete/' + term
     );
+  }
+
+  getTrajetInfo(origin: string, destination: string): Observable<any> {
+    const params = new HttpParams()
+      .set('origin', origin)
+      .set('destination', destination);
+    return this.http.get(environment.endpoint + '/maps/directions', {
+      params
+    });
   }
 
   bookAnnonce(annonce: Annonce): Observable<Annonce> {
