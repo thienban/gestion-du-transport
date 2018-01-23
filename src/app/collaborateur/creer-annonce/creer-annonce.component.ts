@@ -102,6 +102,7 @@ export class CreerAnnonceComponent implements OnInit {
         dateTime.heure.minute
       ).toISOString()
     };
+    console.log(objectToSend);
   }
 
   search = (text$: Observable<string>) => {
