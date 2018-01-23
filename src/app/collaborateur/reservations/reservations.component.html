@@ -20,7 +20,7 @@
             </tr>
           </thead>
           <tbody *ngFor="let reservationEnCours of reservations">
-            <tr *ngIf="(reservationEnCours.dateDepart | date:'dd/MM/yyyy') >= (currentDate | date:'dd/MM/yyyy')">
+            <tr>
               <td>{{ reservationEnCours.dateDepart | date:'dd/MM/yyyy'}} {{ reservationEnCours.dateDepart | date:'HH:ss'}}
               </td>
               <td>{{ reservationEnCours.adresseDepart }}
@@ -44,23 +44,23 @@
               <th></th>
             </tr>
           </thead>
-          <tbody *ngFor="let reservationHisto of reservations | slice:startLimit:endLimit">
-            <tr *ngIf="(reservationHisto.dateDepart | date:'dd/MM/yyyy') < (currentDate | date:'dd/MM/yyyy')">
-              <td>{{ reservationHisto.dateDepart | date:'dd/MM/yyyy'}} {{ reservationHisto.dateDepart | date:'HH:ss'}}
+          <tbody *ngFor="let reservation of reservationsHisto | slice:startLimit:endLimit">
+            <tr>
+              <td>{{ reservation.dateDepart | date:'dd/MM/yyyy'}} {{ reservation.dateDepart | date:'HH:ss'}}
               </td>
-              <td>{{ reservationHisto.adresseDepart }}
+              <td>{{ reservation.adresseDepart }}
               </td>
-              <td>{{ reservationHisto.adresseArrive }}
+              <td>{{ reservation.adresseArrive }}
               </td>
               <td>
-                <button class="btn" (click)="detailAnnonce(reservationHisto)">Détails</button>
+                <button class="btn" (click)="detailAnnonce(reservation)">Détails</button>
               </td>
             </tr>
           </tbody>
         </table>
         <!--<app-liste-annonces [libelleListe]="CovoitEnCours" [titre]="'Réservations en cours'" [reservations]="reservations"></app-liste-annonces>
             <app-liste-annonces [libelleListe]="CovoitHisto" [titre]="Historique" [reservations]="reservations"></app-liste-annonces>-->
-        <ngb-pagination [collectionSize]="reservations.length" [(page)]="page" [pageSize]="5" [maxSize]="5" (pageChange)="onChange()"
+        <ngb-pagination [collectionSize]="reservationsHisto.length" [(page)]="page" [pageSize]="5" [maxSize]="5" (pageChange)="onChange()"
           class="float-right m-3"></ngb-pagination>
       </ng-template>
     </ngb-panel>
@@ -70,7 +70,4 @@
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
-  <<<<<<< HEAD </div>
-    =======
 </div>
->>>>>>> page-collab-reservations-covoit

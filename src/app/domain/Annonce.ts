@@ -14,6 +14,7 @@ export class Annonce {
     public dureeTrajet?: number,
     public distance?: number,
     public passagers?: Collaborateur[],
-    public id?: number
+    public id?: number,
+    public nbPlacesRestantes?: number
   ) {}
 }

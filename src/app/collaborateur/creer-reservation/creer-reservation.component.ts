@@ -6,6 +6,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Annonce } from '../../domain/annonce';
 import { AnnonceService } from '../../shared/services/annonce.service';
 import { environment } from '../../../environments/environment';
+import { LoginService } from '../../shared/services/login.service';
 
 @Component({
   selector: 'app-creer-reservation',
@@ -21,13 +22,22 @@ export class CreerReservationComponent implements OnInit {
 
   constructor(
     private annonceService: AnnonceService,
+    private loginSvc: LoginService,
     private modalService: NgbModal
   ) {}
 
   ngOnInit() {
-    this.annonceService
-      .listerAnnonces()
-      .subscribe(annonces => (this.annonces = annonces));
+    console.log(this.loginSvc.user.matricule);
+    this.annonceService.listerAnnonces().subscribe(
+      annonces =>
+        (this.annonces = annonces.filter(a => {
+          return (
+            new Date(a.dateDepart).getTime() >= Date.now() &&
+            a.nbPlacesRestantes > 0 &&
+            !a.passagers.some(p => p.matricule === this.loginSvc.user.matricule)
+          );
+        }))
+    );
   }
 
   setAdrDep(valeurAdresseDep: string) {

@@ -7,6 +7,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Annonce } from '../../domain/Annonce';
 import { environment } from '../../../environments/environment';
 import 'rxjs/add/operator/do';
+import { ReservationsService } from './reservations.service';
 
 @Injectable()
 export class AnnonceService {
@@ -14,7 +15,10 @@ export class AnnonceService {
   annonceSubject: BehaviorSubject<Annonce[]> = new BehaviorSubject([]);
   filtreSubject: BehaviorSubject<string> = new BehaviorSubject('');
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private reservationSvc: ReservationsService
+  ) {
     this.refresh();
   }
 
@@ -67,6 +71,9 @@ export class AnnonceService {
     const body = { annonce_id: annonce.id };
     return this.http
       .post<Annonce>(environment.endpoint + '/reservations/creer', body)
-      .do(this.refresh.bind(this));
+      .do(this.refresh.bind(this))
+      .do(() => {
+        this.reservationSvc.refreshData();
+      });
   }
 }

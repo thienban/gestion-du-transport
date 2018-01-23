@@ -97,7 +97,6 @@ export class CreerAnnonceComponent implements OnInit {
 
   publish() {
     const dateTime = this.dateTimeForm.value;
-    const vehicule = this.vehiculeForm.value;
     const dateDepart = new Date(
       dateTime.date.year,
       dateTime.date.month,

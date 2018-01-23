@@ -16,7 +16,7 @@ export class ReservationsService {
 
   refreshData() {
     this.http
-      .get<Annonce[]>(environment.endpoint + '/reservations/')
+      .get<Annonce[]>(environment.endpoint + '/reservations/me')
       .subscribe(reser => this.reservationsCovoit.next(reser));
   }
 

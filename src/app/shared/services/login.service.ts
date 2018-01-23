@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { Collaborateur } from '../../domain/Collaborateur';
 console.log(environment);
 @Injectable()
 export class LoginService {
@@ -34,7 +35,10 @@ export class LoginService {
       return '';
     }
   }
-
+  get user(): Collaborateur {
+    const token = localStorage.getItem('access_token');
+    return this.jwt.decodeToken(token);
+  }
   logout() {
     localStorage.removeItem('access_token');
     this.router.navigateByUrl('/login');
