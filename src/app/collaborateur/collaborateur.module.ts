@@ -3,14 +3,17 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { WrapperCollaborateurComponent } from './wrapper-collaborateur/wrapper-collaborateur.component';
 import { SharedModule } from '../shared/shared.module';
-import { ReservationsComponent } from './reservations/reservations.component';
-import { AnnoncesComponent } from './annonces/annonces.component';
-import { CreerReservationComponent } from './creer-reservation/creer-reservation.component';
+import { HttpClientModule } from '@angular/common/http';
 import { patch } from 'webdriver-js-extender';
 import { CreerAnnonceComponent } from './creer-annonce/creer-annonce.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgAutoCompleteModule } from 'ng-auto-complete';
+import { NgbModule, NgbAccordion, NgbPanel } from '@ng-bootstrap/ng-bootstrap';
+
+import { DetailCovoiturageComponent } from './detail-covoiturage/detail-covoiturage.component';
+import { ListeAnnoncesComponent } from './liste-annonces/liste-annonces.component';
+import { ReservationsComponent } from './reservations/reservations.component';
+import { AnnoncesComponent } from './annonces/annonces.component';
+import { CreerReservationComponent } from './creer-reservation/creer-reservation.component';
 
 const collabRoutes: Routes = [
   {
@@ -33,18 +36,22 @@ const collabRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(collabRoutes),
-    NgbModule,
     SharedModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgAutoCompleteModule
+    NgbModule.forRoot()
   ],
   declarations: [
     WrapperCollaborateurComponent,
     ReservationsComponent,
     AnnoncesComponent,
     CreerReservationComponent,
-    CreerAnnonceComponent
-  ]
+    CreerAnnonceComponent,
+    ListeAnnoncesComponent,
+    DetailCovoiturageComponent
+  ],
+  providers: [NgbAccordion, NgbPanel],
+  entryComponents: [DetailCovoiturageComponent]
 })
 export class CollaborateurModule {}

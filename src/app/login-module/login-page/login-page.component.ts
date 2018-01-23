@@ -32,7 +32,7 @@ export class LoginPageComponent implements OnInit {
         console.log(role);
       },
       err => {
-        // display error message
+        this.badCredentials = true;
       }
     );
     // const httpOptions = {headers:new HttpHeaders({"Content-Type":"application/json"})};

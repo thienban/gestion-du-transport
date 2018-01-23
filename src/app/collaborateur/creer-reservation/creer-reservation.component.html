@@ -46,28 +46,31 @@
         <tbody>
           <tr *ngFor="let an of annonces | filterByAdresseDep:filter">
             <td>{{an.dateDepart | date:'dd-MM-yyyy HH:mm'}}</td>
-            <td>{{an.adresseDepartString}}</td>
-            <td>{{an.adresseArriveString}}</td>
-            <td>???</td>
+            <td>{{an.adresseDepart}}</td>
+            <td>{{an.adresseArrive}}</td>
+            <td>{{an.id}}</td>
             <td>{{an.auteur.nom}}</td>
             <td>{{an.nbPlacesRestantes}}</td>
             <td>
               <ng-template #content let-c="close" let-d="dismiss">
                 <div class="modal-header">
-                  <h4 class="modal-title">Modal title</h4>
-                  <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                  <h4 class="modal-title">Réservation convoiturage</h4>
                 </div>
                 <div class="modal-body">
-                  <p>One fine body&hellip;</p>
+                  <ul>
+                    <li>Départ : {{an.adresseDepart}} </li>
+                    <li>Destination : {{an.adresseArrive}} </li>
+                    <li>Date/heure : {{an.dateDepart | date:'dd-MM-yyyy à HH:mm'}} </li>
+                    <li>Véhicule : Audi </li>
+                    <li>Chauffeur : {{an.auteur.nom}} {{an.auteur.prenom}} </li>
+                  </ul>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+                  <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Annuler</button>
+                  <button type="button" class="btn btn-outline-success" (click)="saveBooking(an); c('Close click')">Confirmer</button>
                 </div>
               </ng-template>
-
-              <button class="btn btn-lg btn-outline-primary" (click)="open()">Réserver</button>
+              <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Réserver</button>
             </td>
           </tr>
         </tbody>

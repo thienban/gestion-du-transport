@@ -21,7 +21,11 @@
         <small class="invalid-msg" *ngIf="(!password.valid && (password.touched || password.dirty)) ">Veuillez entrer le mot de passe.</small>
       </div>
 
-      <input type="submit" value="Se connecter" class="btn btn-success" (click)="login()">
+      <input type="submit" value="Se connecter" class="btn btn-success" (click)="login();" [disabled]="!email.valid || !password.valid">
+      <p>
+        <small class="invalid-msg" *ngIf="badCredentials">Adresse email ou mot de passe incorrect.</small>
+      </p>
+
     </form>
   </div>
 </div>

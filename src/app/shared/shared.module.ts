@@ -11,6 +11,7 @@ import {
   NgbModal,
   ModalDismissReasons
 } from '@ng-bootstrap/ng-bootstrap';
+import { ReservationsService } from './services/reservations.service';
 import { AnnonceService } from './services/annonce.service';
 
 @NgModule({
@@ -28,7 +29,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [LoginService, AnnonceService]
+      providers: [LoginService, ReservationsService, AnnonceService]
     };
   }
 }
