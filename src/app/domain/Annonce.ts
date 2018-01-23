@@ -9,8 +9,8 @@ export class Annonce {
     private _dateArrive: Date,
     private _nbPlacesDispos: number,
     private _status: StatusCovoit,
-    private _adresseDepart: Adresse,
-    private _adresseArrive: Adresse,
+    private _adresseDepart: string,
+    private _adresseArrive: string,
     private _dureeTrajet: number,
     private _distance: number,
     private _passagers: Collaborateur[]
