@@ -38,7 +38,7 @@ export class AnnonceService {
   }
 
   autocomplete(term: string): Observable<string[]> {
-    if (term.length < 4) {
+    if (term.length < 3) {
       return Observable.of([]);
     }
     return this.http.get<string[]>(

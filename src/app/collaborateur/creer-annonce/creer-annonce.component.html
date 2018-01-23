@@ -1,17 +1,9 @@
 <div class="container">
 
-  <ng-template #rtarrival let-r="result" let-t="term">
-    <div (click)="arrivalClicked(r)" (submit)="arrivalClicked(r)" (keyup)="arrivalClicked(r)">{{r}}</div>
-  </ng-template>
-
-  <ng-template #rtdeparture let-r="result" let-t="term">
-    {{r}}
-  </ng-template>
 
   <h1>Publier une annonce</h1>
-  <form [formGroup]="annonceForm" novalidate>
-
-    <div class="card" formGroupName="itineraire">
+  <form novalidate>
+    <div class="card">
       <div class="card-header">
         Itinéraire
       </div>
@@ -19,33 +11,33 @@
         <div class="form-group row">
           <label for="dep" class="col-sm-3 col-form-label">Adresse de départ</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="dep" formControlName="adresseDepart" [ngbTypeahead]="searchDeparture.bind(this)"
-              [resultTemplate]="rtdeparture">
+            <input type="text" class="form-control" id="dep" name="origin" [(ngModel)]="origin" (selectItem)="selectedOrigin($event)"
+              [ngbTypeahead]="search">
           </div>
         </div>
         <div class="form-group row">
           <label for="arr" class="col-sm-3 col-form-label">Adresse d'arrivée</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control" id="arr" formControlName="adresseArrivee" [ngbTypeahead]="searchArrival.bind(this)"
-              [resultTemplate]="rtarrival">
+            <input type="text" class="form-control" id="arr" name="destination" [(ngModel)]="destination" (selectItem)="selectedDestination($event)"
+              [ngbTypeahead]="search">
           </div>
         </div>
         <div class="form-group row">
           <label for="duration" class="col-sm-3 col-form-label">Durée du trajet</label>
           <div class="col-sm-9">
-            <input type="text" readonly class="form-control-plaintext" id="duration" formControlName="duration">
+            <input type="text" readonly class="form-control-plaintext" id="duration" name="duration" [(ngModel)]="duration">
           </div>
         </div>
         <div class="form-group row">
           <label for="distance" class="col-sm-3 col-form-label">Distance</label>
           <div class="col-sm-9">
-            <input type="text" readonly class="form-control-plaintext" id="distance" formControlName="distance">
+            <input type="text" readonly class="form-control-plaintext" id="distance" name="distance" [(ngModel)]="distance">
           </div>
         </div>
       </div>
     </div>
 
-    <div class="card" formGroupName="vehicule">
+    <div class="card" [formGroup]="vehiculeForm">
       <div class="card-header">
         Véhicule
       </div>
@@ -76,7 +68,7 @@
         </div>
       </div>
     </div>
-    <div class="card" formGroupName="dateTime">
+    <div class="card" [formGroup]="dateTimeForm">
       <div class="card-header">
         Date et heure
       </div>
