@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { LoginService } from '../services/login.service';
+import { Collaborateur } from '../../domain/Collaborateur';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,7 @@ import { LoginService } from '../services/login.service';
 export class NavbarComponent implements OnInit {
   @Input() role: string;
   constructor(private loginSvc: LoginService) {}
-
+  user: Collaborateur;
   buttons: {
     nom: string;
     route: string;
@@ -28,6 +29,7 @@ export class NavbarComponent implements OnInit {
       this.buttons.push({ nom: 'Planning', route: 'planning' });
       this.buttons.push({ nom: 'Occupation', route: 'occupation' });
     }
+    this.user = this.loginSvc.user;
   }
 
   logout() {
