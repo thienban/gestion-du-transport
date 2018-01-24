@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { Collaborateur } from '../../domain/Collaborateur';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-console.log(environment);
+
 @Injectable()
 export class LoginService {
   constructor(

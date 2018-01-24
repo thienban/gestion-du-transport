@@ -15,6 +15,8 @@ import { AnnonceService } from './services/annonce.service';
 import { FilterByAdresseDepPipe } from './pipe/filter-by-adresse-dep.pipe';
 import { FilterByAdresseArPipe } from './pipe/filter-by-adresse-ar.pipe';
 import { FilterByDateDepPipe } from './pipe/filter-by-date-dep.pipe';
+import { FilterByMatriculePipe } from './pipe/filter-by-matricule.pipe';
+import { ChauffeurService } from './services/chauffeur.service';
 
 @NgModule({
   imports: [
@@ -41,7 +43,12 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [LoginService, ReservationsService, AnnonceService]
+      providers: [
+        LoginService,
+        ReservationsService,
+        AnnonceService,
+        ChauffeurService
+      ]
     };
   }
 }
