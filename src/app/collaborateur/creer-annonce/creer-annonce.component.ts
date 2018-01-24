@@ -14,6 +14,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { concat } from 'rxjs/operators/concat';
 import { AbstractControl, FormControl } from '@angular/forms/src/model';
 import { Annonce } from '../../domain/Annonce';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-creer-annonce',
@@ -21,7 +22,7 @@ import { Annonce } from '../../domain/Annonce';
   styleUrls: ['./creer-annonce.component.css']
 })
 export class CreerAnnonceComponent implements OnInit {
-  constructor(private fb: FormBuilder, private annonceSvc: AnnonceService) {}
+  constructor(private fb: FormBuilder, private dataSvc: DataService) {}
   vehiculeForm: FormGroup;
   dateTimeForm: FormGroup;
 
@@ -73,7 +74,7 @@ export class CreerAnnonceComponent implements OnInit {
           this.destinationSelected.getValue()
         ) {
           this.validItineraire = true;
-          return this.annonceSvc.getTrajetInfo(this.origin, this.destination);
+          return this.dataSvc.getTrajetInfo(this.origin, this.destination);
         } else {
           return Observable.of(null);
         }
@@ -112,7 +113,7 @@ export class CreerAnnonceComponent implements OnInit {
     );
     delete newAnnonce.nbPlacesRestantes;
     console.log('publish : ', newAnnonce);
-    this.annonceSvc.publishAnnonce(newAnnonce).subscribe(ann => {
+    this.dataSvc.publishAnnonce(newAnnonce).subscribe(ann => {
       console.log('response to publish : ', ann);
     });
   }
@@ -123,7 +124,7 @@ export class CreerAnnonceComponent implements OnInit {
       .distinctUntilChanged()
       .do(() => (this.searching = true))
       .switchMap(term =>
-        this.annonceSvc
+        this.dataSvc
           .autocomplete(term)
           .do(() => (this.searchFailed = false))
           .catch(() => {

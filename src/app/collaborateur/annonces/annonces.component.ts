@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AnnonceService } from '../../shared/services/annonce.service';
 import { ReservationsService } from '../../shared/services/reservations.service';
+import { Annonce } from '../../domain/Annonce';
+import { Observable } from 'rxjs/Observable';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-annonces',
@@ -9,12 +12,12 @@ import { ReservationsService } from '../../shared/services/reservations.service'
 })
 export class AnnoncesComponent implements OnInit {
   constructor(
-    private annonceSvc: AnnonceService,
+    private dataSvc: DataService,
     private reservationsSvc: ReservationsService
   ) {}
+  annonces: Observable<Annonce[]>;
 
   ngOnInit() {
-    this.annonceSvc.refreshData();
-    this.reservationsSvc.refreshData();
+    this.annonces = this.dataSvc.myAnnonces;
   }
 }

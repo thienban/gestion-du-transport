@@ -1,1 +1,21 @@
-<a class="btn btn-primary" [routerLink]="'creer'">Publier une annonce</a>
+<div class="row">
+  <div class="col">
+    <h1>Vos annonces</h1>
+  </div>
+  <div class="col">
+    <a class="btn btn-primary" [routerLink]="'creer'">Publier une annonce</a>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">En cours</h5>
+    <app-liste-annonces [mode]="'annonce'" [annonces]="annonces | async"></app-liste-annonces>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">Historique</h5>
+    <app-liste-annonces [mode]="'annonce'" [annonces]="annonces | async"></app-liste-annonces>
+  </div>
+</div>

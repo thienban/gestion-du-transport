@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DetailCovoiturageComponent } from '../detail-covoiturage/detail-covoiturage.component';
+import { Annonce } from '../../domain/Annonce';
 
 @Component({
   selector: 'app-liste-annonces',
@@ -8,36 +7,24 @@ import { DetailCovoiturageComponent } from '../detail-covoiturage/detail-covoitu
   styleUrls: ['./liste-annonces.component.css']
 })
 export class ListeAnnoncesComponent implements OnInit {
-  @Input() libelleListe;
-  @Input() titre;
-  @Input() reservations;
+  @Input() mode: string;
+  @Input() annonces: Annonce[];
   @Input() maxSize;
+  startLimit: number;
+  endLimit: number;
   page;
-  startLimit;
-  itemPerPage = 5;
-  currentDate;
-  covoitEnCours;
-  covoitHisto;
-  constructor(private modalService: NgbModal) {}
+  pageSize;
+  constructor() {}
 
   ngOnInit() {
-    this.currentDate = Date.now();
-
     this.page = 1;
-
-    this.startLimit = 1;
-    this.maxSize = this.itemPerPage;
+    this.pageSize = this.maxSize ? this.maxSize : 5;
+    this.startLimit = 0;
+    this.endLimit = this.pageSize;
   }
 
   onChange() {
-    this.startLimit =
-      this.page * this.itemPerPage - this.itemPerPage + (this.page - 1);
-
-    this.maxSize = this.startLimit + this.itemPerPage;
-  }
-
-  detailAnnonce(reservation) {
-    const modalRef = this.modalService.open(DetailCovoiturageComponent);
-    modalRef.componentInstance.reservation = reservation;
+    this.startLimit = this.page * this.pageSize - this.pageSize;
+    this.endLimit = this.startLimit + this.pageSize;
   }
 }
