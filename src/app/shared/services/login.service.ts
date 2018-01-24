@@ -16,12 +16,6 @@ export class LoginService {
     private router: Router
   ) {}
 
-  private _logged_in = new BehaviorSubject<boolean>(this.isLoggedIn);
-
-  get logged_in(): Observable<boolean> {
-    return this._logged_in.asObservable();
-  }
-
   login(credentials: { email: string; password: string }): Observable<string> {
     return this.http
       .post<HttpResponse<any>>(environment.endpoint + '/login', credentials, {
@@ -30,7 +24,7 @@ export class LoginService {
       .map(resp => {
         const token = resp.headers.get('Authorization');
         localStorage.setItem('access_token', token);
-        this._logged_in.next(true);
+        console.log('logged in');
         return this.userRole;
       });
   }
@@ -52,7 +46,6 @@ export class LoginService {
   logout() {
     localStorage.removeItem('access_token');
     this.router.navigateByUrl('/login');
-    this._logged_in.next(false);
   }
 
   get token() {

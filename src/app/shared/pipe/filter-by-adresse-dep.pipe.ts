@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterByAdresseDepPipe implements PipeTransform {
   transform(value: any[], arg?: string): any[] {
-    console.log('filtering annonces by departure', value, arg);
+    // console.log('filtering annonces by departure', value, arg);
     if (!arg) {
       return value;
     } else {

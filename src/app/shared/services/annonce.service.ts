@@ -20,17 +20,7 @@ export class AnnonceService {
     private http: HttpClient,
     private loginSvc: LoginService,
     private reservationSvc: ReservationsService
-  ) {
-    this.refreshData();
-    this.loginSvc.logged_in.subscribe(loggedIn => {
-      console.log('login service logged in event : ', loggedIn);
-      if (loggedIn) {
-        this.refreshData();
-      } else {
-        this.annonceSubject.next([]);
-      }
-    });
-  }
+  ) {}
 
   listerAnnonces(): Observable<Annonce[]> {
     return this.annonceSubject.asObservable();
@@ -46,6 +36,7 @@ export class AnnonceService {
     this.http
       .get<Annonce[]>(environment.endpoint + '/reservations')
       .subscribe(ans => {
+        console.log('refresh annonces');
         this.annonceSubject.next(ans);
         console.log(ans);
       });

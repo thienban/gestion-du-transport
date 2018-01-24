@@ -6,34 +6,32 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Annonce } from '../../domain/Annonce';
 import { environment } from '../../../environments/environment';
 import { LoginService } from './login.service';
+import 'rxjs/add/operator/do';
 
 @Injectable()
 export class ReservationsService {
   reservationsCovoit: BehaviorSubject<Annonce[]> = new BehaviorSubject([]);
-
+  reservations: Annonce[];
   constructor(
     private http: HttpClient,
     private jwt: JwtHelperService,
     private loginSvc: LoginService
-  ) {
-    this.refreshData();
-    this.loginSvc.logged_in.subscribe(loggedIn => {
-      console.log('login service logged in event : ', loggedIn);
-      if (loggedIn) {
-        this.refreshData();
-      } else {
-        this.reservationsCovoit.next([]);
-      }
-    });
-  }
+  ) {}
 
   refreshData() {
     this.http
       .get<Annonce[]>(environment.endpoint + '/reservations/me')
+      .do(resa => {
+        console.log('refresh reservations');
+        this.reservations = resa;
+      })
       .subscribe(reser => this.reservationsCovoit.next(reser));
   }
 
   ListerReservationsCollab(): Observable<Annonce[]> {
+    if (this.reservations) {
+      this.refreshData();
+    }
     return this.reservationsCovoit.asObservable();
   }
 }

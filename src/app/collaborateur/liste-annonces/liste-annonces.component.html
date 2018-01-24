@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <div [ngSwitch]="libelleListe">
-    <div *ngSwitchCase="CovoitEnCours">
+    <div *ngSwitchCase="covoitEnCours">
       <tbody *ngFor="let reservation of reservations">
         <tr *ngIf="(reservation.dateDepart | date:'dd/MM/yyyy') >= (currentDate | date:'dd/MM/yyyy')">
           <td>{{ reservation.dateDepart | date:'dd/MM/yyyy'}} {{ reservation.dateDepart | date:'HH:ss'}}</td>
@@ -25,7 +25,7 @@
         </tr>
       </tbody>
     </div>
-    <div *ngSwitchCase="CovoitHisto">
+    <div *ngSwitchCase="covoitHisto">
       <tbody *ngFor="let reservation of reservations | slice:startLimit:maxSize">
         <tr *ngIf="(reservation.dateDepart | date:'dd/MM/yyyy') < (currentDate | date:'dd/MM/yyyy')">
           <td>{{ reservation.dateDepart | date:'dd/MM/yyyy'}} {{ reservation.dateDepart | date:'HH:ss'}}</td>

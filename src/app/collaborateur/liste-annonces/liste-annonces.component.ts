@@ -16,7 +16,8 @@ export class ListeAnnoncesComponent implements OnInit {
   startLimit;
   itemPerPage = 5;
   currentDate;
-
+  covoitEnCours;
+  covoitHisto;
   constructor(private modalService: NgbModal) {}
 
   ngOnInit() {

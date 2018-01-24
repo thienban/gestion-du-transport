@@ -36,6 +36,7 @@ export class ReservationsComponent implements OnInit {
     private modalService: NgbModal
   ) {
     console.log(this.currentDate.getFullYear());
+    this.rService.refreshData();
     this.rService.ListerReservationsCollab().subscribe(r => {
       this.reservations = r.filter(re => {
         return new Date(re.dateDepart).getTime() >= Date.now();
