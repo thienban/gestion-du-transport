@@ -5,6 +5,8 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { Collaborateur } from '../../domain/Collaborateur';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 console.log(environment);
 @Injectable()
 export class LoginService {
@@ -22,16 +24,22 @@ export class LoginService {
       .map(resp => {
         const token = resp.headers.get('Authorization');
         localStorage.setItem('access_token', token);
+        console.log('logged in');
         return this.userRole;
       });
   }
 
   get userRole(): string {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      return this.jwt.decodeToken(token)['role'];
+    return this.user.role;
+  }
+  get isLoggedIn(): boolean {
+    return this.user !== null && this.user !== undefined;
+  }
+  get user(): Collaborateur {
+    if (this.token) {
+      return this.jwt.decodeToken(this.token);
     } else {
-      return '';
+      return null;
     }
   }
 
