@@ -79,4 +79,14 @@ export class DataService {
       environment.endpoint + '/maps/autocomplete/' + term
     );
   }
+
+  bookAnnonce(annonceToBook: Annonce) {
+    return this.http
+      .post<Annonce[]>(environment.endpoint + '/creer', {
+        annonce_id: annonceToBook.id
+      })
+      .do(ann => {
+        this._myReservations.next(ann);
+      });
+  }
 }

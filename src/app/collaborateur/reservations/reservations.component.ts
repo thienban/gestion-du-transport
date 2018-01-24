@@ -7,7 +7,6 @@ import {
   NgbModal
 } from '@ng-bootstrap/ng-bootstrap';
 import { Annonce } from '../../domain/Annonce';
-import { ReservationsService } from '../../shared/services/reservations.service';
 import { DetailCovoiturageComponent } from '../detail-covoiturage/detail-covoiturage.component';
 import {
   getLocaleDateTimeFormat,
@@ -15,6 +14,7 @@ import {
   FormatWidth
 } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-reservations',
@@ -31,13 +31,9 @@ export class ReservationsComponent implements OnInit {
   maxSize;
   currentDate = new Date();
 
-  constructor(
-    private rService: ReservationsService,
-    private modalService: NgbModal
-  ) {
+  constructor(private dataSvc: DataService, private modalService: NgbModal) {
     console.log(this.currentDate.getFullYear());
-    this.rService.refreshData();
-    this.rService.ListerReservationsCollab().subscribe(r => {
+    this.dataSvc.myReservations.subscribe(r => {
       this.reservations = r.filter(re => {
         return new Date(re.dateDepart).getTime() >= Date.now();
       });

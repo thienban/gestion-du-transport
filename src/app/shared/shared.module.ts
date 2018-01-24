@@ -10,8 +10,6 @@ import {
   NgbModal,
   ModalDismissReasons
 } from '@ng-bootstrap/ng-bootstrap';
-import { ReservationsService } from './services/reservations.service';
-import { AnnonceService } from './services/annonce.service';
 import { FilterByAdresseDepPipe } from './pipe/filter-by-adresse-dep.pipe';
 import { FilterByAdresseArPipe } from './pipe/filter-by-adresse-ar.pipe';
 import { FilterByDateDepPipe } from './pipe/filter-by-date-dep.pipe';
@@ -41,7 +39,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [LoginService, ReservationsService, AnnonceService]
+      providers: [LoginService]
     };
   }
 }
