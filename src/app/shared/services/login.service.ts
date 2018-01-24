@@ -30,7 +30,7 @@ export class LoginService {
   }
 
   get userRole(): string {
-    return this.user.role;
+    return this.user ? this.user.role : null;
   }
   get isLoggedIn(): boolean {
     return this.user !== null && this.user !== undefined;

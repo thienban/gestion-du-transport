@@ -12,7 +12,7 @@ import {
 
 @Injectable()
 export class AuthGuard implements CanLoad, CanActivate {
-  constructor(private loginSvc: LoginService, private router: Router) { }
+  constructor(private loginSvc: LoginService, private router: Router) {}
   canLoad(route: Route): Observable<boolean> | Promise<boolean> | boolean {
     return this.canAccess(route);
   }
@@ -26,22 +26,19 @@ export class AuthGuard implements CanLoad, CanActivate {
   }
 
   private canAccess(route: Route | ActivatedRouteSnapshot): boolean {
-    const role = this.loginSvc.userRole;
-    const requiredRoles: string[] = this.getRequiredRoles(route);
-    console.log(
-      'required roles : ',
-      requiredRoles,
-      'current user role :',
-      role
-    );
-    if (requiredRoles.includes(role.toLowerCase())) {
-      return true;
+    console.log('#routeGuard');
+    if (this.loginSvc.isLoggedIn) {
+      const role = this.loginSvc.userRole;
+      const requiredRoles: string[] = this.getRequiredRoles(route);
+      if (requiredRoles.includes(role.toLowerCase())) {
+        return true;
+      } else {
+        this.router.navigateByUrl('login');
+        return false;
+      }
     } else {
       this.router.navigateByUrl('login');
       return false;
     }
   }
-
-
-
 }
