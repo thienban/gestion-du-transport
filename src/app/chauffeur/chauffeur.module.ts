@@ -5,6 +5,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { PlanningComponent } from './planning/planning.component';
 import { OccupationComponent } from './occupation/occupation.component';
+//calendar
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CalendarModule } from 'angular-calendar';
+
 const chauffeurRoutes: Routes = [
   {
     path: '',
@@ -17,7 +21,13 @@ const chauffeurRoutes: Routes = [
   }
 ];
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(chauffeurRoutes), SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(chauffeurRoutes),
+    SharedModule,
+    BrowserAnimationsModule, //calendar
+    CalendarModule.forRoot() //calendar
+  ],
   declarations: [
     WrapperChauffeurComponent,
     PlanningComponent,
