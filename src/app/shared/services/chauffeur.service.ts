@@ -16,22 +16,17 @@ export class ChauffeurService {
     private http: HttpClient,
     private jwt: JwtHelperService,
     private loginSvc: LoginService
-  ) {}
+  ) {
+    this.refreshData();
+  }
 
   refreshData() {
     this.http
       .get<Collaborateur[]>(environment.endpoint + '/collaborateurs/chauffeurs')
-      .do(chauf => {
-        console.log('refresh reservations');
-        this.chauffeurs = chauf;
-      })
       .subscribe(ch => this.chauffeursBS.next(ch));
   }
 
   listerChauffeurs(): Observable<Collaborateur[]> {
-    if (this.chauffeurs) {
-      this.refreshData();
-    }
     return this.chauffeursBS.asObservable();
   }
 }
