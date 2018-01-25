@@ -1,3 +1,23 @@
-<p>
-  vehicules works!
-</p>
+<div class="row">
+  <div class="col">
+    <h1>Véhicules</h1>
+  </div>
+  <div class="col">
+    <a class="btn btn-primary" (click)="ajouterVehicule()">Ajouter un véhicule</a>
+  </div>
+</div>
+
+<div class="row">
+
+  <div class="card" style="width: 10rem; margin: 5px" *ngFor="let v of vehicules | async ">
+    <img class="card-img-top" src="{{v.photo}}">
+
+    <div class="card-body" style="text-align:center">
+      <p>{{v.immatriculation}}
+        <br> {{v.marque.libelle}} {{v.modele.libelle}}
+        <br> {{v.categorie.libelle}}
+      </p>
+    </div>
+  </div>
+
+</div>

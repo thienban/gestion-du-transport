@@ -5,6 +5,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { VehiculesComponent } from './vehicules/vehicules.component';
 import { ChauffeursComponent } from './chauffeurs/chauffeurs.component';
+import { DataService } from './data.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from '@auth0/angular-jwt';
 const adminRoutes: Routes = [
   {
     path: '',
@@ -18,6 +21,18 @@ const adminRoutes: Routes = [
 ];
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(adminRoutes), SharedModule],
-  declarations: [WrapperAdminComponent, VehiculesComponent, ChauffeursComponent]
+  declarations: [
+    WrapperAdminComponent,
+    VehiculesComponent,
+    ChauffeursComponent
+  ],
+  providers: [
+    DataService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    }
+  ]
 })
 export class AdminModule {}
