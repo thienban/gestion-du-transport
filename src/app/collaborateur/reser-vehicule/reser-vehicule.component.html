@@ -1,0 +1,31 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+  <ngb-panel title="Véhicule">
+    <ng-template ngbPanelContent>
+      <!--hh-->
+      <div class="card-body">
+        <div class="form-group row" [formGroup]="guestForm">
+          <label for="date" class="col-sm-2 col-form-label">Date Départ</label>
+          <div class="col-sm-4">
+            <input formControlName="firstname" type="date" class="form-control">
+          </div>
+          <label for=" heure " class="col-sm-2 col-form-label ">Heure Départ</label>
+          <div class="col-sm-4 ">
+            <ngb-timepicker required id="heure " [minuteStep]="10 " formControlName="heure "></ngb-timepicker>
+          </div>
+        </div>
+        <!--
+        <div class="form-group row ">
+          <label for="date " class="col-sm-2 col-form-label ">Date Arrivé</label>
+          <div class="col-sm-4 ">
+            <input id="date " placeholder="yyyy-mm-dd " name="dp ">
+          </div>
+          <label for="heure " class="col-sm-2 col-form-label ">Heure Arrivée</label>
+          <div class="col-sm-4 ">
+            <ngb-timepicker required id="heure " [minuteStep]="10 " formControlName="heure "></ngb-timepicker>
+          </div>
+        -->
+      </div>
+      </div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
