@@ -8,9 +8,9 @@ import { LoginService } from './login.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
-export class ChauffeurService {
-  chauffeursBS: BehaviorSubject<Collaborateur[]> = new BehaviorSubject([]);
-  chauffeurs: Collaborateur[];
+export class CollaborateurService {
+  collabsBS: BehaviorSubject<Collaborateur[]> = new BehaviorSubject([]);
+  collabs: Collaborateur[];
 
   constructor(
     private http: HttpClient,
@@ -22,20 +22,11 @@ export class ChauffeurService {
 
   refreshData() {
     this.http
-      .get<Collaborateur[]>(environment.endpoint + '/collaborateurs/chauffeurs')
-      .subscribe(ch => this.chauffeursBS.next(ch));
+      .get<Collaborateur[]>(environment.endpoint + '/collaborateurs')
+      .subscribe(c => this.collabsBS.next(c));
   }
 
-  listerChauffeurs(): Observable<Collaborateur[]> {
-    return this.chauffeursBS.asObservable();
-  }
-
-  creerChauffeur(matricule: string) {
-    this.http
-      .post<Collaborateur[]>(
-        environment.endpoint + '/collaborateurs/chauffeurs/creer',
-        matricule
-      )
-      .subscribe(ch => this.chauffeursBS.next(ch));
+  listerCollabs(): Observable<Collaborateur[]> {
+    return this.collabsBS.asObservable();
   }
 }

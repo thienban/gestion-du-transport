@@ -2,7 +2,6 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
-import { LoginService } from './services/login.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
@@ -10,13 +9,18 @@ import {
   NgbModal,
   ModalDismissReasons
 } from '@ng-bootstrap/ng-bootstrap';
+import { LoginService } from './services/login.service';
 import { ReservationsService } from './services/reservations.service';
 import { AnnonceService } from './services/annonce.service';
+import { ChauffeurService } from './services/chauffeur.service';
+import { CollaborateurService } from './services/collaborateur.service';
+
 import { FilterByAdresseDepPipe } from './pipe/filter-by-adresse-dep.pipe';
 import { FilterByAdresseArPipe } from './pipe/filter-by-adresse-ar.pipe';
 import { FilterByDateDepPipe } from './pipe/filter-by-date-dep.pipe';
 import { FilterByMatriculePipe } from './pipe/filter-by-matricule.pipe';
-import { ChauffeurService } from './services/chauffeur.service';
+import { FilterByNomPipe } from './pipe/filter-by-nom.pipe';
+import { FilterByPrenomPipe } from './pipe/filter-by-prenom.pipe';
 
 @NgModule({
   imports: [
@@ -30,13 +34,19 @@ import { ChauffeurService } from './services/chauffeur.service';
     NavbarComponent,
     FilterByAdresseDepPipe,
     FilterByAdresseArPipe,
-    FilterByDateDepPipe
+    FilterByDateDepPipe,
+    FilterByMatriculePipe,
+    FilterByNomPipe,
+    FilterByPrenomPipe
   ],
   exports: [
     NavbarComponent,
     FilterByAdresseDepPipe,
     FilterByAdresseArPipe,
-    FilterByDateDepPipe
+    FilterByDateDepPipe,
+    FilterByMatriculePipe,
+    FilterByNomPipe,
+    FilterByPrenomPipe
   ]
 })
 export class SharedModule {
@@ -47,7 +57,8 @@ export class SharedModule {
         LoginService,
         ReservationsService,
         AnnonceService,
-        ChauffeurService
+        ChauffeurService,
+        CollaborateurService
       ]
     };
   }

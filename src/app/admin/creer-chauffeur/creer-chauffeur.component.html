@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h4 class="modal-title">Nouveau Chauffeur</h4>
+</div>
+<div class="modal-body">
+  <div class="container pt-5 pr-5 pl-5">
+    <div class="input-group">
+      <span class="input-group-addon">Matricule</span>
+      <input type="text" class="form-control" #matricule>
+    </div>
+    <p class="text-danger">{{ message }}</p>
+    <div class="row mt-3">
+      <div class="col-6"></div>
+      <div class="col-6">
+        <button class="btn" (click)="activeModal.dismiss('Cross click')">Annuler</button>
+        <button class="btn" (click)="creer(matricule.value)">Ajouter</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+
+</div>

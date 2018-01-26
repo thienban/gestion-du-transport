@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-xl navbar-light bg-light">
   <div class="btn-group" role="group">
-    <a *ngFor="let b of buttons;" class="btn btn-outline-primary" [routerLink]="b.route" routerLinkActive="active">{{b.nom}}</a>
+    <a *ngFor="let b of buttons" class="btn btn-outline-primary" [routerLink]="b.route" routerLinkActive="active">{{b.nom}}</a>
   </div>
   <span>Bonjour {{user.prenom}} {{user.nom}}</span>
   <button class="btn btn-danger" (click)="logout()">Déconnexion</button>

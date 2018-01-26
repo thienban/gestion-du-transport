@@ -1,12 +1,25 @@
 <div class="container-fluid p-5">
-  <h1>Gérer les chauffeurs</h1>
+  <h1 class="mb-5">Gérer les chauffeurs</h1>
+  <h3>Filtre</h3>
+  <div class="input-group">
+    <span class="input-group-addon">Matricule</span>
+    <input id="filtreMatricule" type="text" class="form-control" name="filtreMatricule" [(ngModel)]="filtreMatricule">
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon">Nom</span>
+    <input id="filtreNom" type="text" class="form-control" name="filtreNom" [(ngModel)]="filtreNom">
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon">Prénom</span>
+    <input id="filtrePrenom" type="text" class="form-control" name="filtrePrenom" [(ngModel)]="filtrePrenom">
+  </div>
   <div class="row">
-    <div class="col-12 p-3">
-      <button class="btn float-right">Ajouter un chauffeur</button>
+    <div class="col-12 mt-5 mb-3">
+      <button class="btn float-right" (click)="ajout()">Ajouter un chauffeur</button>
     </div>
   </div>
   <div class="row">
-    <div class="col-6" *ngFor="let chauffeur of chauffeurs">
+    <div class="col-6" *ngFor="let chauffeur of chauffeurs | filterByMatricule:filtreMatricule | filterByNom:filtreNom | filterByPrenom:filtrePrenom">
       <div class="card mb-3">
         <div class="card-header">
           <h4 class="card-title">{{ chauffeur.nom | uppercase }} {{ chauffeur.prenom }}</h4>

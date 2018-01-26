@@ -5,11 +5,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterByMatriculePipe implements PipeTransform {
   transform(value: any[], arg?: string): any[] {
-    if (!arg) {
+    if (arg == '') {
       return value;
     } else {
       return value.filter(ans => {
-        return ans.matricule.toLowerCase().includes(arg.toLowerCase());
+        return ans.matricule.toLowerCase().startsWith(arg.toLowerCase());
       });
     }
   }
