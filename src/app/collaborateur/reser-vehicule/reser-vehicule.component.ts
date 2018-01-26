@@ -6,10 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reser-vehicule.component.css']
 })
 export class ReserVehiculeComponent implements OnInit {
+  time = { hour: 1, minute: 12 };
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
