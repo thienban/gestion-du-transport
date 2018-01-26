@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Annonce } from '../../domain/Annonce';
+import { Mode } from './Mode';
+import { TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-liste-annonces',
@@ -7,13 +9,15 @@ import { Annonce } from '../../domain/Annonce';
   styleUrls: ['./liste-annonces.component.css']
 })
 export class ListeAnnoncesComponent implements OnInit {
-  @Input() mode: string;
+  @Input() mode: Mode;
   @Input() annonces: Annonce[];
   @Input() maxSize;
+  @Input() actionTemplate: TemplateRef<any>;
+  modes = Mode;
   startLimit: number;
   endLimit: number;
-  page;
-  pageSize;
+  page: number;
+  pageSize: number;
   constructor() {}
 
   ngOnInit() {

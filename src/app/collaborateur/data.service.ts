@@ -23,7 +23,14 @@ export class DataService {
     return this._covoitsDisponibles.asObservable();
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.myAnnonces
+      .merge(this.myReservations)
+      .merge(this.covoitsDisponibles)
+      .subscribe(next => {
+        //console.log('annonces, reservations, or covoits have been changed');
+      });
+  }
 
   fetchAllData() {
     return this.fetchAvailableCovoits()
@@ -72,21 +79,21 @@ export class DataService {
   }
 
   autocomplete(term: string): Observable<string[]> {
-    if (term.length < 3) {
-      return Observable.of([]);
-    }
-    return this.http.get<string[]>(
-      environment.endpoint + '/maps/autocomplete/' + term
-    );
+    return term.length < 3
+      ? Observable.of([])
+      : this.http.get<string[]>(
+          environment.endpoint + '/maps/autocomplete/' + term
+        );
   }
 
   bookAnnonce(annonceToBook: Annonce) {
     return this.http
-      .post<Annonce[]>(environment.endpoint + '/creer', {
+      .post<Annonce[]>(environment.endpoint + '/reservations/creer', {
         annonce_id: annonceToBook.id
       })
       .do(ann => {
         this._myReservations.next(ann);
+        this.fetchMyReservations().subscribe();
       });
   }
 }

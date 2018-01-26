@@ -4,7 +4,11 @@
       <th>Date/heure de départ</th>
       <th>Départ</th>
       <th>Destination</th>
-      <th *ngIf="mode=='annonce'">Nombre de voyageurs</th>
+      <th *ngIf="mode==modes.ANNONCE">Nombre de voyageurs</th>
+      <ng-container *ngIf="mode==modes.COVOITURAGE">
+        <th>Véhicule</th>
+        <th>Places disponibles</th>
+      </ng-container>
       <th></th>
     </tr>
   </thead>
@@ -16,12 +20,16 @@
       </td>
       <td>{{ annonce.adresseArrive }}
       </td>
-      <th *ngIf="mode=='annonce'">{{ annonce.passagers.length }}</th>
+      <th *ngIf="mode==modes.ANNONCE">{{ annonce.passagers.length }}</th>
+      <ng-container *ngIf="mode==modes.COVOITURAGE">
+        <th>{{annonce.auteur.prenom}} {{annonce.auteur.nom}}</th>
+        <th>{{annonce.nbPlacesRestantes}}</th>
+      </ng-container>
       <td>
-        <button class="btn">Action</button>
+        <ng-container *ngTemplateOutlet="actionTemplate;context:{annonce:annonce}"></ng-container>
       </td>
     </tr>
   </tbody>
 </table>
-<ngb-pagination [collectionSize]="annonces.length" [(page)]="page" [pageSize]="5" [maxSize]="5" (pageChange)="onChange()"
-  class="float-right m-3"></ngb-pagination>
+<ngb-pagination *ngIf="annonces?annonces.length>5:false" [collectionSize]="annonces?annonces.length:0" [(page)]="page" [pageSize]="5"
+  [maxSize]="5" (pageChange)="onChange()" class="float-right m-3"></ngb-pagination>
