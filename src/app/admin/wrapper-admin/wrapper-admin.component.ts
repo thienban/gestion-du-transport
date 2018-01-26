@@ -31,5 +31,15 @@ export class WrapperAdminComponent implements OnInit {
         console.log('error fetching vehicules data', err);
       }
     );
+    this.dataService.fetchCategories().subscribe(
+      next => {
+        if (next.length > 0) {
+          console.log('categories data fetched', next);
+        }
+      },
+      err => {
+        console.log('error fetching vehicules data', err);
+      }
+    );
   }
 }

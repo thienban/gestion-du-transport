@@ -32,7 +32,7 @@ export class DataService {
       .merge(this.fetchMyAnnonces())
       .merge(this.fetchMyReservations());
   }
-  
+
   fetchMyAnnonces(): Observable<Annonce[]> {
     const url = `${environment.endpoint}/annonces/me`;
     return this.http.get<Annonce[]>(url).do(annonces => {

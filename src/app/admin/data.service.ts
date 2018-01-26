@@ -6,11 +6,13 @@ import { VehiculeSociete } from '../domain/VehiculeSociete';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Collaborateur } from '../domain/Collaborateur';
 import { HttpClient } from '@angular/common/http';
+import { Categorie } from '../domain/categorie';
 
 @Injectable()
 export class DataService {
   private _vehiculesSociete = new BehaviorSubject<VehiculeSociete[]>([]);
   private _chauffeurs = new BehaviorSubject<Collaborateur[]>([]);
+  private _categories = new BehaviorSubject<Categorie[]>([]);
 
   constructor(private http: HttpClient) {}
 
@@ -20,6 +22,10 @@ export class DataService {
 
   get chauffeurs(): Observable<Collaborateur[]> {
     return this._chauffeurs.asObservable();
+  }
+
+  get categories(): Observable<Categorie[]> {
+    return this._categories.asObservable();
   }
 
   fetchVehiculesSociete(): Observable<VehiculeSociete[]> {
@@ -35,6 +41,14 @@ export class DataService {
     return this.http.get<Collaborateur[]>(url).do(ch => {
       this._chauffeurs.next(ch);
       console.log('Chauffeurs fetched');
+    });
+  }
+
+  fetchCategories(): Observable<Categorie[]> {
+    const url = `${environment.endpoint}/admin/vehicules/categories`;
+    return this.http.get<Categorie[]>(url).do(cat => {
+      this._categories.next(cat);
+      console.log('Categories fetched');
     });
   }
 }

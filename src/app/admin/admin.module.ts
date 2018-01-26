@@ -8,6 +8,10 @@ import { ChauffeursComponent } from './chauffeurs/chauffeurs.component';
 import { DataService } from './data.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '@auth0/angular-jwt';
+import { CreerVehiculeComponent } from './creer-vehicule/creer-vehicule.component';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
+import { FormsModule } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 const adminRoutes: Routes = [
   {
     path: '',
@@ -20,10 +24,16 @@ const adminRoutes: Routes = [
   }
 ];
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(adminRoutes), SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(adminRoutes),
+    SharedModule,
+    FormsModule
+  ],
   declarations: [
     WrapperAdminComponent,
     VehiculesComponent,
+    CreerVehiculeComponent,
     ChauffeursComponent
   ],
   providers: [
@@ -32,7 +42,9 @@ const adminRoutes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true
-    }
-  ]
+    },
+    NgbActiveModal
+  ],
+  entryComponents: [CreerVehiculeComponent]
 })
 export class AdminModule {}
