@@ -5,6 +5,8 @@ import { DataService } from '../data.service';
 import { Categorie } from '../../domain/categorie';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { Observable } from 'rxjs';
+import { VehiculeSociete } from '../../domain/VehiculeSociete';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
   selector: 'app-creer-vehicule',
@@ -12,12 +14,12 @@ import { Observable } from 'rxjs';
   styleUrls: ['./creer-vehicule.component.css']
 })
 export class CreerVehiculeComponent implements OnInit {
-  immat: FormControl;
-  marque: FormControl;
-  modele: FormControl;
-  categorie: FormControl;
-  nbPlaces: FormControl;
-  photo: FormControl;
+  immat: string;
+  marque: string;
+  modele: string;
+  categorie: { id: number; libelle: string };
+  nbPlaces: number;
+  photo: string;
 
   categoriesObs: Observable<Categorie[]>;
 
@@ -30,5 +32,30 @@ export class CreerVehiculeComponent implements OnInit {
 
   ngOnInit() {
     this.categoriesObs = this.ds.categories;
+  }
+
+  creerVehicule() {
+    forkJoin(
+      this.ds.checkMarque(this.marque),
+      this.ds.checkModele(this.modele)
+    ).subscribe(allResults => {
+      const marqueObject = allResults[0];
+      const modelObject = allResults[1];
+
+      console.log(allResults);
+
+      const newVehicule = new VehiculeSociete(
+        this.immat,
+        marqueObject,
+        modelObject,
+        this.categorie,
+        this.nbPlaces,
+        this.photo
+      );
+      console.log('publish : ', newVehicule);
+      this.ds.publishVehicule(newVehicule).subscribe(veh => {
+        console.log('response to publish : ', veh);
+      });
+    });
   }
 }

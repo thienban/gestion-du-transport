@@ -13,6 +13,8 @@ export class DataService {
   private _vehiculesSociete = new BehaviorSubject<VehiculeSociete[]>([]);
   private _chauffeurs = new BehaviorSubject<Collaborateur[]>([]);
   private _categories = new BehaviorSubject<Categorie[]>([]);
+  marque: { id: number; libelle: string };
+  modele: { id: number; libelle: string };
 
   constructor(private http: HttpClient) {}
 
@@ -50,5 +52,30 @@ export class DataService {
       this._categories.next(cat);
       console.log('Categories fetched');
     });
+  }
+
+  checkMarque(marque: string) {
+    return this.http.post<{ id: number; libelle: string }>(
+      environment.endpoint + '/admin/vehicules/marque',
+      marque
+    );
+  }
+
+  checkModele(modele: string) {
+    return this.http.post<{ id: number; libelle: string }>(
+      environment.endpoint + '/admin/vehicules/modele',
+      modele
+    );
+  }
+
+  publishVehicule(newVehicule: VehiculeSociete) {
+    return this.http
+      .post<VehiculeSociete[]>(
+        environment.endpoint + '/admin/vehicules/creer',
+        newVehicule
+      )
+      .do(veh => {
+        this._vehiculesSociete.next(veh);
+      });
   }
 }

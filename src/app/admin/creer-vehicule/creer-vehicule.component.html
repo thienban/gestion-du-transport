@@ -27,7 +27,7 @@
     <label for="categorie" class="col-sm-3 col-form-label">Catégorie</label>
     <div class="col-sm-9">
       <select class="form-control" id="categorie" name="categorie" [(ngModel)]="categorie">
-        <option *ngFor="let cat of categoriesObs | async" value="{{cat.id}}">{{cat.libelle}}</option>
+        <option *ngFor="let cat of categoriesObs | async" [ngValue]="cat">{{cat.libelle}}</option>
       </select>
     </div>
   </div>
@@ -44,7 +44,7 @@
     </div>
   </div>
   <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Annuler</button>
-  <button type="button" class="btn btn-success" (click)="activeModal.close('Close click')">Ajouter</button>
+  <button type="button" class="btn btn-success" (click)="creerVehicule()">Ajouter</button>
 </div>
 
 <div class="modal-footer">

@@ -10,7 +10,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '@auth0/angular-jwt';
 import { CreerVehiculeComponent } from './creer-vehicule/creer-vehicule.component';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 const adminRoutes: Routes = [
   {
