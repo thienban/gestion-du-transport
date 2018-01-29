@@ -32,6 +32,5 @@ export class VehiculesComponent implements OnInit {
 
   ajouterVehicule() {
     const modalRef = this.modalSvc.open(CreerVehiculeComponent);
-    console.log(this.filtreImmat, this.filtreMarque);
   }
 }

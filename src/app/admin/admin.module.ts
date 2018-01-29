@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
 import { FilterByImmatPipe } from '../shared/pipe/filter-by-immat.pipe';
 import { FilterByMarquePipe } from '../shared/pipe/filter-by-marque.pipe';
+import { VehiculeDetailComponent } from './vehicule-detail/vehicule-detail.component';
 const adminRoutes: Routes = [
   {
     path: '',
@@ -23,6 +24,7 @@ const adminRoutes: Routes = [
     children: [
       { path: 'vehicules', component: VehiculesComponent },
       { path: 'chauffeurs', component: ChauffeursComponent },
+      { path: 'vehicules/', component: VehiculeDetailComponent },
       { path: '', redirectTo: 'chauffeurs' }
     ]
   }
@@ -39,7 +41,8 @@ const adminRoutes: Routes = [
     WrapperAdminComponent,
     VehiculesComponent,
     CreerVehiculeComponent,
-    ChauffeursComponent
+    ChauffeursComponent,
+    VehiculeDetailComponent
   ],
   providers: [
     DataService,
@@ -50,6 +53,6 @@ const adminRoutes: Routes = [
     },
     NgbActiveModal
   ],
-  entryComponents: [CreerVehiculeComponent, CreerChauffeurComponent]
+  entryComponents: [CreerVehiculeComponent]
 })
 export class AdminModule {}
