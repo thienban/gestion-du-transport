@@ -1,46 +1,45 @@
-<h4>{{ titre }}</h4>
+<h4>Réservations en cours</h4>
 <table class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th>Date/heure</th>
-      <th>Départ</th>
-      <th>Destination</th>
-      <th></th>
-    </tr>
-  </thead>
   <div [ngSwitch]="libelleListe">
-    <div *ngSwitchCase="covoitEnCours">
+    <div *ngSwitchCase="CovoitEnCours || CovoitHisto">
+      <thead>
+        <tr>
+          <th>Date/heure</th>
+          <th>Départ</th>
+          <th>Destination</th>
+          <th></th>
+        </tr>
+      </thead>
       <tbody *ngFor="let reservation of reservations">
-        <tr *ngIf="(reservation.dateDepart | date:'dd/MM/yyyy') >= (currentDate | date:'dd/MM/yyyy')">
+        <tr>
           <td>{{ reservation.dateDepart | date:'dd/MM/yyyy'}} {{ reservation.dateDepart | date:'HH:ss'}}</td>
-          <td>{{ reservation.adresseDepart.numero }} {{ reservation.adresseDepart.rue }} {{ reservation.adresseDepart.ville }}
-            {{ reservation.adresseDepart.codePostal }}
-          </td>
-          <td>{{ reservation.adresseArrive.numero }} {{ reservation.adresseArrive.rue }} {{ reservation.adresseArrive.ville }}
-            {{ reservation.adresseArrive.codePostal }}
-          </td>
+          <td>{{ reservation.adresseDepart }}</td>
+          <td>{{ reservation.adresseArrive}}</td>
           <td>
-            <button class="btn">Détails</button>
+            <button class="btn" (click)="detailAnnonce(reservation)">Détails</button>
           </td>
         </tr>
       </tbody>
     </div>
-    <div *ngSwitchCase="covoitHisto">
-      <tbody *ngFor="let reservation of reservations | slice:startLimit:maxSize">
-        <tr *ngIf="(reservation.dateDepart | date:'dd/MM/yyyy') < (currentDate | date:'dd/MM/yyyy')">
+    <div *ngSwitchCase="SocieteEnCours || SocieteHisto">
+      <thead>
+        <tr>
+          <th>Date/heure début</th>
+          <th>Date/heure fin</th>
+          <th>Immatriculation</th>
+          <th>Marque</th>
+          <th>Modèle</th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let reservation of reservations">
+        <tr>
           <td>{{ reservation.dateDepart | date:'dd/MM/yyyy'}} {{ reservation.dateDepart | date:'HH:ss'}}</td>
-          <td>{{ reservation.adresseDepart.numero }} {{ reservation.adresseDepart.rue }} {{ reservation.adresseDepart.ville }}
-            {{ reservation.adresseDepart.codePostal }}
-          </td>
-          <td>{{ reservation.adresseArrive.numero }} {{ reservation.adresseArrive.rue }} {{ reservation.adresseArrive.ville }}
-            {{ reservation.adresseArrive.codePostal }}
-          </td>
-          <td>
-            <button class="btn">Détails</button>
-          </td>
+          <td>{{ reservation.dateArrive | date:'dd/MM/yyyy'}} {{ reservation.dateArrive | date:'HH:ss'}}</td>
+          <td>{{ reservation.vehicule.immatriculaton }}</td>
+          <td>{{ reservation.vehicule.marque }}</td>
+          <td>{{ reservation.vehicule.modele }}</td>
         </tr>
       </tbody>
     </div>
   </div>
-  <ngb-pagination [collectionSize]="reservations.length" [(page)]="page" [maxSize]="5" (pageChange)="onChange()" class="float-right m-3"></ngb-pagination>
 </table>
