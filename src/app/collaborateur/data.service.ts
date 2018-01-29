@@ -13,6 +13,7 @@ export class DataService {
   private _myReservations = new BehaviorSubject<Annonce[]>([]);
   private _covoitsDisponibles = new BehaviorSubject<Annonce[]>([]);
   private _myReservationsSoc = new BehaviorSubject<Annonce[]>([]);
+  private _vehiculesDisponibles = new BehaviorSubject<Annonce[]>([]);
 
   get myAnnonces(): Observable<Annonce[]> {
     return this._myAnnonces.asObservable();
@@ -25,6 +26,9 @@ export class DataService {
   }
   get myReservationsSoc(): Observable<Annonce[]> {
     return this._myReservationsSoc.asObservable();
+  }
+  get vehiculesDisponibles(): Observable<Annonce[]> {
+    return this._vehiculesDisponibles.asObservable();
   }
 
   constructor(private http: HttpClient) {}
@@ -51,7 +55,7 @@ export class DataService {
   }
 
   fetchMyReservationsSoc(): Observable<Annonce[]> {
-    const url = `${environment.endpoint}/reservationsSoc/me`;
+    const url = `${environment.endpoint}/vehicules/me`;
     return this.http.get<Annonce[]>(url).do(reservations => {
       this._myReservationsSoc.next(reservations);
       console.log('MyReservationsSoc fetched');
@@ -67,9 +71,9 @@ export class DataService {
   }
 
   fetchAvailableReservSoc(): Observable<Annonce[]> {
-    const url = `${environment.endpoint}/reservationsSoc/available`;
+    const url = `${environment.endpoint}/vehicules/available`;
     return this.http.get<Annonce[]>(url).do(reservations => {
-      this._covoitsDisponibles.next(reservations);
+      this._vehiculesDisponibles.next(reservations);
       console.log('AvailableReservSoc fetched');
     });
   }
