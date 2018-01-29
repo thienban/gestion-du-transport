@@ -12,6 +12,8 @@ import { CreerVehiculeComponent } from './creer-vehicule/creer-vehicule.componen
 import { NgForm } from '@angular/forms/src/directives/ng_form';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap/modal/modal-ref';
+import { FilterByImmatPipe } from '../shared/pipe/filter-by-immat.pipe';
+import { FilterByMarquePipe } from '../shared/pipe/filter-by-marque.pipe';
 const adminRoutes: Routes = [
   {
     path: '',

@@ -13,6 +13,8 @@ import {
 import { FilterByAdresseDepPipe } from './pipe/filter-by-adresse-dep.pipe';
 import { FilterByAdresseArPipe } from './pipe/filter-by-adresse-ar.pipe';
 import { FilterByDateDepPipe } from './pipe/filter-by-date-dep.pipe';
+import { FilterByImmatPipe } from './pipe/filter-by-immat.pipe';
+import { FilterByMarquePipe } from './pipe/filter-by-marque.pipe';
 
 @NgModule({
   imports: [
@@ -26,13 +28,17 @@ import { FilterByDateDepPipe } from './pipe/filter-by-date-dep.pipe';
     NavbarComponent,
     FilterByAdresseDepPipe,
     FilterByAdresseArPipe,
-    FilterByDateDepPipe
+    FilterByDateDepPipe,
+    FilterByImmatPipe,
+    FilterByMarquePipe
   ],
   exports: [
     NavbarComponent,
     FilterByAdresseDepPipe,
     FilterByAdresseArPipe,
-    FilterByDateDepPipe
+    FilterByDateDepPipe,
+    FilterByImmatPipe,
+    FilterByMarquePipe
   ]
 })
 export class SharedModule {

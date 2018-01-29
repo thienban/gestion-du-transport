@@ -57,5 +57,6 @@ export class CreerVehiculeComponent implements OnInit {
         console.log('response to publish : ', veh);
       });
     });
+    this.activeModal.close();
   }
 }

@@ -13,8 +13,12 @@ export class DataService {
   private _vehiculesSociete = new BehaviorSubject<VehiculeSociete[]>([]);
   private _chauffeurs = new BehaviorSubject<Collaborateur[]>([]);
   private _categories = new BehaviorSubject<Categorie[]>([]);
+
   marque: { id: number; libelle: string };
   modele: { id: number; libelle: string };
+
+  filtreImmatSubject: BehaviorSubject<string> = new BehaviorSubject('');
+  filtreMarqueSubject: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(private http: HttpClient) {}
 
@@ -77,5 +81,21 @@ export class DataService {
       .do(veh => {
         this._vehiculesSociete.next(veh);
       });
+  }
+
+  getFiltreImmatObservable() {
+    return this.filtreImmatSubject.asObservable();
+  }
+
+  setFiltreImmat(value) {
+    return this.filtreImmatSubject.next(value);
+  }
+
+  getFiltreMarqueObservable() {
+    return this.filtreMarqueSubject.asObservable();
+  }
+
+  setFiltreMarque(value) {
+    return this.filtreMarqueSubject.next(value);
   }
 }

@@ -11,6 +11,8 @@ import { LoginService } from './shared/services/login.service';
 import { getToken } from './token-getter';
 import { ListeAnnoncesComponent } from './collaborateur/liste-annonces/liste-annonces.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FilterByImmatPipe } from './shared/pipe/filter-by-immat.pipe';
+import { FilterByMarquePipe } from './shared/pipe/filter-by-marque.pipe';
 
 @NgModule({
   declarations: [AppComponent],
