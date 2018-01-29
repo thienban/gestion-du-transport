@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReserVehiculeComponent implements OnInit {
   time = { hour: 7, minute: 12 };
+  model = { year: 2018, month: 1, day: 2 };
+
   constructor() {}
 
   ngOnInit() {}

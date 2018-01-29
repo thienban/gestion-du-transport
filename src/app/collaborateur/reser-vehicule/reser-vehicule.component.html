@@ -1,15 +1,26 @@
 <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-  <ngb-panel title="Véhicule">
+  <ngb-panel title="Véhicule de société">
     <ng-template ngbPanelContent>
       <!--hh-->
       <div class="card-body">
         <div class="row">
-          <label for="date" class="col-sm-2 col-form-label">Date Départ</label>
-          <div class="col-sm-4">
-            <input type="date" class="form-control">
+          <label for="date" class="col-xs-3 col-form-label">Date/heure de réservation *</label>
+          <div class="col-xs-4">
+            <!--<input type="date" class="form-control">-->
+            <form class="form-inline">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                      <img src="./assets/img/calendar-icon.png" style="width: 1.2rem; height: 1.2rem; cursor: pointer;" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
           </div>
-          <label for=" heure " class="col-sm-2 col-form-label ">Heure Départ</label>
-          <div class="col-sm-4 ">
+          <div class="col-xs-4 ">
             <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
           </div>
         </div>
