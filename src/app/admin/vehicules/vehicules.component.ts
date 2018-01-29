@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataService } from '../data.service';
 import { VehiculeSociete } from '../../domain/VehiculeSociete';
-import { Observable } from 'rxjs';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
+import { Observable } from 'rxjs/Observable';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CreerVehiculeComponent } from '../creer-vehicule/creer-vehicule.component';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 
 @Component({
   selector: 'app-vehicules',
