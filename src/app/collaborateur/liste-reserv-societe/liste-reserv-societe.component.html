@@ -1,0 +1,27 @@
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Date/heure début</th>
+      <th>Date/heure fin</th>
+      <th>Immatriculation</th>
+      <th>Marque</th>
+      <th>Modèle</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let reserv of reservations | slice:startLimit:endLimit">
+    <tr>
+      <td>{{ reserv.dateDepart | date:'dd/MM/yyyy HH:ss'}}
+      </td>
+      <td>{{ reserv.dateArrive | date:'dd/MM/yyyy HH:ss'}}
+      </td>
+      <td>{{ reserv.vehicule.immatriculation }}
+      </td>
+      <td>{{ reserv.vehicule.marque }}
+      </td>
+      <td>{{ reserv.vehicule.modele }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ngb-pagination *ngIf="reservations?reservations.length>5:false" [collectionSize]="reservations?reservations.length:0" [(page)]="page"
+  [pageSize]="5" [maxSize]="5" (pageChange)="onChange()" class="float-right m-3"></ngb-pagination>

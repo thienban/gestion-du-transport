@@ -15,6 +15,7 @@ import { ReservationsComponent } from './reservations/reservations.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { CreerReservationComponent } from './creer-reservation/creer-reservation.component';
 import { DataService } from './data.service';
+import { ListeReservSocieteComponent } from './liste-reserv-societe/liste-reserv-societe.component';
 
 const collabRoutes: Routes = [
   {
@@ -50,7 +51,8 @@ const collabRoutes: Routes = [
     CreerReservationComponent,
     CreerAnnonceComponent,
     ListeAnnoncesComponent,
-    DetailCovoiturageComponent
+    DetailCovoiturageComponent,
+    ListeReservSocieteComponent
   ],
   providers: [
     NgbAccordion,

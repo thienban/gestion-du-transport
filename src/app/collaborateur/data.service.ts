@@ -12,6 +12,7 @@ export class DataService {
   private _myAnnonces = new BehaviorSubject<Annonce[]>([]);
   private _myReservations = new BehaviorSubject<Annonce[]>([]);
   private _covoitsDisponibles = new BehaviorSubject<Annonce[]>([]);
+  private _myReservationsSoc = new BehaviorSubject<Annonce[]>([]);
 
   get myAnnonces(): Observable<Annonce[]> {
     return this._myAnnonces.asObservable();
@@ -21,6 +22,9 @@ export class DataService {
   }
   get covoitsDisponibles(): Observable<Annonce[]> {
     return this._covoitsDisponibles.asObservable();
+  }
+  get myReservationsSoc(): Observable<Annonce[]> {
+    return this._myReservationsSoc.asObservable();
   }
 
   constructor(private http: HttpClient) {}
@@ -46,11 +50,27 @@ export class DataService {
     });
   }
 
+  fetchMyReservationsSoc(): Observable<Annonce[]> {
+    const url = `${environment.endpoint}/reservationsSoc/me`;
+    return this.http.get<Annonce[]>(url).do(reservations => {
+      this._myReservationsSoc.next(reservations);
+      console.log('MyReservationsSoc fetched');
+    });
+  }
+
   fetchAvailableCovoits(): Observable<Annonce[]> {
     const url = `${environment.endpoint}/reservations/available`;
     return this.http.get<Annonce[]>(url).do(annonces => {
       this._covoitsDisponibles.next(annonces);
       console.log('AvailableCovoits fetched');
+    });
+  }
+
+  fetchAvailableReservSoc(): Observable<Annonce[]> {
+    const url = `${environment.endpoint}/reservationsSoc/available`;
+    return this.http.get<Annonce[]>(url).do(reservations => {
+      this._covoitsDisponibles.next(reservations);
+      console.log('AvailableReservSoc fetched');
     });
   }
 

@@ -30,17 +30,27 @@ import { Mode } from '../liste-annonces/Mode';
   styleUrls: ['./reservations.component.css']
 })
 export class ReservationsComponent implements OnInit {
-  reservationsEnCours: Observable<Annonce[]>;
-  reservationsHisto: Observable<Annonce[]>;
+  reservationsCovoitEnCours: Observable<Annonce[]>;
+  reservationsCovoitHisto: Observable<Annonce[]>;
+  reservationsSocEnCours: Observable<Annonce[]>;
+  reservationsSocHisto: Observable<Annonce[]>;
   modes = Mode;
   modalActionRef: TemplateRef<any>;
 
   constructor(private dataSvc: DataService, private modalService: NgbModal) {
-    this.reservationsEnCours = this.dataSvc.myReservations.map(annonces =>
+    this.reservationsCovoitEnCours = this.dataSvc.myReservations.map(annonces =>
       annonces.filter(a => new Date(a.dateDepart).getTime() >= Date.now())
     );
-    this.reservationsHisto = this.dataSvc.myReservations.map(annonces =>
+    this.reservationsCovoitHisto = this.dataSvc.myReservations.map(annonces =>
       annonces.filter(a => new Date(a.dateDepart).getTime() < Date.now())
+    );
+    this.reservationsSocEnCours = this.dataSvc.myReservationsSoc.map(
+      reservations =>
+        reservations.filter(r => new Date(r.dateDepart).getTime() >= Date.now())
+    );
+    this.reservationsSocHisto = this.dataSvc.myReservationsSoc.map(
+      reservations =>
+        reservations.filter(r => new Date(r.dateDepart).getTime() < Date.now())
     );
   }
 
