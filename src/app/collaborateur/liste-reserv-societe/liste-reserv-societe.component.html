@@ -6,22 +6,34 @@
       <th>Immatriculation</th>
       <th>Marque</th>
       <th>Modèle</th>
+      <th>Chauffeur</th>
     </tr>
   </thead>
   <tbody *ngFor="let reserv of reservations | slice:startLimit:endLimit">
     <tr>
-      <td>{{ reserv.dateDepart | date:'dd/MM/yyyy HH:ss'}}
+      <td>{{ reserv.dateReservation | date:'dd/MM/yyyy HH:ss'}}
       </td>
-      <td>{{ reserv.dateArrive | date:'dd/MM/yyyy HH:ss'}}
+      <td>{{ reserv.dateRetour | date:'dd/MM/yyyy HH:ss'}}
       </td>
       <td>{{ reserv.vehicule.immatriculation }}
       </td>
-      <td>{{ reserv.vehicule.marque }}
+      <td>{{ reserv.vehicule.marque.libelle }}
       </td>
-      <td>{{ reserv.vehicule.modele }}
+      <td>{{ reserv.vehicule.modele.libelle }}
       </td>
+      <div [ngSwitch]="reserv.optionChauffeur">
+        <td *ngSwitchCase="true">{{ reserv.chauffeur.nom }} {{ reserv.chauffeur.prenom }}
+        </td>
+        <td *ngSwitchCase="false">
+        </td>
+      </div>
     </tr>
   </tbody>
 </table>
-<ngb-pagination *ngIf="reservations?reservations.length>5:false" [collectionSize]="reservations?reservations.length:0" [(page)]="page"
-  [pageSize]="5" [maxSize]="5" (pageChange)="onChange()" class="float-right m-3"></ngb-pagination>
+<div class="row">
+  <div class="col-12">
+    <ngb-pagination *ngIf="reservations?reservations.length>5:false" [collectionSize]="reservations?reservations.length:0" [(page)]="page"
+      [pageSize]="5" [maxSize]="5" (pageChange)="onChange()" class="float-right m-3">
+    </ngb-pagination>
+  </div>
+</div>

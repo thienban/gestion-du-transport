@@ -31,5 +31,10 @@
     </tr>
   </tbody>
 </table>
-<ngb-pagination *ngIf="annonces?annonces.length>5:false" [collectionSize]="annonces?annonces.length:0" [(page)]="page" [pageSize]="5"
-  [maxSize]="5" (pageChange)="onChange()" class="float-right m-3"></ngb-pagination>
+<div class="row">
+  <div class="col-12">
+    <ngb-pagination *ngIf="annonces?annonces.length>5:false" [collectionSize]="annonces?annonces.length:0" [(page)]="page" [pageSize]="5"
+      [maxSize]="5" (pageChange)="onChange()" class="float-right m-3">
+    </ngb-pagination>
+  </div>
+</div>

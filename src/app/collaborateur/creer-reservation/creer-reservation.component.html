@@ -25,10 +25,24 @@
   <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
     <ngb-panel>
       <ng-template ngbPanelTitle>
-        <span>Covoiturages ({{(annonces|async).length}} disponibles) </span>
+        <div [ngSwitch]="(annonces|async) != null">
+          <span *ngSwitchCase="true">Covoiturages ({{(annonces|async).length}} disponibles) </span>
+          <span *ngSwitchCase="false">Covoiturages (0 disponibles) </span>
+        </div>
       </ng-template>
       <ng-template ngbPanelContent>
         <app-liste-annonces [actionTemplate]="actionTemplate" [mode]="modes.COVOITURAGE" [annonces]="annonces | async | filterByAdresseDep:filtreAdrDep | filterByAdresseAr:filtreAdrAr | filterByDateDep:filtreDateAr"></app-liste-annonces>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel>
+      <ng-template ngbPanelTitle>
+        <div [ngSwitch]="(reservations|async) != null">
+          <span *ngSwitchCase="true">Véhicule de societe ({{(reservations|async).length}} disponibles) </span>
+          <span *ngSwitchCase="false">Véhicule de societe (0 disponibles) </span>
+        </div>
+      </ng-template>
+      <ng-template ngbPanelContent>
+
       </ng-template>
     </ngb-panel>
   </ngb-accordion>

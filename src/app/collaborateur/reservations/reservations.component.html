@@ -29,9 +29,9 @@
       </ng-template>
       <ng-template ngbPanelContent>
         <h4>Réservations en cours</h4>
-        <app-liste-reserv-societe [reservations]="reservationsSocEnCours | async" [actionTemplate]=actionTemplate></app-liste-reserv-societe>
+        <app-liste-reserv-societe [reservations]="reservationsSocEnCours | async"></app-liste-reserv-societe>
         <h4>Historique</h4>
-        <app-liste-reserv-societe [reservations]="reservationsSocHisto | async" [actionTemplate]=actionTemplate></app-liste-reserv-societe>
+        <app-liste-reserv-societe [reservations]="reservationsSocHisto | async"></app-liste-reserv-societe>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>

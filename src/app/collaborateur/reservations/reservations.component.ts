@@ -46,11 +46,15 @@ export class ReservationsComponent implements OnInit {
     );
     this.reservationsSocEnCours = this.dataSvc.myReservationsSoc.map(
       reservations =>
-        reservations.filter(r => new Date(r.dateDepart).getTime() >= Date.now())
+        reservations.filter(
+          r => new Date(r.dateReservation).getTime() >= Date.now()
+        )
     );
     this.reservationsSocHisto = this.dataSvc.myReservationsSoc.map(
       reservations =>
-        reservations.filter(r => new Date(r.dateDepart).getTime() < Date.now())
+        reservations.filter(
+          r => new Date(r.dateReservation).getTime() < Date.now()
+        )
     );
   }
 
