@@ -10,8 +10,6 @@ import {
   ModalDismissReasons
 } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from './services/login.service';
-import { ReservationsService } from './services/reservations.service';
-import { AnnonceService } from './services/annonce.service';
 import { ChauffeurService } from './services/chauffeur.service';
 import { CollaborateurService } from './services/collaborateur.service';
 
@@ -53,13 +51,7 @@ export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [
-        LoginService,
-        ReservationsService,
-        AnnonceService,
-        ChauffeurService,
-        CollaborateurService
-      ]
+      providers: [LoginService, ChauffeurService, CollaborateurService]
     };
   }
 }
