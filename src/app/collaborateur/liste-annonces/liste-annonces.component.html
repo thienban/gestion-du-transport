@@ -1,7 +1,7 @@
-<h4>Réservations en cours</h4>
+<h4>{{ titre }}</h4>
 <table class="table table-striped table-bordered">
   <div [ngSwitch]="libelleListe">
-    <div *ngSwitchCase="CovoitEnCours || CovoitHisto">
+    <div *ngSwitchCase="CovoitEnCours">
       <thead>
         <tr>
           <th>Date/heure</th>
@@ -21,7 +21,7 @@
         </tr>
       </tbody>
     </div>
-    <div *ngSwitchCase="SocieteEnCours || SocieteHisto">
+    <div *ngSwitchCase="SocieteEnCours">
       <thead>
         <tr>
           <th>Date/heure début</th>

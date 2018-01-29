@@ -9,7 +9,7 @@
     <ngb-panel title="Covoiturage">
       <ng-template ngbPanelContent>
 
-        <h4>Réservations en cours</h4>
+        <!--<h4>Réservations en cours</h4>
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
@@ -57,16 +57,19 @@
               </td>
             </tr>
           </tbody>
-        </table>
-        <!--<app-liste-annonces [libelleListe]="CovoitEnCours" [titre]="'Réservations en cours'" [reservations]="reservations"></app-liste-annonces>
-            <app-liste-annonces [libelleListe]="CovoitHisto" [titre]="Historique" [reservations]="reservations"></app-liste-annonces>-->
+        </table>-->
+        <app-liste-annonces [libelleListe]="CovoitEnCours" [titre]="'Réservations en cours'" [reservations]="reservations"></app-liste-annonces>
+        <app-liste-annonces [libelleListe]="CovoitHisto" [titre]="Historique" [reservations]="reservationsHisto"></app-liste-annonces>
         <ngb-pagination [collectionSize]="reservationsHisto.length" [(page)]="page" [pageSize]="5" [maxSize]="5" (pageChange)="onChange()"
           class="float-right m-3"></ngb-pagination>
       </ng-template>
     </ngb-panel>
     <ngb-panel title="Véhicule de société">
       <ng-template ngbPanelContent>
-
+        <app-liste-annonces [libelleListe]="SocieteEnCours" [titre]="'Réservations en cours'" [reservations]="reservations"></app-liste-annonces>
+        <app-liste-annonces [libelleListe]="SocieteHisto" [titre]="Historique" [reservations]="reservationsHisto"></app-liste-annonces>
+        <ngb-pagination [collectionSize]="reservationsHisto.length" [(page)]="page" [pageSize]="5" [maxSize]="5" (pageChange)="onChange()"
+          class="float-right m-3"></ngb-pagination>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>

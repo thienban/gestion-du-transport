@@ -14,7 +14,11 @@ export class ListeAnnoncesComponent implements OnInit {
 
   constructor(private modalService: NgbModal) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.libelleListe);
+    console.log(this.titre);
+    console.log(this.reservations);
+  }
 
   detailAnnonce(reservation) {
     const modalRef = this.modalService.open(DetailCovoiturageComponent);
