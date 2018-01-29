@@ -1,0 +1,29 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+  <ngb-panel title="Véhicule">
+    <ng-template ngbPanelContent>
+      <!--hh-->
+      <div class="card-body">
+        <div class="row">
+          <label for="date" class="col-sm-2 col-form-label">Date Départ</label>
+          <div class="col-sm-4">
+            <input type="date" class="form-control">
+          </div>
+          <label for=" heure " class="col-sm-2 col-form-label ">Heure Départ</label>
+          <div class="col-sm-4 ">
+            <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+          </div>
+        </div>
+        <div class="row">
+          <label for="date" class="col-sm-2 col-form-label">Date Arrivée</label>
+          <div class="col-sm-4">
+            <input type="date" class="form-control">
+          </div>
+          <label for=" heure " class="col-sm-2 col-form-label ">Heure Arrivée</label>
+          <div class="col-sm-4 ">
+            <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>
