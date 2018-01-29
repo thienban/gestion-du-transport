@@ -1,3 +1,58 @@
-<p>
-  chauffeurs works!
-</p>
+<div class="container-fluid p-5">
+  <h1 class="mb-5">Gérer les chauffeurs</h1>
+  <h3>Filtre</h3>
+  <div class="input-group">
+    <span class="input-group-addon">Matricule</span>
+    <input id="filtreMatricule" type="text" class="form-control" name="filtreMatricule" [(ngModel)]="filtreMatricule">
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon">Nom</span>
+    <input id="filtreNom" type="text" class="form-control" name="filtreNom" [(ngModel)]="filtreNom">
+  </div>
+  <div class="input-group">
+    <span class="input-group-addon">Prénom</span>
+    <input id="filtrePrenom" type="text" class="form-control" name="filtrePrenom" [(ngModel)]="filtrePrenom">
+  </div>
+  <div class="row">
+    <div class="col-12 mt-5 mb-3">
+      <button class="btn float-right" (click)="ajout()">Ajouter un chauffeur</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6" *ngFor="let chauffeur of chauffeurs | filterByMatricule:filtreMatricule | filterByNom:filtreNom | filterByPrenom:filtrePrenom">
+      <div class="card mb-3">
+        <div class="card-header">
+          <h4 class="card-title">{{ chauffeur.nom | uppercase }} {{ chauffeur.prenom }}</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-4 col-xl-3">
+              <img src="{{chauffeur.photo}}" alt="photo véhicule" />
+            </div>
+            <div class="col-lg-8 col-xl-9">
+              <div class="row">
+                <div class="col-4">Nom</div>
+                <div class="col-8">{{ chauffeur.nom }}</div>
+              </div>
+              <div class="row">
+                <div class="col-4">Prénom</div>
+                <div class="col-8">{{ chauffeur.prenom }}</div>
+              </div>
+              <div class="row">
+                <div class="col-4">Permis</div>
+                <div class="col-8">{{ chauffeur.permis }}</div>
+              </div>
+              <div class="row">
+                <div class="col-4">Email</div>
+                <div class="col-8 pr-3">{{ chauffeur.email }}</div>
+              </div>
+              <div class="row">
+                <div class="col-4">Téléphone</div>
+                <div class="col-8">{{ chauffeur.telephone }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
