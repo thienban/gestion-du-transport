@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h4 class="modal-title">Détails du covoiturage</h4>
+  <h4 class="modal-title">{{title}}</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -21,11 +21,17 @@
     <div class="col-6">Véhicule</div>
     <div class="col-6">{{ reservation.vehicule.immatriculation }}</div>
   </div>
-  <div class="row m-3">
+  <div class="row m-3" *ngIf="reservation.auteur">
     <div class="col-6">Chauffeur</div>
     <div class="col-6">{{ reservation.auteur.nom }} {{ reservation.auteur.prenom }}</div>
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+  <ng-container *ngIf="actionTemplate else defaultAction">
+    <ng-container *ngTemplateOutlet="actionTemplate;context:{annonce:reservation}">
+    </ng-container>
+  </ng-container>
 </div>
+<ng-template #defaultAction>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Fermer</button>
+</ng-template>

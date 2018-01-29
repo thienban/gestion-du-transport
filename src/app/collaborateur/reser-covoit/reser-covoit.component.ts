@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Annonce } from '../../domain/Annonce';
-import { AnnonceService } from '../../shared/services/annonce.service';
+import { DataService } from '../data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from '../../shared/services/login.service';
 import { FormControl } from '@angular/forms';
@@ -22,14 +22,14 @@ export class ReserCovoitComponent implements OnInit {
   filtreDateAr: Date;
 
   constructor(
-    private annonceService: AnnonceService,
+    private dataService: DataService,
     private loginSvc: LoginService,
     private modalService: NgbModal
   ) {}
 
   ngOnInit() {
     console.log(this.loginSvc.user.matricule);
-    this.annonceService.listerAnnonces().subscribe(
+    this.dataService.covoitsDisponibles.subscribe(
       annonces =>
         (this.annonces = annonces.filter(a => {
           return (
@@ -56,6 +56,6 @@ export class ReserCovoitComponent implements OnInit {
     this.modalService.open(content);
   }
   saveBooking(annonce: Annonce) {
-    this.annonceService.bookAnnonce(annonce).subscribe();
+    this.dataService.bookAnnonce(annonce).subscribe();
   }
 }

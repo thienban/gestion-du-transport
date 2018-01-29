@@ -1,19 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Annonce } from '../../domain/Annonce';
-import { Mode } from './Mode';
 import { TemplateRef } from '@angular/core';
 
 @Component({
-  selector: 'app-liste-annonces',
-  templateUrl: './liste-annonces.component.html',
-  styleUrls: ['./liste-annonces.component.css']
+  selector: 'app-liste-reserv-societe',
+  templateUrl: './liste-reserv-societe.component.html',
+  styleUrls: ['./liste-reserv-societe.component.css']
 })
-export class ListeAnnoncesComponent implements OnInit {
-  @Input() mode: Mode;
-  @Input() annonces: Annonce[];
+export class ListeReservSocieteComponent implements OnInit {
+  @Input() reservations: Annonce[];
   @Input() maxSize;
   @Input() actionTemplate: TemplateRef<any>;
-  modes = Mode;
   startLimit: number;
   endLimit: number;
   page: number;

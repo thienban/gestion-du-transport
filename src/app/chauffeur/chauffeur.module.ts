@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { PlanningComponent } from './planning/planning.component';
 import { OccupationComponent } from './occupation/occupation.component';
+
 const chauffeurRoutes: Routes = [
   {
     path: '',

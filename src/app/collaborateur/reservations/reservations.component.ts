@@ -1,4 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {
   NgbModule,
   NgbAccordion,
@@ -7,7 +13,6 @@ import {
   NgbModal
 } from '@ng-bootstrap/ng-bootstrap';
 import { Annonce } from '../../domain/Annonce';
-import { ReservationsService } from '../../shared/services/reservations.service';
 import { DetailCovoiturageComponent } from '../detail-covoiturage/detail-covoiturage.component';
 import {
   getLocaleDateTimeFormat,
@@ -15,6 +20,9 @@ import {
   FormatWidth
 } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { DataService } from '../data.service';
+import { Observable } from 'rxjs/Observable';
+import { Mode } from '../liste-annonces/Mode';
 
 @Component({
   selector: 'app-reservations',
@@ -22,45 +30,39 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./reservations.component.css']
 })
 export class ReservationsComponent implements OnInit {
-  reservations: Annonce[];
-  reservationsHisto: Annonce[];
-  page;
-  startLimit;
-  endLimit;
-  pageSize;
-  maxSize;
-  currentDate = new Date();
+  reservationsCovoitEnCours: Observable<Annonce[]>;
+  reservationsCovoitHisto: Observable<Annonce[]>;
+  reservationsSocEnCours: Observable<Annonce[]>;
+  reservationsSocHisto: Observable<Annonce[]>;
+  modes = Mode;
+  modalActionRef: TemplateRef<any>;
 
-  constructor(
-    private rService: ReservationsService,
-    private modalService: NgbModal
-  ) {
-    console.log(this.currentDate.getFullYear());
-    this.rService.refreshData();
-    this.rService.ListerReservationsCollab().subscribe(r => {
-      this.reservations = r.filter(re => {
-        return new Date(re.dateDepart).getTime() >= Date.now();
-      });
-      this.reservationsHisto = r.filter(re => {
-        return new Date(re.dateDepart).getTime() < Date.now();
-      });
-    });
+  constructor(private dataSvc: DataService, private modalService: NgbModal) {
+    this.reservationsCovoitEnCours = this.dataSvc.myReservations.map(annonces =>
+      annonces.filter(a => new Date(a.dateDepart).getTime() >= Date.now())
+    );
+    this.reservationsCovoitHisto = this.dataSvc.myReservations.map(annonces =>
+      annonces.filter(a => new Date(a.dateDepart).getTime() < Date.now())
+    );
+    this.reservationsSocEnCours = this.dataSvc.myReservationsSoc.map(
+      reservations =>
+        reservations.filter(
+          r => new Date(r.dateReservation).getTime() >= Date.now()
+        )
+    );
+    this.reservationsSocHisto = this.dataSvc.myReservationsSoc.map(
+      reservations =>
+        reservations.filter(
+          r => new Date(r.dateReservation).getTime() < Date.now()
+        )
+    );
   }
 
-  ngOnInit() {
-    this.page = 1;
-    this.pageSize = 5;
-    this.startLimit = 0;
-    this.endLimit = this.pageSize;
-  }
-
-  onChange() {
-    this.startLimit = this.page * this.pageSize - this.pageSize;
-    this.endLimit = this.startLimit + this.pageSize;
-  }
+  ngOnInit() {}
 
   detailAnnonce(reservation) {
     const modalRef = this.modalService.open(DetailCovoiturageComponent);
     modalRef.componentInstance.reservation = reservation;
+    modalRef.componentInstance.title = 'Détails du covoiturage';
   }
 }

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, NgModel } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { environment } from '../environments/environment';
@@ -24,11 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,
-        whitelistedDomains: [
-          environment.endpoint,
-          'localhost:8080',
-          'gestion-transport-backend.herokuapp.com'
-        ],
+        whitelistedDomains: environment.domains,
         throwNoTokenError: false
       }
     })
