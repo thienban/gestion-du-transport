@@ -23,14 +23,7 @@ export class DataService {
     return this._covoitsDisponibles.asObservable();
   }
 
-  constructor(private http: HttpClient) {
-    this.myAnnonces
-      .merge(this.myReservations)
-      .merge(this.covoitsDisponibles)
-      .subscribe(next => {
-        //console.log('annonces, reservations, or covoits have been changed');
-      });
-  }
+  constructor(private http: HttpClient) {}
 
   fetchAllData() {
     return this.fetchAvailableCovoits()
@@ -93,7 +86,7 @@ export class DataService {
       })
       .do(ann => {
         this._myReservations.next(ann);
-        this.fetchMyReservations().subscribe();
+        this.fetchAvailableCovoits().subscribe();
       });
   }
 }

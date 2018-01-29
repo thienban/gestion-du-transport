@@ -37,9 +37,7 @@ export class CreerReservationComponent implements OnInit {
   ) {}
   modalRef: NgbModalRef;
   ngOnInit() {
-    console.log(this.loginSvc.user.matricule);
     this.annonces = this.dataSvc.covoitsDisponibles;
-
     this.filterField1.valueChanges.subscribe(val => {
       this.filtreAdrDep = val;
     });
@@ -60,7 +58,6 @@ export class CreerReservationComponent implements OnInit {
 
   saveBooking(annonce: Annonce) {
     this.dataSvc.bookAnnonce(annonce).subscribe(ann => {
-      console.log('reservation ok', ann);
       this.modalRef.close();
     });
   }
