@@ -5,6 +5,8 @@ export class Collaborateur {
     public prenom?: string,
     public email?: string,
     public role?: string,
-    public photo?: string
+    public photo?: string,
+    public permis?: string,
+    public telephone?: number
   ) {}
 }

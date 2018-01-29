@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 import { Annonce } from '../../domain/Annonce';
-import { AnnonceService } from '../../shared/services/annonce.service';
 import { environment } from '../../../environments/environment';
 import { LoginService } from '../../shared/services/login.service';
 import { FormControl } from '@angular/forms';
+import { DataService } from '../data.service';
+import { Mode } from '../liste-annonces/Mode';
+import { DetailCovoiturageComponent } from '../detail-covoiturage/detail-covoiturage.component';
 
 @Component({
   selector: 'app-creer-reservation',
@@ -15,8 +17,10 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./creer-reservation.component.css']
 })
 export class CreerReservationComponent implements OnInit {
-  annonces: Annonce[];
-  annonce: Annonce = null;
+  @ViewChild('actionTemplateForModal') actionTemplateForModal: ElementRef;
+
+  annonces: Observable<Annonce[]>;
+  modes = Mode;
 
   filterField1: FormControl = new FormControl();
   filterField2: FormControl = new FormControl();
@@ -24,30 +28,16 @@ export class CreerReservationComponent implements OnInit {
   filtreAdrDep: string;
   filtreAdrAr: string;
   filtreDateAr: Date;
-
   closeResult: string;
 
   constructor(
-    private annonceService: AnnonceService,
+    private dataSvc: DataService,
     private loginSvc: LoginService,
     private modalService: NgbModal
   ) {}
-
+  modalRef: NgbModalRef;
   ngOnInit() {
-    console.log(this.loginSvc.user.matricule);
-    this.annonceService.listerAnnonces().subscribe(
-      annonces =>
-        (this.annonces = annonces.filter(a => {
-          return (
-            new Date(a.dateDepart).getTime() >= Date.now() &&
-            a.nbPlacesRestantes > 0 &&
-            !a.passagers.some(
-              p => p.matricule === this.loginSvc.user.matricule
-            ) &&
-            a.auteur.matricule !== this.loginSvc.user.matricule
-          );
-        }))
-    );
+    this.annonces = this.dataSvc.covoitsDisponibles;
     this.filterField1.valueChanges.subscribe(val => {
       this.filtreAdrDep = val;
     });
@@ -59,15 +49,19 @@ export class CreerReservationComponent implements OnInit {
     });
   }
 
-  setAdrDep(valeurAdresseDep) {
-    console.log(valeurAdresseDep);
-    this.annonceService.setFiltre(valeurAdresseDep);
+  open(reservation) {
+    this.modalRef = this.modalService.open(DetailCovoiturageComponent);
+    this.modalRef.componentInstance.reservation = reservation;
+    this.modalRef.componentInstance.title = "Réservation d'un covoiturage";
+    this.modalRef.componentInstance.actionTemplate = this.actionTemplateForModal;
   }
 
-  open(content) {
-    this.modalService.open(content);
-  }
   saveBooking(annonce: Annonce) {
-    this.annonceService.bookAnnonce(annonce).subscribe();
+    this.dataSvc.bookAnnonce(annonce).subscribe(ann => {
+      this.modalRef.close();
+    });
+  }
+  fermer() {
+    this.modalRef.close();
   }
 }

@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { PlanningComponent } from './planning/planning.component';
 import { OccupationComponent } from './occupation/occupation.component';
+<<<<<<< HEAD
 //calendar
 import localeFr from '@angular/common/locales/fr';
 import { CalendarModule } from 'angular-calendar';
@@ -13,6 +14,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '@auth0/angular-jwt';
 
 registerLocaleData(localeFr);
+=======
+>>>>>>> master
 
 const chauffeurRoutes: Routes = [
   {
