@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DetailCovoiturageComponent } from '../detail-covoiturage/detail-covoiturage.component';
+import { Annonce } from '../../domain/Annonce';
+import { Mode } from './Mode';
+import { TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'app-liste-annonces',
@@ -8,20 +9,26 @@ import { DetailCovoiturageComponent } from '../detail-covoiturage/detail-covoitu
   styleUrls: ['./liste-annonces.component.css']
 })
 export class ListeAnnoncesComponent implements OnInit {
-  @Input() libelleListe;
-  @Input() titre;
-  @Input() reservations;
-
-  constructor(private modalService: NgbModal) {}
+  @Input() mode: Mode;
+  @Input() annonces: Annonce[];
+  @Input() maxSize;
+  @Input() actionTemplate: TemplateRef<any>;
+  modes = Mode;
+  startLimit: number;
+  endLimit: number;
+  page: number;
+  pageSize: number;
+  constructor() {}
 
   ngOnInit() {
-    console.log(this.libelleListe);
-    console.log(this.titre);
-    console.log(this.reservations);
+    this.page = 1;
+    this.pageSize = this.maxSize ? this.maxSize : 5;
+    this.startLimit = 0;
+    this.endLimit = this.pageSize;
   }
 
-  detailAnnonce(reservation) {
-    const modalRef = this.modalService.open(DetailCovoiturageComponent);
-    modalRef.componentInstance.reservation = reservation;
+  onChange() {
+    this.startLimit = this.page * this.pageSize - this.pageSize;
+    this.endLimit = this.startLimit + this.pageSize;
   }
 }

@@ -24,11 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken,
-        whitelistedDomains: [
-          environment.endpoint,
-          'localhost:8080',
-          'gestion-transport-backend.herokuapp.com'
-        ],
+        whitelistedDomains: environment.domains,
         throwNoTokenError: false
       }
     })

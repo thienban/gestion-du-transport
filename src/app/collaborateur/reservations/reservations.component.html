@@ -6,62 +6,15 @@
     </div>
   </div>
   <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-    <ngb-panel title="Covoiturage">
+    <ngb-panel>
+      <ng-template ngbPanelTitle>
+        <span>Covoiturages ({{(reservationsEnCours|async).length}} en cours) </span>
+      </ng-template>
       <ng-template ngbPanelContent>
-
-        <!--<h4>Réservations en cours</h4>
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>Date/heure</th>
-              <th>Départ</th>
-              <th>Destination</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let reservationEnCours of reservations">
-            <tr>
-              <td>{{ reservationEnCours.dateDepart | date:'dd/MM/yyyy'}} {{ reservationEnCours.dateDepart | date:'HH:ss'}}
-              </td>
-              <td>{{ reservationEnCours.adresseDepart }}
-              </td>
-              <td>{{ reservationEnCours.adresseArrive}}
-              </td>
-              <td>
-                <button class="btn" (click)="detailAnnonce(reservationEnCours)">Détails</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
+        <h4>Réservations en cours</h4>
+        <app-liste-annonces [mode]="modes.RESERVATION" [annonces]="reservationsEnCours | async" [actionTemplate]=actionTemplate></app-liste-annonces>
         <h4>Historique</h4>
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th>Date/heure</th>
-              <th>Départ</th>
-              <th>Destination</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody *ngFor="let reservation of reservationsHisto | slice:startLimit:endLimit">
-            <tr>
-              <td>{{ reservation.dateDepart | date:'dd/MM/yyyy'}} {{ reservation.dateDepart | date:'HH:ss'}}
-              </td>
-              <td>{{ reservation.adresseDepart }}
-              </td>
-              <td>{{ reservation.adresseArrive }}
-              </td>
-              <td>
-                <button class="btn" (click)="detailAnnonce(reservation)">Détails</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>-->
-        <app-liste-annonces [libelleListe]="CovoitEnCours" [titre]="'Réservations en cours'" [reservations]="reservations"></app-liste-annonces>
-        <app-liste-annonces [libelleListe]="CovoitHisto" [titre]="Historique" [reservations]="reservationsHisto"></app-liste-annonces>
-        <ngb-pagination [collectionSize]="reservationsHisto.length" [(page)]="page" [pageSize]="5" [maxSize]="5" (pageChange)="onChange()"
-          class="float-right m-3"></ngb-pagination>
+        <app-liste-annonces [mode]="modes.RESERVATION" [annonces]="reservationsHisto | async" [actionTemplate]=actionTemplate></app-liste-annonces>
       </ng-template>
     </ngb-panel>
     <ngb-panel title="Véhicule de société">
@@ -74,3 +27,8 @@
     </ngb-panel>
   </ngb-accordion>
 </div>
+
+
+<ng-template #actionTemplate let-annonce="annonce">
+  <button class="btn btn-success" (click)="detailAnnonce(annonce)">Détail</button>
+</ng-template>
