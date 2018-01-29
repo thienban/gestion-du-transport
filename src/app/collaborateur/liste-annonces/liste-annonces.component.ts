@@ -35,7 +35,7 @@ export class ListeAnnoncesComponent implements OnInit {
 
   getAnnonceStatus(annonce: Annonce): string {
     if (annonce.statusCovoit) {
-      return annonce.statusCovoit;
+      return annonce.statusCovoit.toLowerCase();
     }
     return new Date(annonce.dateDepart).getTime() <= Date.now()
       ? 'Terminé'
