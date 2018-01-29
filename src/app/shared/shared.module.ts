@@ -19,6 +19,8 @@ import { FilterByDateDepPipe } from './pipe/filter-by-date-dep.pipe';
 import { FilterByMatriculePipe } from './pipe/filter-by-matricule.pipe';
 import { FilterByNomPipe } from './pipe/filter-by-nom.pipe';
 import { FilterByPrenomPipe } from './pipe/filter-by-prenom.pipe';
+import { FilterByImmatPipe } from './pipe/filter-by-immat.pipe';
+import { FilterByMarquePipe } from './pipe/filter-by-marque.pipe';
 
 @NgModule({
   imports: [
@@ -35,7 +37,9 @@ import { FilterByPrenomPipe } from './pipe/filter-by-prenom.pipe';
     FilterByDateDepPipe,
     FilterByMatriculePipe,
     FilterByNomPipe,
-    FilterByPrenomPipe
+    FilterByPrenomPipe,
+    FilterByImmatPipe,
+    FilterByMarquePipe
   ],
   exports: [
     NavbarComponent,
@@ -44,7 +48,9 @@ import { FilterByPrenomPipe } from './pipe/filter-by-prenom.pipe';
     FilterByDateDepPipe,
     FilterByMatriculePipe,
     FilterByNomPipe,
-    FilterByPrenomPipe
+    FilterByPrenomPipe,
+    FilterByImmatPipe,
+    FilterByMarquePipe
   ]
 })
 export class SharedModule {

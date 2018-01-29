@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/merge';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { VehiculeSociete } from '../domain/VehiculeSociete';
+import { Collaborateur } from '../domain/Collaborateur';
 
 @Injectable()
 export class DataService {
@@ -30,6 +32,7 @@ export class DataService {
       .merge(this.fetchMyAnnonces())
       .merge(this.fetchMyReservations());
   }
+
   fetchMyAnnonces(): Observable<Annonce[]> {
     const url = `${environment.endpoint}/annonces/me`;
     return this.http.get<Annonce[]>(url).do(annonces => {
