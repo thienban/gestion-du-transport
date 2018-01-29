@@ -15,7 +15,7 @@ export class VehiculesComponent implements OnInit {
   filtreMarque: string = '';
   @Output() change: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private dataSvc: DataService, private modalSvc: NgbModal) {}
+  constructor(public dataSvc: DataService, private modalSvc: NgbModal) {}
   vehicules: Observable<VehiculeSociete[]>;
 
   ngOnInit() {
