@@ -1,0 +1,10 @@
+.invalid-tooltip {
+  display: unset;
+  top: 1.5px;
+  right: 18px;
+  width: 40%;
+}
+
+input.ng-invalid.ng-touched {
+  border-color: red;
+}

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { Collaborateur } from '../../domain/Collaborateur';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-console.log(environment);
+
 @Injectable()
 export class LoginService {
   constructor(
@@ -30,7 +30,7 @@ export class LoginService {
   }
 
   get userRole(): string {
-    return this.user.role;
+    return this.user ? this.user.role : null;
   }
   get isLoggedIn(): boolean {
     return this.user !== null && this.user !== undefined;

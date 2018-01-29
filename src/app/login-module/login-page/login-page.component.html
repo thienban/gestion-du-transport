@@ -7,7 +7,7 @@
     <h1>GDT</h1>
     <h3>Gestion Du Transport</h3>
 
-    <form #loginform="ngForm">
+    <form #loginform="ngForm" novalidate>
       <div class="form-group">
         <label for="email">E-mail</label>
         <input type="text" class="form-control" id="email" required [(ngModel)]="credentials.email" #email="ngModel" name="email"

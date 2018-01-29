@@ -5,6 +5,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { VehiculesComponent } from './vehicules/vehicules.component';
 import { ChauffeursComponent } from './chauffeurs/chauffeurs.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CreerChauffeurComponent } from './creer-chauffeur/creer-chauffeur.component';
+
 const adminRoutes: Routes = [
   {
     path: '',
@@ -17,7 +20,19 @@ const adminRoutes: Routes = [
   }
 ];
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(adminRoutes), SharedModule],
-  declarations: [WrapperAdminComponent, VehiculesComponent, ChauffeursComponent]
+  imports: [
+    CommonModule,
+    RouterModule.forChild(adminRoutes),
+    SharedModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  declarations: [
+    WrapperAdminComponent,
+    VehiculesComponent,
+    ChauffeursComponent,
+    CreerChauffeurComponent
+  ],
+  entryComponents: [CreerChauffeurComponent]
 })
 export class AdminModule {}
