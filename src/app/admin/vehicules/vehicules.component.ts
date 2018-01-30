@@ -11,8 +11,8 @@ import { CreerVehiculeComponent } from '../creer-vehicule/creer-vehicule.compone
   styleUrls: ['./vehicules.component.css']
 })
 export class VehiculesComponent implements OnInit {
-  filtreImmat: string = '';
-  filtreMarque: string = '';
+  filtreImmat = '';
+  filtreMarque = '';
   @Output() change: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(public dataSvc: DataService, private modalSvc: NgbModal) {}
