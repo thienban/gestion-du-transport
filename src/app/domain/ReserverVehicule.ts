@@ -8,7 +8,6 @@ export class ReserverVehicule {
     public passager?: Collaborateur,
     public chauffeur?: Collaborateur,
     public vehicule?: VehiculeSociete,
-    public optionChauffeur?: boolean,
-    public disponible?: boolean
+    public optionChauffeur?: boolean
   ) {}
 }
