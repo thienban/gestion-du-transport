@@ -34,7 +34,7 @@ export class DataService {
   }
 
   fetchMyRaces(): Observable<ReservationVehicule[]> {
-    const url = `${environment.endpoint}/chauffeur/me`;
+    const url = `${environment.endpoint}/chauffeurs/me`;
     return this.http.get<ReservationVehicule[]>(url).do(races => {
       races.map(resa => {
         resa.toConfirm = false;
