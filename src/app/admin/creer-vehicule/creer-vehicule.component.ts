@@ -9,7 +9,7 @@ import {
 import { DataService } from '../data.service';
 import { Categorie } from '../../domain/categorie';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/observable';
 import { VehiculeSociete } from '../../domain/VehiculeSociete';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
@@ -19,14 +19,12 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
   styleUrls: ['./creer-vehicule.component.css']
 })
 export class CreerVehiculeComponent implements OnInit {
-  //categorie: { id: number; libelle: string };
-
   categoriesObs: Observable<Categorie[]>;
 
   constructor(
     private fb: FormBuilder,
     private modal: NgbModal,
-    private activeModal: NgbActiveModal,
+    public activeModal: NgbActiveModal,
     private ds: DataService
   ) {}
 

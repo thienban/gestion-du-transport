@@ -1,3 +1,28 @@
-<p>
-  planning works!
-</p>
+<!-- 
+<h3>{{ viewDate | calendarDate:('day' + 'ViewTitle'):locale }}</h3>
+
+<mwl-calendar-day-view [viewDate]="viewDate" [locale]="locale" [events]="events" [eventTemplate]="myCustomEventTemplate"
+  [hourSegmentTemplate]="customHourSegmentTemplate">
+</mwl-calendar-day-view>
+
+<ng-template #myCustomEventTemplate let-dayEvent="dayEvent">
+  <div class="alert alert-primary" [style.background-color]="dayEvent.event.color.primary">
+    {{dayEvent.event.title}} {{locale}}
+    <button class="btn btn-primary" (click)="accept(dayEvent.event.meta.annonce)">Accepter la demande</button>
+  </div>
+</ng-template>
+
+<ng-template #customHourSegmentTemplate let-segment="segment">
+  <ng-container *ngIf="segment.isStart">
+    {{segment.date|date:'HH'}} h
+  </ng-container>
+</ng-template>
+-->
+<!--Test RaceToConfirm-->
+<div *ngFor="let race of races | async">
+  <p>{{race.dateReservation}} </p>
+  <p>{{race.dateRetour}}</p>
+  <p>{{race.passager | json}}</p>
+  <p>{{race.vehicule | json}}</p>
+
+</div>

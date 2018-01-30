@@ -13,7 +13,7 @@
                   <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-                      <img src="./assets/img/calendar-icon.png" style="width: 1.2rem; height: 1.2rem; cursor: pointer;" />
+                      <img src="assets/img/calendar-icon.png" style="width: 1.2rem; height: 1.2rem; cursor: pointer;" />
                     </button>
                   </div>
                 </div>
@@ -27,7 +27,7 @@
                   <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
-                      <img src="./assets/img/calendar-icon.png" style="width: 1.2rem; height: 1.2rem; cursor: pointer;" />
+                      <img src="assets/img/calendar-icon.png" style="width: 1.2rem; height: 1.2rem; cursor: pointer;" />
                     </button>
                   </div>
                 </div>
@@ -41,23 +41,25 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <ngb-carousel *ngFor="let vehicule of vehicules">
-          <ng-template ngbSlide>
-            <img src="{{vehicule.photo}}" alt="Random first slide">
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="row">{{ vehicule.immatriculation }}</div>
-                <div class="row">{{ vehicule.marque.libelle }} - {{ vehicule.modele.libelle }}</div>
-                <div class="row">{{ vehicule.categorie.libelle }}</div>
+        <div class="row">
+          <ngb-carousel *ngIf="vehiculesDispos != null ">
+            <ng-template ngbSlide *ngFor="let vehicule of vehiculesDispos">
+              <img src="{{vehicule.photo}}" alt="photo véhicule">
+              <div class="carousel-caption">
                 <div class="row">
-                  <button class="btn">Réserver</button>
+                  <div class="col-xs-12">
+                    <div class="row">{{ vehicule.immatriculation }}</div>
+                    <div class="row">{{ vehicule.marque.libelle }} - {{ vehicule.modele.libelle }}</div>
+                    <div class="row">{{ vehicule.categorie.libelle }}</div>
+                    <div class="row">
+                      <button class="btn">Réserver</button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </ng-template>
-        </ngb-carousel>
+            </ng-template>
+          </ngb-carousel>
+        </div>
       </div>
     </ng-template>
   </ngb-panel>

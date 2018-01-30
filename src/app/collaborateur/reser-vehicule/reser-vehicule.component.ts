@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { VehiculeSociete } from '../../domain/VehiculeSociete';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-reser-vehicule',
@@ -8,8 +12,15 @@ import { Component, OnInit } from '@angular/core';
 export class ReserVehiculeComponent implements OnInit {
   time = { hour: 7, minute: 12 };
   model = { year: 2018, month: 1, day: 2 };
+  vehiculesDispos: VehiculeSociete[];
 
-  constructor() {}
+  constructor(private dataSvc: DataService, private modalService: NgbModal) {
+    this.dataSvc.vehiculesDisponibles.subscribe(
+      reserv => (this.vehiculesDispos = reserv)
+    );
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.vehiculesDispos);
+  }
 }
