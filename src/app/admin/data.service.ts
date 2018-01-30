@@ -13,6 +13,7 @@ export class DataService {
   private _vehiculesSociete = new BehaviorSubject<VehiculeSociete[]>([]);
   private _chauffeurs = new BehaviorSubject<Collaborateur[]>([]);
   private _categories = new BehaviorSubject<Categorie[]>([]);
+  private _vehiculeByImmat = new BehaviorSubject<VehiculeSociete>(null);
 
   marque: { id: number; libelle: string };
   modele: { id: number; libelle: string };
@@ -32,6 +33,12 @@ export class DataService {
 
   get categories(): Observable<Categorie[]> {
     return this._categories.asObservable();
+  }
+
+  fetchVehiculeByImmat(immat: string): Observable<VehiculeSociete> {
+    return this.http
+      .get<VehiculeSociete>(environment.endpoint + '/admin/vehicules/' + immat)
+      .do(veh => this._vehiculeByImmat.next(veh));
   }
 
   fetchVehiculesSociete(): Observable<VehiculeSociete[]> {
