@@ -15,6 +15,7 @@ import { ReservationsComponent } from './reservations/reservations.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { CreerReservationComponent } from './creer-reservation/creer-reservation.component';
 import { DataService } from './data.service';
+import { ConfirmAnnulationComponent } from './confirm-annulation/confirm-annulation.component';
 
 const collabRoutes: Routes = [
   {
@@ -50,7 +51,8 @@ const collabRoutes: Routes = [
     CreerReservationComponent,
     CreerAnnonceComponent,
     ListeAnnoncesComponent,
-    DetailCovoiturageComponent
+    DetailCovoiturageComponent,
+    ConfirmAnnulationComponent
   ],
   providers: [
     NgbAccordion,
@@ -62,6 +64,6 @@ const collabRoutes: Routes = [
       multi: true
     }
   ],
-  entryComponents: [DetailCovoiturageComponent]
+  entryComponents: [DetailCovoiturageComponent, ConfirmAnnulationComponent]
 })
 export class CollaborateurModule {}

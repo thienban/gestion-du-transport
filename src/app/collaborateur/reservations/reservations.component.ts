@@ -19,10 +19,12 @@ import {
   getLocaleDateFormat,
   FormatWidth
 } from '@angular/common';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
 import { Mode } from '../liste-annonces/Mode';
+import { ConfirmAnnulationComponent } from '../confirm-annulation/confirm-annulation.component';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { LoginService } from '../../shared/services/login.service';
 
 @Component({
   selector: 'app-reservations',
@@ -34,21 +36,55 @@ export class ReservationsComponent implements OnInit {
   reservationsHisto: Observable<Annonce[]>;
   modes = Mode;
   modalActionRef: TemplateRef<any>;
+  modalCancel: NgbModalRef;
+  @ViewChild('confirmTemplate') confirmTemplate: TemplateRef<any>;
 
-  constructor(private dataSvc: DataService, private modalService: NgbModal) {
+  constructor(
+    private dataSvc: DataService,
+    private modalService: NgbModal,
+    private loginSvc: LoginService
+  ) {
+    console.log(this.loginSvc.user.matricule);
     this.reservationsEnCours = this.dataSvc.myReservations.map(annonces =>
-      annonces.filter(a => new Date(a.dateDepart).getTime() >= Date.now())
+      annonces.filter(
+        a =>
+          new Date(a.dateDepart).getTime() >= Date.now() &&
+          !a.annulations.some(
+            co => co.matricule === this.loginSvc.user.matricule
+          )
+      )
     );
     this.reservationsHisto = this.dataSvc.myReservations.map(annonces =>
-      annonces.filter(a => new Date(a.dateDepart).getTime() < Date.now())
+      annonces.filter(
+        a =>
+          new Date(a.dateDepart).getTime() < Date.now() ||
+          a.annulations.some(
+            co => co.matricule === this.loginSvc.user.matricule
+          )
+      )
     );
   }
 
   ngOnInit() {}
 
-  detailAnnonce(reservation) {
+  openDetailAnnonce(reservation: Annonce) {
     const modalRef = this.modalService.open(DetailCovoiturageComponent);
     modalRef.componentInstance.reservation = reservation;
     modalRef.componentInstance.title = 'Détails du covoiturage';
+  }
+
+  openCancelModal(reservation: Annonce) {
+    const modalRef = this.modalService.open(ConfirmAnnulationComponent);
+    modalRef.componentInstance.reservation = reservation;
+    modalRef.componentInstance.title =
+      'Etes-vous sûr de vouloir annuler cette réservation ?';
+    modalRef.componentInstance.actionTemplate = this.confirmTemplate;
+    this.modalCancel = modalRef;
+  }
+
+  confirmCancel(reservation: Annonce) {
+    this.dataSvc
+      .cancelReservation(reservation)
+      .subscribe(resp => this.modalCancel.close());
   }
 }
