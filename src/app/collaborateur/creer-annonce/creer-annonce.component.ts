@@ -23,6 +23,7 @@ import { Annonce } from '../../domain/Annonce';
 import { DataService } from '../data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DetailCovoiturageComponent } from '../detail-covoiturage/detail-covoiturage.component';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-creer-annonce',
@@ -38,7 +39,7 @@ export class CreerAnnonceComponent implements OnInit {
   vehiculeForm: FormGroup;
   dateTimeForm: FormGroup;
   newAnnonce: Annonce;
-
+  confirmModal: NgbModalRef;
   @ViewChild('actionConfirm') actionConfirm: TemplateRef<any>;
 
   get immatriculation() {
@@ -83,26 +84,6 @@ export class CreerAnnonceComponent implements OnInit {
   ngOnInit() {
     this.createForms();
     this.observeItineraireChanges();
-
-    this.dateTimeForm.valueChanges.subscribe(c => console.log(c));
-
-    this.dateTimeForm.valueChanges
-      .filter(val => val.date && val.heure)
-      .map(
-        val =>
-          new Date(
-            val.date.year,
-            val.date.month - 1,
-            val.date.day,
-            val.heure.hour,
-            val.heure.minute
-          )
-      )
-      .map(dateTime => dateTime.getTime() <= Date.now())
-      .subscribe(isInvalid => {
-        console.log('isInvalid : ', isInvalid);
-        this.isInvalid = isInvalid;
-      });
   }
 
   observeItineraireChanges() {
@@ -161,6 +142,7 @@ export class CreerAnnonceComponent implements OnInit {
         time.hour,
         time.minute
       );
+      console.log(date, time, dateTime);
       if (dateTime.getTime() <= Date.now()) {
         return { anterior: true };
       }
@@ -195,10 +177,11 @@ export class CreerAnnonceComponent implements OnInit {
     modalRef.componentInstance.reservation = this.newAnnonce;
     modalRef.componentInstance.title = 'Comfirmation de votre proposition';
     modalRef.componentInstance.actionTemplate = this.actionConfirm;
+    this.confirmModal = modalRef;
   }
   publish() {
     this.dataSvc.publishAnnonce(this.newAnnonce).subscribe(ann => {
-      console.log('response to publish : ', ann);
+      this.confirmModal.close();
     });
   }
 

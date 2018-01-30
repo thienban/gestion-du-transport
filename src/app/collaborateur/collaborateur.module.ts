@@ -19,6 +19,7 @@ import { ReserVehiculeComponent } from './reser-vehicule/reser-vehicule.componen
 import { ReserChaffeurComponent } from './reser-chaffeur/reser-chaffeur.component';
 import { DataService } from './data.service';
 import { ListeReservSocieteComponent } from './liste-reserv-societe/liste-reserv-societe.component';
+import { ConfirmAnnulationComponent } from './confirm-annulation/confirm-annulation.component';
 
 const collabRoutes: Routes = [
   {
@@ -58,7 +59,8 @@ const collabRoutes: Routes = [
     ReserCovoitComponent,
     ReserVehiculeComponent,
     ReserChaffeurComponent,
-    ListeReservSocieteComponent
+    ListeReservSocieteComponent,
+    ConfirmAnnulationComponent
   ],
   providers: [
     NgbAccordion,
@@ -70,6 +72,6 @@ const collabRoutes: Routes = [
       multi: true
     }
   ],
-  entryComponents: [DetailCovoiturageComponent]
+  entryComponents: [DetailCovoiturageComponent, ConfirmAnnulationComponent]
 })
 export class CollaborateurModule {}
