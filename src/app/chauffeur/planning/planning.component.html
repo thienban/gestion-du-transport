@@ -1,5 +1,5 @@
-<!-- 
-<h3>{{ viewDate | calendarDate:('day' + 'ViewTitle'):locale }}</h3>
+<h3>
+  {{ viewDate | calendarDate:('day' + 'ViewTitle'):locale }}</h3>
 
 <mwl-calendar-day-view [viewDate]="viewDate" [locale]="locale" [events]="events" [eventTemplate]="myCustomEventTemplate"
   [hourSegmentTemplate]="customHourSegmentTemplate">
@@ -17,12 +17,12 @@
     {{segment.date|date:'HH'}} h
   </ng-container>
 </ng-template>
--->
-<!--Test RaceToConfirm-->
+
+<!--Test RaceToConfirm
 <div *ngFor="let race of races | async">
   <p>{{race.dateReservation}} </p>
   <p>{{race.dateRetour}}</p>
   <p>{{race.passager | json}}</p>
   <p>{{race.vehicule | json}}</p>
-
 </div>
+-->
