@@ -128,21 +128,12 @@ export class CreerAnnonceComponent implements OnInit {
         date: ['', Validators.required],
         heure: ['', Validators.required]
       },
-      { validator: this.dateTimeValidator }
+      { validator: this.dateTimeValidator.bind(this) }
     );
   }
   dateTimeValidator(control: AbstractControl): { [key: string]: boolean } {
-    const date = control.get('date').value;
-    const time = control.get('heure').value;
     if (control.get('date').valid && control.get('heure').valid) {
-      const dateTime = new Date(
-        date.year,
-        date.month - 1,
-        date.day,
-        time.hour,
-        time.minute
-      );
-      console.log(date, time, dateTime);
+      const dateTime = this.ngbDateToNative(control.value);
       if (dateTime.getTime() <= Date.now()) {
         return { anterior: true };
       }
@@ -159,14 +150,7 @@ export class CreerAnnonceComponent implements OnInit {
   }
   confirmAnnonce() {
     const modalRef = this.modalService.open(DetailCovoiturageComponent);
-    const dateTime = this.dateTimeForm.value;
-    const dateDepart = new Date(
-      dateTime.date.year,
-      dateTime.date.month,
-      dateTime.date.day,
-      dateTime.heure.hour,
-      dateTime.heure.minute
-    );
+    const dateDepart = this.ngbDateToNative(this.dateTimeForm.value);
     this.newAnnonce = new Annonce(
       this.origin,
       this.destination,
@@ -202,4 +186,14 @@ export class CreerAnnonceComponent implements OnInit {
       .do(() => (this.searching = true))
       .merge(this.hideSearchingWhenUnsubscribed);
   };
+
+  ngbDateToNative(dateTime) {
+    return new Date(
+      dateTime.date.year,
+      dateTime.date.month - 1,
+      dateTime.date.day,
+      dateTime.heure.hour,
+      dateTime.heure.minute
+    );
+  }
 }
