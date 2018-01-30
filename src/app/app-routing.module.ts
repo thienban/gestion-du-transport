@@ -45,7 +45,6 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forRoot(routes, {
-      //enableTracing: !environment.production,
       useHash: true
     })
   ],

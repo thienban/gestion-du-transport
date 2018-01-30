@@ -41,15 +41,14 @@ export class ReservationsComponent implements OnInit {
   modalActionRef: TemplateRef<any>;
   modalCancel: NgbModalRef;
   @ViewChild('confirmTemplate') confirmTemplate: TemplateRef<any>;
-  reservationsEnCours: Observable<Annonce[]>;
-  reservationsHisto: Observable<Annonce[]>;
+
   constructor(
     private dataSvc: DataService,
     private modalService: NgbModal,
     private loginSvc: LoginService
   ) {
     console.log(this.loginSvc.user.matricule);
-    this.reservationsEnCours = this.dataSvc.myReservations.map(annonces =>
+    this.reservationsCovoitEnCours = this.dataSvc.myReservations.map(annonces =>
       annonces.filter(
         a =>
           new Date(a.dateDepart).getTime() >= Date.now() &&
@@ -58,7 +57,7 @@ export class ReservationsComponent implements OnInit {
           )
       )
     );
-    this.reservationsHisto = this.dataSvc.myReservations.map(annonces =>
+    this.reservationsCovoitHisto = this.dataSvc.myReservations.map(annonces =>
       annonces.filter(
         a =>
           new Date(a.dateDepart).getTime() < Date.now() ||
