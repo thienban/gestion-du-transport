@@ -23,6 +23,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
 import { Mode } from '../liste-annonces/Mode';
+import { ReserverVehicule } from '../../domain/ReserverVehicule';
 
 @Component({
   selector: 'app-reservations',
@@ -32,8 +33,8 @@ import { Mode } from '../liste-annonces/Mode';
 export class ReservationsComponent implements OnInit {
   reservationsCovoitEnCours: Observable<Annonce[]>;
   reservationsCovoitHisto: Observable<Annonce[]>;
-  reservationsSocEnCours: Observable<Annonce[]>;
-  reservationsSocHisto: Observable<Annonce[]>;
+  reservationsSocEnCours: Observable<ReserverVehicule[]>;
+  reservationsSocHisto: Observable<ReserverVehicule[]>;
   modes = Mode;
   modalActionRef: TemplateRef<any>;
 

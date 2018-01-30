@@ -1,3 +1,46 @@
-<p>
-  vehicules works!
-</p>
+<div class="container-fluid p-5">
+
+  <div class="row">
+    <div class="col">
+      <h1>Véhicules</h1>
+    </div>
+    <div class="col">
+      <a class="btn btn-primary" (click)="ajouterVehicule()">Ajouter un véhicule</a>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <h4>Filtre</h4>
+  <div>
+    <div class="form-group row">
+      <label for="modele" class="col-sm-2 col-form-label">Immatriculation</label>
+      <div class="col-sm-2">
+        <input type="text" class="form-control" id="filtreImmat" #filtreImmat (change)="this.dataSvc.setFiltreImmat(filtreImmat)">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="categorie" class="col-sm-2 col-form-label">Marque</label>
+      <div class="col-sm-2">
+        <input type="text" class="form-control" id="filtreMarque" #filtreMarque (change)="this.dataSvc.setFiltreMarque(filtreMarque)">
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="card" style="width: 10rem; margin: 5px" *ngFor="let v of vehicules | async | filterByImmat:filtreImmat.value | filterByMarque:filtreMarque.value ">
+        <!-- <a [routerLink]="vehicules/{{v.immatriculation}}"> -->
+        <img class="card-img-top" src="{{v.photo}}">
+        <!-- </a> -->
+
+        <div class="card-body" style="text-align:center">
+          <p>{{v.immatriculation}}
+            <br> {{v.marque.libelle}} {{v.modele.libelle}}
+            <br> {{v.categorie.libelle}}
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

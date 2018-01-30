@@ -41,6 +41,7 @@ export class DataService {
       .merge(this.fetchMyReservations())
       .merge(this.fetchMyReservationsSoc());
   }
+
   fetchMyAnnonces(): Observable<Annonce[]> {
     const url = `${environment.endpoint}/annonces/me`;
     return this.http.get<Annonce[]>(url).do(annonces => {
