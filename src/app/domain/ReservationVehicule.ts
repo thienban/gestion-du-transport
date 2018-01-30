@@ -9,6 +9,7 @@ export class ReservationVehicule {
     public optionChauffeur?: boolean,
     public disponible?: boolean,
     public dateReservation?: Date,
-    public dateRetour?: Date
+    public dateRetour?: Date,
+    public toConfirm?: boolean
   ) {}
 }
