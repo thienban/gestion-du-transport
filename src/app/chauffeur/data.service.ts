@@ -18,7 +18,7 @@ export class DataService {
   constructor(private http: HttpClient) {}
 
   fetchToConfirmRaces(): Observable<ReservationVehicule[]> {
-    const url = `${environment.endpoint}/chauffeur`;
+    const url = `${environment.endpoint}/chauffeurs`;
     return this.http.get<ReservationVehicule[]>(url).do(races => {
       this._confirmRace.next(races);
       console.log('race to confirm');
