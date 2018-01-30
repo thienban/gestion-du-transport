@@ -4,6 +4,7 @@
       <th>Date/heure de départ</th>
       <th>Départ</th>
       <th>Destination</th>
+      <th *ngIf="mode==modes.RESERVATION && histo">Statut</th>
       <th *ngIf="mode==modes.ANNONCE">Nombre de voyageurs</th>
       <ng-container *ngIf="mode==modes.COVOITURAGE">
         <th>Chauffeur</th>
@@ -14,16 +15,14 @@
   </thead>
   <tbody *ngFor="let annonce of annonces | slice:startLimit:endLimit">
     <tr>
-      <td>{{ annonce.dateDepart | date:'dd/MM/yyyy HH:ss'}}
-      </td>
-      <td>{{ annonce.adresseDepart }}
-      </td>
-      <td>{{ annonce.adresseArrive }}
-      </td>
-      <th *ngIf="mode==modes.ANNONCE">{{ annonce.passagers.length }}</th>
+      <td>{{ annonce.dateDepart | date:'dd/MM/yyyy HH:ss'}}</td>
+      <td>{{ annonce.adresseDepart }}</td>
+      <td>{{ annonce.adresseArrive }}</td>
+      <td *ngIf="mode==modes.RESERVATION && histo">{{ getAnnonceStatus(annonce) }}</td>
+      <td *ngIf="mode==modes.ANNONCE">{{ annonce.passagers.length }}</td>
       <ng-container *ngIf="mode==modes.COVOITURAGE">
-        <th>{{annonce.auteur.prenom}} {{annonce.auteur.nom}}</th>
-        <th>{{annonce.nbPlacesRestantes}}</th>
+        <td>{{annonce.auteur.prenom}} {{annonce.auteur.nom}}</td>
+        <td>{{annonce.nbPlacesRestantes}}</td>
       </ng-container>
       <td>
         <ng-container *ngTemplateOutlet="actionTemplate;context:{annonce:annonce}"></ng-container>

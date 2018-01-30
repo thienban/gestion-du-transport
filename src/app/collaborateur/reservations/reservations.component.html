@@ -17,7 +17,7 @@
         <h4>Réservations en cours</h4>
         <app-liste-annonces [mode]="modes.RESERVATION" [annonces]="reservationsCovoitEnCours | async" [actionTemplate]=actionTemplate></app-liste-annonces>
         <h4>Historique</h4>
-        <app-liste-annonces [mode]="modes.RESERVATION" [annonces]="reservationsCovoitHisto | async" [actionTemplate]=actionTemplate></app-liste-annonces>
+        <app-liste-annonces [mode]="modes.RESERVATION" [histo]="true" [annonces]="reservationsHisto | async" [actionTemplate]=actionTemplateHisto></app-liste-annonces>
       </ng-template>
     </ngb-panel>
     <ngb-panel>
@@ -39,5 +39,14 @@
 
 
 <ng-template #actionTemplate let-annonce="annonce">
-  <button class="btn btn-success" (click)="detailAnnonce(annonce)">Détail</button>
+  <button class="btn btn-success" (click)="openDetailAnnonce(annonce)">Détail</button>
+  <button class="btn btn-danger" (click)="openCancelModal(annonce)">Annuler</button>
+</ng-template>
+
+<ng-template #actionTemplateHisto let-annonce="annonce">
+  <button class="btn btn-success" (click)="openDetailAnnonce(annonce)">Détail</button>
+</ng-template>
+
+<ng-template #confirmTemplate let-annonce="annonce">
+  <button class="btn btn-danger" (click)="confirmCancel(annonce)">Confirmer</button>
 </ng-template>

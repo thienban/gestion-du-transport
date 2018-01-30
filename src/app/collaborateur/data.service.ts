@@ -42,6 +42,7 @@ export class DataService {
       .merge(this.fetchMyReservationsSoc())
       .merge(this.fetchAvailableVehiculesSoc());
   }
+
   fetchMyAnnonces(): Observable<Annonce[]> {
     const url = `${environment.endpoint}/annonces/me`;
     return this.http.get<Annonce[]>(url).do(annonces => {
@@ -107,7 +108,7 @@ export class DataService {
         );
   }
 
-  bookAnnonce(annonceToBook: Annonce) {
+  bookAnnonce(annonceToBook: Annonce): Observable<Annonce[]> {
     return this.http
       .post<Annonce[]>(environment.endpoint + '/reservations/creer', {
         annonce_id: annonceToBook.id
@@ -115,6 +116,30 @@ export class DataService {
       .do(ann => {
         this._myReservations.next(ann);
         this.fetchAvailableCovoits().subscribe();
+      });
+  }
+
+  cancelReservation(reservation: Annonce): Observable<Annonce[]> {
+    return this.http
+      .post<Annonce[]>(environment.endpoint + '/reservations/annuler', {
+        annonce_id: reservation.id
+      })
+      .do(ann => {
+        this._myReservations.next(ann);
+        this.fetchAvailableCovoits().subscribe();
+        this.fetchMyAnnonces().subscribe();
+      });
+  }
+
+  cancelAnnonce(annonce: Annonce): Observable<Annonce[]> {
+    return this.http
+      .post<Annonce[]>(environment.endpoint + '/annonces/annuler', {
+        annonce_id: annonce.id
+      })
+      .do(ann => {
+        this._myAnnonces.next(ann);
+        this.fetchAvailableCovoits().subscribe();
+        this.fetchMyReservations().subscribe();
       });
   }
 }

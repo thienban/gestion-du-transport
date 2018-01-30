@@ -10,10 +10,11 @@ export class Annonce {
     public vehicule?: VehiculeCovoit,
     public auteur?: Collaborateur,
     public dateArrive?: Date,
-    public status?: StatusCovoit,
+    public statusCovoit?: string,
     public dureeTrajet?: number,
     public distance?: number,
     public passagers?: Collaborateur[],
+    public annulations?: Collaborateur[],
     public id?: number,
     public nbPlacesRestantes?: number
   ) {}

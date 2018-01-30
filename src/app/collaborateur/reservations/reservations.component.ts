@@ -19,10 +19,13 @@ import {
   getLocaleDateFormat,
   FormatWidth
 } from '@angular/common';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
 import { Mode } from '../liste-annonces/Mode';
+import { ReserverVehicule } from '../../domain/ReserverVehicule';
+import { ConfirmAnnulationComponent } from '../confirm-annulation/confirm-annulation.component';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { LoginService } from '../../shared/services/login.service';
 
 @Component({
   selector: 'app-reservations',
@@ -32,17 +35,37 @@ import { Mode } from '../liste-annonces/Mode';
 export class ReservationsComponent implements OnInit {
   reservationsCovoitEnCours: Observable<Annonce[]>;
   reservationsCovoitHisto: Observable<Annonce[]>;
-  reservationsSocEnCours: Observable<Annonce[]>;
-  reservationsSocHisto: Observable<Annonce[]>;
+  reservationsSocEnCours: Observable<ReserverVehicule[]>;
+  reservationsSocHisto: Observable<ReserverVehicule[]>;
   modes = Mode;
   modalActionRef: TemplateRef<any>;
-
-  constructor(private dataSvc: DataService, private modalService: NgbModal) {
-    this.reservationsCovoitEnCours = this.dataSvc.myReservations.map(annonces =>
-      annonces.filter(a => new Date(a.dateDepart).getTime() >= Date.now())
+  modalCancel: NgbModalRef;
+  @ViewChild('confirmTemplate') confirmTemplate: TemplateRef<any>;
+  reservationsEnCours: Observable<Annonce[]>;
+  reservationsHisto: Observable<Annonce[]>;
+  constructor(
+    private dataSvc: DataService,
+    private modalService: NgbModal,
+    private loginSvc: LoginService
+  ) {
+    console.log(this.loginSvc.user.matricule);
+    this.reservationsEnCours = this.dataSvc.myReservations.map(annonces =>
+      annonces.filter(
+        a =>
+          new Date(a.dateDepart).getTime() >= Date.now() &&
+          !a.annulations.some(
+            co => co.matricule === this.loginSvc.user.matricule
+          )
+      )
     );
-    this.reservationsCovoitHisto = this.dataSvc.myReservations.map(annonces =>
-      annonces.filter(a => new Date(a.dateDepart).getTime() < Date.now())
+    this.reservationsHisto = this.dataSvc.myReservations.map(annonces =>
+      annonces.filter(
+        a =>
+          new Date(a.dateDepart).getTime() < Date.now() ||
+          a.annulations.some(
+            co => co.matricule === this.loginSvc.user.matricule
+          )
+      )
     );
     this.reservationsSocEnCours = this.dataSvc.myReservationsSoc.map(
       reservations =>
@@ -60,9 +83,24 @@ export class ReservationsComponent implements OnInit {
 
   ngOnInit() {}
 
-  detailAnnonce(reservation) {
+  openDetailAnnonce(reservation: Annonce) {
     const modalRef = this.modalService.open(DetailCovoiturageComponent);
     modalRef.componentInstance.reservation = reservation;
     modalRef.componentInstance.title = 'Détails du covoiturage';
+  }
+
+  openCancelModal(reservation: Annonce) {
+    const modalRef = this.modalService.open(ConfirmAnnulationComponent);
+    modalRef.componentInstance.reservation = reservation;
+    modalRef.componentInstance.title =
+      'Etes-vous sûr de vouloir annuler cette réservation ?';
+    modalRef.componentInstance.actionTemplate = this.confirmTemplate;
+    this.modalCancel = modalRef;
+  }
+
+  confirmCancel(reservation: Annonce) {
+    this.dataSvc
+      .cancelReservation(reservation)
+      .subscribe(resp => this.modalCancel.close());
   }
 }

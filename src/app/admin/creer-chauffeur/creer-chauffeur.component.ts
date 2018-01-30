@@ -32,7 +32,7 @@ export class CreerChauffeurComponent implements OnInit {
 
     if (
       this.chauffeurs.find(
-        c => c.matricule.toLowerCase() == newMatricule.toLowerCase()
+        c => c.matricule.toLowerCase() === newMatricule.toLowerCase()
       ) != null
     ) {
       // collaborateur déjà chauffeur
@@ -40,7 +40,7 @@ export class CreerChauffeurComponent implements OnInit {
     } else {
       this.cService.listerCollabs().subscribe(co => {
         this.collab = co.find(
-          c => c.matricule.toLowerCase() == newMatricule.toLowerCase()
+          c => c.matricule.toLowerCase() === newMatricule.toLowerCase()
         );
 
         if (this.collab == null) {

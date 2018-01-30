@@ -9,7 +9,7 @@
 <div class="card">
   <div class="card-body">
     <h5 class="card-title">En cours</h5>
-    <app-liste-annonces [mode]="modes.ANNONCE" [annonces]="annoncesCurrent | async"></app-liste-annonces>
+    <app-liste-annonces [mode]="modes.ANNONCE" [annonces]="annoncesCurrent | async" [actionTemplate]="cancelButton"></app-liste-annonces>
   </div>
 </div>
 
@@ -19,3 +19,12 @@
     <app-liste-annonces [mode]="modes.ANNONCE" [annonces]="annoncesHisto | async"></app-liste-annonces>
   </div>
 </div>
+
+
+<ng-template #cancelButton let-annonce="annonce">
+  <button class="btn btn-danger" (click)="openCancelModal(annonce)">Annuler</button>
+</ng-template>
+
+<ng-template #confirmTemplate let-annonce="annonce">
+  <button class="btn btn-danger" (click)="confirmCancel(annonce)">Confirmer</button>
+</ng-template>
