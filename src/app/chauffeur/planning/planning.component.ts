@@ -10,6 +10,8 @@ import { ReservationVehicule } from '../../domain/ReservationVehicule';
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-planning',
@@ -23,7 +25,7 @@ import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
   ]
 })
 export class PlanningComponent implements OnInit {
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private http: HttpClient) {}
   myRaces: Observable<ReservationVehicule[]>;
   eventsToConfirm: Observable<CalendarEvent[]>;
   viewDate = new Date();
@@ -48,6 +50,8 @@ export class PlanningComponent implements OnInit {
 
   accept(resa: ReservationVehicule) {
     console.log('clicked', resa);
+    const url = `${environment.endpoint}/chauffeurs/accept`;
+    return this.http.post<ReservationVehicule[]>(url, resa);
   }
 
   ngOnInit() {
