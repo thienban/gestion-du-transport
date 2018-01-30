@@ -3,6 +3,8 @@ import { DataService } from '../data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VehiculeSociete } from '../../domain/VehiculeSociete';
 import { Observable } from 'rxjs/Observable';
+import { ReserverVehicule } from '../../domain/ReserverVehicule';
+import { Collaborateur } from '../../domain/Collaborateur';
 
 @Component({
   selector: 'app-reser-vehicule',
@@ -10,8 +12,11 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./reser-vehicule.component.css']
 })
 export class ReserVehiculeComponent implements OnInit {
-  time = { hour: 7, minute: 12 };
-  model = { year: 2018, month: 1, day: 2 };
+  dateDepart;
+  dateRetour;
+  heureDepart;
+  heureRetour;
+  reservation: ReserverVehicule;
   vehiculesDispos: VehiculeSociete[];
 
   constructor(private dataSvc: DataService, private modalService: NgbModal) {
@@ -20,7 +25,28 @@ export class ReserVehiculeComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
-    console.log(this.vehiculesDispos);
+  ngOnInit() {}
+
+  reserver(vehicule: VehiculeSociete) {
+    this.reservation = new ReserverVehicule(new Date(), new Date());
+
+    this.reservation.dateReservation = new Date(
+      this.dateDepart['year'],
+      this.dateDepart['month'] - 1,
+      this.dateDepart['day'],
+      this.heureDepart['hour'],
+      this.heureDepart['minute']
+    );
+    this.reservation.dateRetour = new Date(
+      this.dateRetour['year'],
+      this.dateRetour['month'] - 1,
+      this.dateRetour['day'],
+      this.heureRetour['hour'],
+      this.heureRetour['minute']
+    );
+
+    this.reservation.vehicule = vehicule;
+
+    console.log(this.reservation.vehicule);
   }
 }

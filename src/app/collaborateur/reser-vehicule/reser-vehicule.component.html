@@ -5,28 +5,28 @@
       <div class="card-body">
         <div class="row">
           <div class="col-xs-6 mr-5">
-            <label for="date" class="col-form-label pt-0.5">Date/heure de réservation *</label>
+            <label for="dateDepart" class="col-form-label pt-0.5">Date/heure de réservation *</label>
             <!--<input type="date" class="form-control">-->
             <form class="form-inline">
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dateDepart" [(ngModel)]="dateDepart" ngbDatepicker #dateDep="ngbDatepicker">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                    <button class="btn btn-outline-secondary" (click)="dateDep.toggle()" type="button">
                       <img src="./assets/img/calendar-icon.png" style="width: 1.2rem; height: 1.2rem; cursor: pointer;" />
                     </button>
                   </div>
                 </div>
               </div>
             </form>
-            <label for="date" class="col-form-label mt-5 pt-0">Date/heure retour *</label>
+            <label for="dateRetour" class="col-form-label mt-5 pt-0">Date/heure retour *</label>
             <!--<input type="date" class="form-control">-->
             <form class="form-inline">
               <div class="form-group">
                 <div class="input-group">
-                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dateRetour" [(ngModel)]="dateRetour" ngbDatepicker #dateRet="ngbDatepicker">
                   <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                    <button class="btn btn-outline-secondary" (click)="dateRet.toggle()" type="button">
                       <img src="./assets/img/calendar-icon.png" style="width: 1.2rem; height: 1.2rem; cursor: pointer;" />
                     </button>
                   </div>
@@ -34,31 +34,40 @@
               </div>
             </form>
           </div>
-          <div class="col-xs-6">
-            <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+          <div class="col-xs-4">
+            <ngb-timepicker [(ngModel)]="heureDepart"></ngb-timepicker>
             <div class="mt-1">
-              <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+              <ngb-timepicker [(ngModel)]="heureRetour"></ngb-timepicker>
+            </div>
+          </div>
+          <div class="col-xs-2 ml-5">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" value="">
+              </label>
             </div>
           </div>
         </div>
         <div class="row">
-          <ngb-carousel *ngIf="vehiculesDispos != null ">
-            <ng-template ngbSlide *ngFor="let vehicule of vehiculesDispos">
-              <img src="{{vehicule.photo}}" alt="photo véhicule">
-              <div class="carousel-caption">
-                <div class="row">
-                  <div class="col-xs-12">
-                    <div class="row">{{ vehicule.immatriculation }}</div>
-                    <div class="row">{{ vehicule.marque.libelle }} - {{ vehicule.modele.libelle }}</div>
-                    <div class="row">{{ vehicule.categorie.libelle }}</div>
-                    <div class="row">
-                      <button class="btn">Réserver</button>
+          <div class="col-12">
+            <ngb-carousel *ngIf="vehiculesDispos != null">
+              <div *ngFor="let vehicule of vehiculesDispos">
+                <ng-template ngbSlide>
+                  <img src="{{vehicule.photo}}" alt="photo véhicule" class="w-100">
+                  <div class="row">
+                    <div class="col-5"></div>
+                    <div class="col-7">
+                      <div class="center">{{ vehicule.immatriculation }}
+                      </div>
+                      <div class="row">{{ vehicule.marque.libelle }} - {{ vehicule.modele.libelle }}</div>
+                      <div class="center">{{ vehicule.categorie.libelle }}</div>
+                      <button class="btn mb-5" (click)="reserver(vehicule)">Réserver</button>
                     </div>
                   </div>
-                </div>
+                </ng-template>
               </div>
-            </ng-template>
-          </ngb-carousel>
+            </ngb-carousel>
+          </div>
         </div>
       </div>
     </ng-template>
