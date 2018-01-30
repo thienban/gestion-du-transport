@@ -5,15 +5,15 @@
   {{role}}
   <div class="row">
     <div class="col-md-4" (click)="goToHomepage('collaborateur')">
-      <img src="../../../assets/img/person.png" alt="Collab" />
+      <img src="assets/img/person.png" alt="Collab" />
       <p>Collaborateur</p>
     </div>
     <div class="col-md-4" (click)="goToHomepage('chauffeur')" *ngIf="role == 'ADMIN' || role == 'CHAUFFEUR'">
-      <img src="../../../assets/img/person.png" alt="Chauf" />
+      <img src="assets/img/person.png" alt="Chauf" />
       <p>Chauffeur</p>
     </div>
     <div class="col-md-4" (click)="goToHomepage('admin')" *ngIf="role == 'ADMIN'">
-      <img src="../../../assets/img/person.png" alt="Admin" />
+      <img src="assets/img/person.png" alt="Admin" />
       <p>Administrateur</p>
     </div>
   </div>
