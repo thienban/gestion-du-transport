@@ -19,9 +19,6 @@ export class DataService {
   );
   private _vehiculeByImmat = new BehaviorSubject<VehiculeSociete>(null);
 
-  marque: { id: number; libelle: string };
-  modele: { id: number; libelle: string };
-
   filtreImmatSubject: BehaviorSubject<string> = new BehaviorSubject('');
   filtreMarqueSubject: BehaviorSubject<string> = new BehaviorSubject('');
 
@@ -81,20 +78,6 @@ export class DataService {
       this._reservationsVehicule.next(cat);
       console.log(`Reservations of ${immat} fetched`);
     });
-  }
-
-  checkMarque(marque: string) {
-    return this.http.post<{ id: number; libelle: string }>(
-      environment.endpoint + '/admin/vehicules/marque',
-      marque
-    );
-  }
-
-  checkModele(modele: string) {
-    return this.http.post<{ id: number; libelle: string }>(
-      environment.endpoint + '/admin/vehicules/modele',
-      modele
-    );
   }
 
   publishVehicule(newVehicule: VehiculeSociete) {

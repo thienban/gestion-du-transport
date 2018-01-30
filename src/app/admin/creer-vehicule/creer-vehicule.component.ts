@@ -76,32 +76,22 @@ export class CreerVehiculeComponent implements OnInit {
           Validators.pattern(/^\d+$/)
         ]
       ],
-      photo: ['']
+      photo: ['', Validators.required]
     });
   }
 
   creerVehicule() {
-    forkJoin(
-      this.ds.checkMarque(this.marque.value),
-      this.ds.checkModele(this.modele.value)
-    ).subscribe(allResults => {
-      const marqueObject = allResults[0];
-      const modelObject = allResults[1];
-
-      console.log(allResults);
-
-      const newVehicule = new VehiculeSociete(
-        this.immatriculation.value,
-        marqueObject,
-        modelObject,
-        this.categorie.value,
-        this.nbPlaces.value,
-        this.photo.value
-      );
-      console.log('publish : ', newVehicule);
-      this.ds.publishVehicule(newVehicule).subscribe(veh => {
-        console.log('response to publish : ', veh);
-      });
+    const newVehicule = new VehiculeSociete(
+      this.immatriculation.value,
+      this.marque.value,
+      this.modele.value,
+      this.categorie.value,
+      this.nbPlaces.value,
+      this.photo.value
+    );
+    console.log('publish : ', newVehicule);
+    this.ds.publishVehicule(newVehicule).subscribe(veh => {
+      console.log('response to publish : ', veh);
     });
     this.activeModal.close();
   }
