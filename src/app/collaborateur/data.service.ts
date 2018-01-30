@@ -46,7 +46,7 @@ export class DataService {
     const url = `${environment.endpoint}/annonces/me`;
     return this.http.get<Annonce[]>(url).do(annonces => {
       this._myAnnonces.next(annonces);
-      console.log('MyAnnonces fetched');
+      console.log('MyAnnonces fetched', annonces);
     });
   }
 
@@ -54,7 +54,7 @@ export class DataService {
     const url = `${environment.endpoint}/reservations/me`;
     return this.http.get<Annonce[]>(url).do(annonces => {
       this._myReservations.next(annonces);
-      console.log('MyReservations fetched');
+      console.log('MyReservations fetched', annonces);
     });
   }
 
@@ -62,7 +62,7 @@ export class DataService {
     const url = `${environment.endpoint}/vehicules/me`;
     return this.http.get<ReserverVehicule[]>(url).do(reservations => {
       this._myReservationsSoc.next(reservations);
-      console.log('MyReservationsSoc fetched');
+      console.log('MyReservationsSoc fetched', reservations);
     });
   }
 
@@ -70,7 +70,7 @@ export class DataService {
     const url = `${environment.endpoint}/reservations/available`;
     return this.http.get<Annonce[]>(url).do(annonces => {
       this._covoitsDisponibles.next(annonces);
-      console.log('AvailableCovoits fetched');
+      console.log('AvailableCovoits fetched', annonces);
     });
   }
 
@@ -78,7 +78,7 @@ export class DataService {
     const url = `${environment.endpoint}/vehicules/available`;
     return this.http.get<ReserverVehicule[]>(url).do(reservations => {
       this._vehiculesDisponibles.next(reservations);
-      console.log('AvailableReservSoc fetched');
+      console.log('AvailableReservSoc fetched', reservations);
     });
   }
 

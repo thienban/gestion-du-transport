@@ -8,11 +8,10 @@ import { DataService } from '../data.service';
 })
 export class WrapperCollaborateurComponent implements OnInit {
   constructor(private dataSvc: DataService) {
-    console.log('entering in collabs');
     this.dataSvc.fetchAllData().subscribe(
       next => {
         if (next.length > 0) {
-          console.log('collabs data fetched', next);
+          console.log('collabs data fetched');
         }
       },
       err => {
