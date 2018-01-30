@@ -8,18 +8,30 @@
   <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
     <ngb-panel>
       <ng-template ngbPanelTitle>
-        <span>Covoiturages ({{(reservationsEnCours|async).length}} en cours) </span>
+        <div [ngSwitch]="(reservationsCovoitEnCours|async) != null">
+          <span *ngSwitchCase="true">Covoiturages ({{(reservationsCovoitEnCours|async).length}} en cours) </span>
+          <span *ngSwitchCase="false">Covoiturages (0 en cours) </span>
+        </div>
       </ng-template>
       <ng-template ngbPanelContent>
         <h4>Réservations en cours</h4>
-        <app-liste-annonces [mode]="modes.RESERVATION" [annonces]="reservationsEnCours | async" [actionTemplate]=actionTemplate></app-liste-annonces>
+        <app-liste-annonces [mode]="modes.RESERVATION" [annonces]="reservationsCovoitEnCours | async" [actionTemplate]=actionTemplate></app-liste-annonces>
         <h4>Historique</h4>
         <app-liste-annonces [mode]="modes.RESERVATION" [histo]="true" [annonces]="reservationsHisto | async" [actionTemplate]=actionTemplateHisto></app-liste-annonces>
       </ng-template>
     </ngb-panel>
-    <ngb-panel title="Véhicule de société">
+    <ngb-panel>
+      <ng-template ngbPanelTitle>
+        <div [ngSwitch]="(reservationsSocEnCours|async) != null">
+          <span *ngSwitchCase="true">Véhicules de société ({{(reservationsSocEnCours|async).length}} en cours) </span>
+          <span *ngSwitchCase="false">Véhicules de société (0 en cours) </span>
+        </div>
+      </ng-template>
       <ng-template ngbPanelContent>
-
+        <h4>Réservations en cours</h4>
+        <app-liste-reserv-societe [reservations]="reservationsSocEnCours | async"></app-liste-reserv-societe>
+        <h4>Historique</h4>
+        <app-liste-reserv-societe [reservations]="reservationsSocHisto | async"></app-liste-reserv-societe>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>

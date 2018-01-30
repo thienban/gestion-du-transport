@@ -14,7 +14,11 @@ import { ListeAnnoncesComponent } from './liste-annonces/liste-annonces.componen
 import { ReservationsComponent } from './reservations/reservations.component';
 import { AnnoncesComponent } from './annonces/annonces.component';
 import { CreerReservationComponent } from './creer-reservation/creer-reservation.component';
+import { ReserCovoitComponent } from './reser-covoit/reser-covoit.component';
+import { ReserVehiculeComponent } from './reser-vehicule/reser-vehicule.component';
+import { ReserChaffeurComponent } from './reser-chaffeur/reser-chaffeur.component';
 import { DataService } from './data.service';
+import { ListeReservSocieteComponent } from './liste-reserv-societe/liste-reserv-societe.component';
 import { ConfirmAnnulationComponent } from './confirm-annulation/confirm-annulation.component';
 
 const collabRoutes: Routes = [
@@ -52,6 +56,10 @@ const collabRoutes: Routes = [
     CreerAnnonceComponent,
     ListeAnnoncesComponent,
     DetailCovoiturageComponent,
+    ReserCovoitComponent,
+    ReserVehiculeComponent,
+    ReserChaffeurComponent,
+    ListeReservSocieteComponent,
     ConfirmAnnulationComponent
   ],
   providers: [

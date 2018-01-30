@@ -42,6 +42,7 @@ const adminRoutes: Routes = [
     VehiculesComponent,
     CreerVehiculeComponent,
     ChauffeursComponent,
+    CreerChauffeurComponent,
     VehiculeDetailComponent
   ],
   providers: [
@@ -53,6 +54,6 @@ const adminRoutes: Routes = [
     },
     NgbActiveModal
   ],
-  entryComponents: [CreerVehiculeComponent]
+  entryComponents: [CreerVehiculeComponent, CreerChauffeurComponent]
 })
 export class AdminModule {}

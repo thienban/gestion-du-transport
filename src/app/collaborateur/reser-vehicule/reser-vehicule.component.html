@@ -1,0 +1,64 @@
+<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+  <ngb-panel title="Véhicule de société">
+    <ng-template ngbPanelContent>
+      <!--hh-->
+      <div class="card-body">
+        <div class="row">
+          <div class="col-xs-6 mr-5">
+            <label for="date" class="col-form-label pt-0.5">Date/heure de réservation *</label>
+            <!--<input type="date" class="form-control">-->
+            <form class="form-inline">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                      <img src="./assets/img/calendar-icon.png" style="width: 1.2rem; height: 1.2rem; cursor: pointer;" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <label for="date" class="col-form-label mt-5 pt-0">Date/heure retour *</label>
+            <!--<input type="date" class="form-control">-->
+            <form class="form-inline">
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                      <img src="./assets/img/calendar-icon.png" style="width: 1.2rem; height: 1.2rem; cursor: pointer;" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="col-xs-6">
+            <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+            <div class="mt-1">
+              <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <ngb-carousel *ngFor="let vehicule of vehicules">
+          <ng-template ngbSlide>
+            <img src="{{vehicule.photo}}" alt="Random first slide">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="row">{{ vehicule.immatriculation }}</div>
+                <div class="row">{{ vehicule.marque.libelle }} - {{ vehicule.modele.libelle }}</div>
+                <div class="row">{{ vehicule.categorie.libelle }}</div>
+                <div class="row">
+                  <button class="btn">Réserver</button>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+    </ng-template>
+  </ngb-panel>
+</ngb-accordion>

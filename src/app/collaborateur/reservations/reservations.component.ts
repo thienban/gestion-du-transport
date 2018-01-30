@@ -22,6 +22,7 @@ import {
 import { DataService } from '../data.service';
 import { Observable } from 'rxjs/Observable';
 import { Mode } from '../liste-annonces/Mode';
+import { ReserverVehicule } from '../../domain/ReserverVehicule';
 import { ConfirmAnnulationComponent } from '../confirm-annulation/confirm-annulation.component';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from '../../shared/services/login.service';
@@ -32,13 +33,16 @@ import { LoginService } from '../../shared/services/login.service';
   styleUrls: ['./reservations.component.css']
 })
 export class ReservationsComponent implements OnInit {
-  reservationsEnCours: Observable<Annonce[]>;
-  reservationsHisto: Observable<Annonce[]>;
+  reservationsCovoitEnCours: Observable<Annonce[]>;
+  reservationsCovoitHisto: Observable<Annonce[]>;
+  reservationsSocEnCours: Observable<ReserverVehicule[]>;
+  reservationsSocHisto: Observable<ReserverVehicule[]>;
   modes = Mode;
   modalActionRef: TemplateRef<any>;
   modalCancel: NgbModalRef;
   @ViewChild('confirmTemplate') confirmTemplate: TemplateRef<any>;
-
+  reservationsEnCours: Observable<Annonce[]>;
+  reservationsHisto: Observable<Annonce[]>;
   constructor(
     private dataSvc: DataService,
     private modalService: NgbModal,
@@ -62,6 +66,18 @@ export class ReservationsComponent implements OnInit {
             co => co.matricule === this.loginSvc.user.matricule
           )
       )
+    );
+    this.reservationsSocEnCours = this.dataSvc.myReservationsSoc.map(
+      reservations =>
+        reservations.filter(
+          r => new Date(r.dateReservation).getTime() >= Date.now()
+        )
+    );
+    this.reservationsSocHisto = this.dataSvc.myReservationsSoc.map(
+      reservations =>
+        reservations.filter(
+          r => new Date(r.dateReservation).getTime() < Date.now()
+        )
     );
   }
 
