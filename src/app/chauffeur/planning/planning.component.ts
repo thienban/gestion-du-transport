@@ -5,7 +5,11 @@ import {
   DAYS_OF_WEEK
 } from 'angular-calendar';
 import { CustomDateFormatter } from './custom-date-formatter.provider';
+
 import { Annonce } from '../../domain/Annonce';
+import { ReservationVehicule } from '../../domain/ReservationVehicule';
+import { DataService } from '../data.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-planning',
@@ -19,7 +23,14 @@ import { Annonce } from '../../domain/Annonce';
   ]
 })
 export class PlanningComponent {
-  viewDate = new Date();
+  constructor(private dataService: DataService) {}
+  races: Observable<ReservationVehicule[]>;
+  ngOnInit() {
+    this.races = this.dataService.confirmRace;
+    this.dataService.fetchToConfirmRaces().subscribe();
+  }
+
+  /*viewDate = new Date();
   locale: string = 'fr';
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
 
@@ -63,5 +74,5 @@ export class PlanningComponent {
     }
   ];
 
-  accept(annonce: Annonce) {}
+  accept(annonce: Annonce) {}*/
 }
