@@ -15,7 +15,7 @@
   </thead>
   <tbody *ngFor="let annonce of annonces | slice:startLimit:endLimit">
     <tr>
-      <td>{{ annonce.dateDepart | date:'dd/MM/yyyy HH:ss'}}</td>
+      <td>{{ annonce.dateDepart | date:'dd/MM/yyyy HH:mm'}}</td>
       <td>{{ annonce.adresseDepart }}</td>
       <td>{{ annonce.adresseArrive }}</td>
       <td *ngIf="mode==modes.RESERVATION && histo">{{ getAnnonceStatus(annonce) }}</td>

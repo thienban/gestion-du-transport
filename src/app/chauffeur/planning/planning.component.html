@@ -1,3 +1,21 @@
-<p>
-  planning works!
-</p>
+<div class="container">
+  <h3>{{ viewDate | calendarDate:('day' + 'ViewTitle'):locale }}</h3>
+
+  <mwl-calendar-day-view [viewDate]="viewDate" [locale]="locale" [events]="eventsToConfirm | async" [eventTemplate]="myCustomEventTemplate"
+    [hourSegmentTemplate]="customHourSegmentTemplate">
+  </mwl-calendar-day-view>
+
+  <ng-template #myCustomEventTemplate let-dayEvent="dayEvent">
+    <div class="alert" [class.alert-danger]="dayEvent.event.meta.annonce.toConfirm" [class.alert-primary]="!dayEvent.event.meta.annonce.toConfirm">
+      {{dayEvent.event.title}}
+      <br> (départ : {{dayEvent.event.start|date:'HH:mm'}})
+      <button class="btn btn-primary" (click)="accept(dayEvent.event.meta.annonce)">Accepter la demande</button>
+    </div>
+  </ng-template>
+
+  <ng-template #customHourSegmentTemplate let-segment="segment">
+    <ng-container *ngIf="segment.isStart">
+      {{segment.date|date:'HH'}} h
+    </ng-container>
+  </ng-template>
+</div>

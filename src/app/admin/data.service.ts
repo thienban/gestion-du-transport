@@ -7,12 +7,17 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Collaborateur } from '../domain/Collaborateur';
 import { HttpClient } from '@angular/common/http';
 import { Categorie } from '../domain/categorie';
+import { ReservationVehicule } from '../domain/ReservationVehicule';
 
 @Injectable()
 export class DataService {
   private _vehiculesSociete = new BehaviorSubject<VehiculeSociete[]>([]);
   private _chauffeurs = new BehaviorSubject<Collaborateur[]>([]);
   private _categories = new BehaviorSubject<Categorie[]>([]);
+  private _reservationsVehicule = new BehaviorSubject<ReservationVehicule[]>(
+    []
+  );
+  private _vehiculeByImmat = new BehaviorSubject<VehiculeSociete>(null);
 
   marque: { id: number; libelle: string };
   modele: { id: number; libelle: string };
@@ -32,6 +37,16 @@ export class DataService {
 
   get categories(): Observable<Categorie[]> {
     return this._categories.asObservable();
+  }
+
+  get reservations(): Observable<ReservationVehicule[]> {
+    return this._reservationsVehicule.asObservable();
+  }
+
+  fetchVehiculeByImmat(immat: string): Observable<VehiculeSociete> {
+    return this.http
+      .get<VehiculeSociete>(environment.endpoint + '/admin/vehicules/' + immat)
+      .do(veh => this._vehiculeByImmat.next(veh));
   }
 
   fetchVehiculesSociete(): Observable<VehiculeSociete[]> {
@@ -55,6 +70,16 @@ export class DataService {
     return this.http.get<Categorie[]>(url).do(cat => {
       this._categories.next(cat);
       console.log('Categories fetched');
+    });
+  }
+
+  fetchReservationsDuVehicule(
+    immat: string
+  ): Observable<ReservationVehicule[]> {
+    const url = `${environment.endpoint}/vehicules/${immat}`;
+    return this.http.get<ReservationVehicule[]>(url).do(cat => {
+      this._reservationsVehicule.next(cat);
+      console.log(`Reservations of ${immat} fetched`);
     });
   }
 
