@@ -21,7 +21,9 @@ export class DataService {
   }
 
   constructor(private http: HttpClient) {}
-
+  fetchAllRaces(): Observable<ReservationVehicule[]> {
+    return this.fetchMyRaces().merge(this.fetchToConfirmRaces());
+  }
   fetchToConfirmRaces(): Observable<ReservationVehicule[]> {
     const url = `${environment.endpoint}/chauffeurs`;
     return this.http.get<ReservationVehicule[]>(url).do(races => {
@@ -30,6 +32,7 @@ export class DataService {
         return resa;
       });
       this._confirmRace.next(races);
+      console.log('courses à accepter : ', races);
     });
   }
 
@@ -41,6 +44,7 @@ export class DataService {
         return resa;
       });
       this._myRaces.next(races);
+      console.log('mes courses : ', races);
     });
   }
 }
