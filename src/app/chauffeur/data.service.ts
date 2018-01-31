@@ -8,6 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/forkJoin';
 
 import { ReservationVehicule } from '../domain/ReservationVehicule';
+import { LoginService } from '../shared/services/login.service';
 
 @Injectable()
 export class DataService {
@@ -27,7 +28,7 @@ export class DataService {
     return this._races.asObservable();
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private loginSvc: LoginService) {}
 
   fetchAllRaces(): Observable<ReservationVehicule[]> {
     return Observable.forkJoin([
@@ -43,10 +44,17 @@ export class DataService {
   fetchToConfirmRaces(): Observable<ReservationVehicule[]> {
     const url = `${environment.endpoint}/chauffeurs`;
     return this.http.get<ReservationVehicule[]>(url).do(races => {
-      races.map(resa => {
-        resa.toConfirm = true;
-        return resa;
-      });
+      races
+        .map(resa => {
+          resa.toConfirm = true;
+          return resa;
+        })
+        .filter(
+          r =>
+            r.chauffeur
+              ? r.chauffeur.matricule !== this.loginSvc.user.matricule
+              : true
+        );
       this._confirmRace.next(races);
       console.log('courses à accepter : ', races);
     });
@@ -70,7 +78,7 @@ export class DataService {
       .post<ReservationVehicule>(url, {
         reservationVehicule_id: resa.id
       })
-      .do(resa => {
+      .do(reser => {
         this.fetchAllRaces().subscribe();
       });
   }
