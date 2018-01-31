@@ -66,8 +66,12 @@ export class DataService {
 
   acceptCourse(resa: ReservationVehicule): Observable<ReservationVehicule> {
     const url = `${environment.endpoint}/chauffeurs/accept`;
-    return this.http.post<ReservationVehicule>(url, {
-      reservationVehicule_id: resa.id
-    });
+    return this.http
+      .post<ReservationVehicule>(url, {
+        reservationVehicule_id: resa.id
+      })
+      .do(resa => {
+        this.fetchAllRaces().subscribe();
+      });
   }
 }
