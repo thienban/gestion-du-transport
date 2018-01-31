@@ -17,9 +17,9 @@
       </td>
       <td>{{ reserv.vehicule.immatriculation }}
       </td>
-      <td>{{ reserv.vehicule.marque.libelle }}
+      <td>{{ reserv.vehicule.marque }}
       </td>
-      <td>{{ reserv.vehicule.modele.libelle }}
+      <td>{{ reserv.vehicule.modele }}
       </td>
       <div [ngSwitch]="reserv.optionChauffeur">
         <td *ngSwitchCase="true">
