@@ -22,7 +22,8 @@
       <td>{{ reserv.vehicule.modele.libelle }}
       </td>
       <div [ngSwitch]="reserv.optionChauffeur">
-        <td *ngSwitchCase="true">{{ reserv.chauffeur.nom }} {{ reserv.chauffeur.prenom }}
+        <td *ngSwitchCase="true">
+          <div *ngIf="reserv.chauffeur.nom"></div>{{ reserv.chauffeur.nom }} {{ reserv.chauffeur.prenom }}
         </td>
         <td *ngSwitchCase="false">
         </td>

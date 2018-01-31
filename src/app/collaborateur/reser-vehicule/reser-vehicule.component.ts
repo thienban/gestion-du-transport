@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from '../data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VehiculeSociete } from '../../domain/VehiculeSociete';
 import { Observable } from 'rxjs/Observable';
 import { ReserverVehicule } from '../../domain/ReserverVehicule';
 import { Collaborateur } from '../../domain/Collaborateur';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmAnnulationComponent } from '../confirm-annulation/confirm-annulation.component';
 
 @Component({
   selector: 'app-reser-vehicule',
@@ -16,6 +18,7 @@ export class ReserVehiculeComponent implements OnInit {
   dateRetour;
   heureDepart;
   heureRetour;
+  optionChauffeur;
   reservation: ReserverVehicule;
   vehiculesDispos: VehiculeSociete[];
 
@@ -26,6 +29,10 @@ export class ReserVehiculeComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  open(content) {
+    this.modalService.open(content);
+  }
 
   reserver(vehicule: VehiculeSociete) {
     this.reservation = new ReserverVehicule(new Date(), new Date());
@@ -46,7 +53,7 @@ export class ReserVehiculeComponent implements OnInit {
     );
 
     this.reservation.vehicule = vehicule;
-
-    console.log(this.reservation.vehicule);
+    this.reservation.optionChauffeur = this.optionChauffeur;
+    this.dataSvc.creerReserverVehicule(this.reservation).subscribe();
   }
 }

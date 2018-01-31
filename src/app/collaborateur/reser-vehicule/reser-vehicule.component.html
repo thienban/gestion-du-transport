@@ -1,12 +1,10 @@
 <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
   <ngb-panel title="Véhicule de société">
     <ng-template ngbPanelContent>
-      <!--hh-->
       <div class="card-body">
         <div class="row">
           <div class="col-xs-6 mr-5">
             <label for="dateDepart" class="col-form-label pt-0.5">Date/heure de réservation *</label>
-            <!--<input type="date" class="form-control">-->
             <form class="form-inline">
               <div class="form-group">
                 <div class="input-group">
@@ -20,7 +18,6 @@
               </div>
             </form>
             <label for="dateRetour" class="col-form-label mt-5 pt-0">Date/heure retour *</label>
-            <!--<input type="date" class="form-control">-->
             <form class="form-inline">
               <div class="form-group">
                 <div class="input-group">
@@ -43,7 +40,7 @@
           <div class="col-xs-2 ml-5">
             <div class="form-check">
               <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" value="">
+                <input type="checkbox" class="form-check-input" name="optionChauffeur" [(ngModel)]="optionChauffeur">Avec Chauffeur
               </label>
             </div>
           </div>
@@ -59,9 +56,34 @@
                     <div class="col-7">
                       <div class="center">{{ vehicule.immatriculation }}
                       </div>
-                      <div class="row">{{ vehicule.marque.libelle }} - {{ vehicule.modele.libelle }}</div>
+                      <div class="row">{{ vehicule.marque }} - {{ vehicule.modele }}</div>
                       <div class="center">{{ vehicule.categorie.libelle }}</div>
-                      <button class="btn mb-5" (click)="reserver(vehicule)">Réserver</button>
+                      <div [ngSwitch]="vehicule.disponible">
+                        <div *ngSwitchCase="false">
+                            <ng-template #content let-c="close" let-d="dismiss">
+                                <div class="modal-header">
+                                  <h4 class="modal-title">Réservation d'un véhiule</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <ul>
+                                    <li>Date/heure de réservation : {{dateDepart | date:'dd-MM-yyyy'}} {{heureDepart | date:'hh:mm'}} </li>
+                                    <li>Date/heure de retour : {{dateRetour | date:'dd-MM-yyyy'}} {{heureRetour | date:'hh:mm'}} </li>
+                                    <li>Immatriculation : {{vehicule.immatriculation}} </li>
+                                    <li>Marque : {{vehicule.marque}} </li>
+                                    <li>Modele : {{vehicule.modele}} </li>
+                                  </ul>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Annuler</button>
+                                  <button type="button" class="btn btn-outline-success" (click)="reserver(vehicule); c('Close click')">Confirmer</button>
+                                </div>
+                              </ng-template>
+                          <button class="btn mb-5" (click)="open(content)">Réserver</button>
+                        </div>
+                        <div *ngSwitchCase="true">
+                          <div class="text-danger">NON DISPONIBLE</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </ng-template>
