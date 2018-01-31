@@ -60,24 +60,27 @@
                       <div class="center">{{ vehicule.categorie.libelle }}</div>
                       <div [ngSwitch]="vehicule.disponible">
                         <div *ngSwitchCase="false">
-                            <ng-template #content let-c="close" let-d="dismiss">
-                                <div class="modal-header">
-                                  <h4 class="modal-title">Réservation d'un véhiule</h4>
-                                </div>
-                                <div class="modal-body">
-                                  <ul>
-                                    <li>Date/heure de réservation : {{dateDepart | date:'dd-MM-yyyy'}} {{heureDepart | date:'hh:mm'}} </li>
-                                    <li>Date/heure de retour : {{dateRetour | date:'dd-MM-yyyy'}} {{heureRetour | date:'hh:mm'}} </li>
-                                    <li>Immatriculation : {{vehicule.immatriculation}} </li>
-                                    <li>Marque : {{vehicule.marque}} </li>
-                                    <li>Modele : {{vehicule.modele}} </li>
-                                  </ul>
-                                </div>
-                                <div class="modal-footer">
-                                  <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Annuler</button>
-                                  <button type="button" class="btn btn-outline-success" (click)="reserver(vehicule); c('Close click')">Confirmer</button>
-                                </div>
-                              </ng-template>
+                          <ng-template #content let-c="close" let-d="dismiss">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Réservation d'un véhiule</h4>
+                            </div>
+                            <div class="modal-body">
+                              <ul>
+                                <li>Date/heure de réservation : {{dateDepart.value | date:'dd-MM-yyyy'}} {{heureDepart.value
+                                  | date:'HH:mm'}}
+                                </li>
+                                <li>Date/heure de retour : {{dateRetour.value | date:'dd-MM-yyyy'}} {{heureRetour.value | date:'HH:mm'}}
+                                </li>
+                                <li>Immatriculation : {{vehicule.immatriculation}} </li>
+                                <li>Marque : {{vehicule.marque}} </li>
+                                <li>Modele : {{vehicule.modele}} </li>
+                              </ul>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Annuler</button>
+                              <button type="button" class="btn btn-outline-success" (click)="reserver(vehicule); c('Close click')">Confirmer</button>
+                            </div>
+                          </ng-template>
                           <button class="btn mb-5" (click)="open(content)">Réserver</button>
                         </div>
                         <div *ngSwitchCase="true">

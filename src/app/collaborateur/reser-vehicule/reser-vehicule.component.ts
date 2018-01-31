@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { ReserverVehicule } from '../../domain/ReserverVehicule';
 import { Collaborateur } from '../../domain/Collaborateur';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ConfirmAnnulationComponent } from '../confirm-annulation/confirm-annulation.component';
 
 @Component({
   selector: 'app-reser-vehicule',
