@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap/modal/modal';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   FormBuilder,
   FormControl,
@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Categorie } from '../../domain/categorie';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/observable';
 import { VehiculeSociete } from '../../domain/VehiculeSociete';
 
