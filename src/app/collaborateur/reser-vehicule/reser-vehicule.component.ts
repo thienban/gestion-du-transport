@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from '../data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { VehiculeSociete } from '../../domain/VehiculeSociete';
 import { Observable } from 'rxjs/Observable';
+import { ReserverVehicule } from '../../domain/ReserverVehicule';
+import { Collaborateur } from '../../domain/Collaborateur';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-reser-vehicule',
@@ -10,9 +13,13 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./reser-vehicule.component.css']
 })
 export class ReserVehiculeComponent implements OnInit {
-  time = { hour: 7, minute: 12 };
-  model = { year: 2018, month: 1, day: 2 };
+  dateDepart;
+  dateRetour;
+  heureDepart;
+  heureRetour;
+  optionChauffeur;
   vehiculesDispos: VehiculeSociete[];
+  reservation = new ReserverVehicule(new Date(), new Date());
 
   constructor(private dataSvc: DataService, private modalService: NgbModal) {
     this.dataSvc.vehiculesDisponibles.subscribe(
@@ -20,7 +27,32 @@ export class ReserVehiculeComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
-    console.log(this.vehiculesDispos);
+  ngOnInit() {}
+
+  open(content) {
+    this.reservation.dateReservation = new Date(
+      this.dateDepart['year'],
+      this.dateDepart['month'] - 1,
+      this.dateDepart['day'],
+      this.heureDepart['hour'],
+      this.heureDepart['minute']
+    );
+    this.reservation.dateRetour = new Date(
+      this.dateRetour['year'],
+      this.dateRetour['month'] - 1,
+      this.dateRetour['day'],
+      this.heureRetour['hour'],
+      this.heureRetour['minute']
+    );
+
+    this.modalService.open(content);
+  }
+
+  reserver(vehicule: VehiculeSociete) {
+    console.log(this.reservation.dateReservation);
+    console.log(this.reservation.dateRetour);
+    this.reservation.vehicule = vehicule;
+    this.reservation.optionChauffeur = this.optionChauffeur;
+    this.dataSvc.creerReserverVehicule(this.reservation).subscribe();
   }
 }

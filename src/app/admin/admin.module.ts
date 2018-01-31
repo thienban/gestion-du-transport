@@ -24,7 +24,7 @@ const adminRoutes: Routes = [
     children: [
       { path: 'vehicules', component: VehiculesComponent },
       { path: 'chauffeurs', component: ChauffeursComponent },
-      { path: 'vehicules/', component: VehiculeDetailComponent },
+      { path: 'vehicules/:immat', component: VehiculeDetailComponent },
       { path: '', redirectTo: 'chauffeurs' }
     ]
   }

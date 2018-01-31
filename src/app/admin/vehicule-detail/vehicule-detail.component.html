@@ -1,3 +1,63 @@
-<p>
-  vehicule-detail works!
-</p>
+<div class="container-fluid p-5">
+
+  <h1>
+    <a [routerLink]="['../../vehicules']">Véhicules</a> &gt; {{vehicule.immatriculation}}
+  </h1>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <img style="width:100%" src="{{vehicule.photo}}">
+    </div>
+    <div class="col-sm-4">
+      <h3>{{vehicule.marque}} {{vehicule.modele}}</h3>
+      <h3>{{vehicule.categorie.libelle}}</h3>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <h3>Prochaines réservations</h3>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Date/Heure début</th>
+          <th>Date/Heure fin</th>
+          <th>Responsable</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let res of reservationsFutures">
+          <td> {{res.dateReservation | date:'dd/MM/yyyy HH:mm'}} </td>
+          <td> {{res.dateRetour | date:'dd/MM/yyyy HH:mm'}} </td>
+          <td> {{res.passager.nom | uppercase}} {{res.passager.prenom}} </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="row">
+
+    <h3>Historique des réservations</h3>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>Date/Heure début</th>
+          <th>Date/Heure fin</th>
+          <th>Responsable</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let res of reservationsPassees">
+          <td> {{res.dateReservation | date:'dd/MM/yyyy HH:mm'}} </td>
+          <td> {{res.dateRetour | date:'dd/MM/yyyy HH:mm'}} </td>
+          <td> {{res.passager.nom | uppercase}} {{res.passager.prenom}} </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+
+
+</div>

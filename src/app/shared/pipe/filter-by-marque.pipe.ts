@@ -10,7 +10,7 @@ export class FilterByMarquePipe implements PipeTransform {
       return value;
     } else {
       return value.filter(veh =>
-        veh.marque.libelle.toLowerCase().includes(args.toLowerCase())
+        veh.marque.toLowerCase().includes(args.toLowerCase())
       );
     }
   }

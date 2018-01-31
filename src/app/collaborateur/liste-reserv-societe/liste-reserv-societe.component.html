@@ -11,18 +11,19 @@
   </thead>
   <tbody *ngFor="let reserv of reservations | slice:startLimit:endLimit">
     <tr>
-      <td>{{ reserv.dateReservation | date:'dd/MM/yyyy HH:ss'}}
+      <td>{{ reserv.dateReservation | date:'dd/MM/yyyy HH:mm'}}
       </td>
-      <td>{{ reserv.dateRetour | date:'dd/MM/yyyy HH:ss'}}
+      <td>{{ reserv.dateRetour | date:'dd/MM/yyyy HH:mm'}}
       </td>
       <td>{{ reserv.vehicule.immatriculation }}
       </td>
-      <td>{{ reserv.vehicule.marque.libelle }}
+      <td>{{ reserv.vehicule.marque }}
       </td>
-      <td>{{ reserv.vehicule.modele.libelle }}
+      <td>{{ reserv.vehicule.modele }}
       </td>
       <div [ngSwitch]="reserv.optionChauffeur">
-        <td *ngSwitchCase="true">{{ reserv.chauffeur.nom }} {{ reserv.chauffeur.prenom }}
+        <td *ngSwitchCase="true">
+          <div *ngIf="reserv.chauffeur.nom"></div>{{ reserv.chauffeur.nom }} {{ reserv.chauffeur.prenom }}
         </td>
         <td *ngSwitchCase="false">
         </td>

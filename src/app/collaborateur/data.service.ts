@@ -119,6 +119,15 @@ export class DataService {
       });
   }
 
+  creerReserverVehicule(nouvReservation: ReserverVehicule): Observable<ReserverVehicule[]> {
+    return this.http
+      .post<ReserverVehicule[]>(environment.endpoint + '/vehicules/creer', nouvReservation)
+      .do(reserv => {
+        this._myReservationsSoc.next(reserv);
+        this.fetchAvailableVehiculesSoc().subscribe();
+      });
+  }
+
   cancelReservation(reservation: Annonce): Observable<Annonce[]> {
     return this.http
       .post<Annonce[]>(environment.endpoint + '/reservations/annuler', {

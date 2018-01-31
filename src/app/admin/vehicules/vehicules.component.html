@@ -28,13 +28,13 @@
     <div class="row">
 
       <div class="card" style="width: 10rem; margin: 5px" *ngFor="let v of vehicules | async | filterByImmat:filtreImmat.value | filterByMarque:filtreMarque.value ">
-        <!-- <a [routerLink]="vehicules/{{v.immatriculation}}"> -->
-        <img class="card-img-top" src="{{v.photo}}">
-        <!-- </a> -->
+        <a [routerLink]="['.', v.immatriculation]">
+          <img class="card-img-top" src="{{v.photo}}">
+        </a>
 
         <div class="card-body" style="text-align:center">
           <p>{{v.immatriculation}}
-            <br> {{v.marque.libelle}} {{v.modele.libelle}}
+            <br> {{v.marque}} {{v.modele}}
             <br> {{v.categorie.libelle}}
           </p>
         </div>
