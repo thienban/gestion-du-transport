@@ -27,9 +27,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let res of reservationsFutures">
-          <td> {{res.dateReservation}} </td>
-          <td> {{res.dateRetour}} </td>
-          <td> {{res.passager.nom}} {{res.passager.prenom}} </td>
+          <td> {{res.dateReservation | date:'dd/MM/yyyy HH:mm'}} </td>
+          <td> {{res.dateRetour | date:'dd/MM/yyyy HH:mm'}} </td>
+          <td> {{res.passager.nom | uppercase}} {{res.passager.prenom}} </td>
         </tr>
       </tbody>
     </table>
@@ -49,9 +49,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let res of reservationsPassees">
-          <td> {{res.dateReservation}} </td>
-          <td> {{res.dateRetour}} </td>
-          <td> {{res.passager.nom}} {{res.passager.prenom}} </td>
+          <td> {{res.dateReservation | date:'dd/MM/yyyy HH:mm'}} </td>
+          <td> {{res.dateRetour | date:'dd/MM/yyyy HH:mm'}} </td>
+          <td> {{res.passager.nom | uppercase}} {{res.passager.prenom}} </td>
         </tr>
       </tbody>
     </table>
