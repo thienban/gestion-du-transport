@@ -50,27 +50,25 @@ export class PlanningComponent implements OnInit {
 
   accept(resa: ReservationVehicule) {
     console.log('clicked', resa);
-    const url = `${environment.endpoint}/chauffeurs/accept`;
-    return this.http.post<ReservationVehicule[]>(url, resa);
+    this.dataService.acceptCourse(resa).subscribe(next => {
+      console.log('resa ok', next);
+    });
   }
 
   ngOnInit() {
-    this.eventsToConfirm = this.dataService.myRaces
-      .merge(this.dataService.confirmRace)
-      .map(races => {
-        return races.map(r => {
-          return {
-            title: 'Course en attente',
-            color: r.toConfirm ? this.colors.red : this.colors.yellow,
-            start: new Date(r.dateReservation),
-            end: new Date(r.dateRetour),
-            meta: {
-              annonce: r
-            }
-          };
-        });
+    this.eventsToConfirm = this.dataService.races.map(races => {
+      return races.map(r => {
+        return {
+          title: r.toConfirm ? 'Course en attente' : 'Course acceptée',
+          color: r.toConfirm ? this.colors.red : this.colors.yellow,
+          start: new Date(r.dateReservation),
+          end: new Date(r.dateRetour),
+          meta: {
+            annonce: r
+          }
+        };
       });
-    this.dataService.fetchToConfirmRaces().subscribe();
-    this.dataService.fetchMyRaces().subscribe();
+    });
+    this.dataService.fetchAllRaces().subscribe();
   }
 }

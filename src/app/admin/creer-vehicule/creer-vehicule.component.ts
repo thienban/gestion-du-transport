@@ -11,7 +11,6 @@ import { Categorie } from '../../domain/categorie';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs/observable';
 import { VehiculeSociete } from '../../domain/VehiculeSociete';
-import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Component({
   selector: 'app-creer-vehicule',

@@ -10,6 +10,7 @@ export class ReservationVehicule {
     public disponible?: boolean,
     public dateReservation?: Date,
     public dateRetour?: Date,
-    public toConfirm?: boolean
+    public toConfirm?: boolean,
+    public id?: number
   ) {}
 }

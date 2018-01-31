@@ -8,8 +8,9 @@
   <ng-template #myCustomEventTemplate let-dayEvent="dayEvent">
     <div class="alert" [class.alert-danger]="dayEvent.event.meta.annonce.toConfirm" [class.alert-primary]="!dayEvent.event.meta.annonce.toConfirm">
       {{dayEvent.event.title}}
-      <br> (départ : {{dayEvent.event.start|date:'HH:mm'}})
-      <button class="btn btn-primary" (click)="accept(dayEvent.event.meta.annonce)">Accepter la demande</button>
+      <br>{{dayEvent.event.start|date:'HH:mm'}} - {{dayEvent.event.end|date:'HH:mm'}}
+      <br>Responsable : {{dayEvent.event.meta.annonce.passager.prenom}} {{dayEvent.event.meta.annonce.passager.nom | uppercase}}
+      <button class="btn btn-primary" *ngIf="dayEvent.event.meta.annonce.toConfirm" (click)="accept(dayEvent.event.meta.annonce)">Accepter la demande</button>
     </div>
   </ng-template>
 
