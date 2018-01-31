@@ -66,10 +66,9 @@
                             </div>
                             <div class="modal-body">
                               <ul>
-                                <li>Date/heure de réservation : {{dateDepart.value | date:'dd-MM-yyyy'}} {{heureDepart.value
-                                  | date:'HH:mm'}}
+                                <li>Date/heure de réservation : {{reservation.dateReservation | date:'dd/MM/yyyy HH:mm'}}
                                 </li>
-                                <li>Date/heure de retour : {{dateRetour.value | date:'dd-MM-yyyy'}} {{heureRetour.value | date:'HH:mm'}}
+                                <li>Date/heure de retour : {{reservation.dateRetour | date:'dd/MM/yyyy HH:mm'}}
                                 </li>
                                 <li>Immatriculation : {{vehicule.immatriculation}} </li>
                                 <li>Marque : {{vehicule.marque}} </li>
