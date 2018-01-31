@@ -59,7 +59,7 @@
                       <div class="row">{{ vehicule.marque }} - {{ vehicule.modele }}</div>
                       <div class="center">{{ vehicule.categorie.libelle }}</div>
                       <div [ngSwitch]="vehicule.disponible">
-                        <div *ngSwitchCase="false">
+                        <div *ngSwitchCase="true">
                           <ng-template #content let-c="close" let-d="dismiss">
                             <div class="modal-header">
                               <h4 class="modal-title">Réservation d'un véhiule</h4>
@@ -82,7 +82,7 @@
                           </ng-template>
                           <button class="btn mb-5" (click)="open(content)">Réserver</button>
                         </div>
-                        <div *ngSwitchCase="true">
+                        <div *ngSwitchCase="false">
                           <div class="text-danger">NON DISPONIBLE</div>
                         </div>
                       </div>
