@@ -11,9 +11,9 @@
   </thead>
   <tbody *ngFor="let reserv of reservations | slice:startLimit:endLimit">
     <tr>
-      <td>{{ reserv.dateReservation | date:'dd/MM/yyyy HH:ss'}}
+      <td>{{ reserv.dateReservation | date:'dd/MM/yyyy HH:mm'}}
       </td>
-      <td>{{ reserv.dateRetour | date:'dd/MM/yyyy HH:ss'}}
+      <td>{{ reserv.dateRetour | date:'dd/MM/yyyy HH:mm'}}
       </td>
       <td>{{ reserv.vehicule.immatriculation }}
       </td>

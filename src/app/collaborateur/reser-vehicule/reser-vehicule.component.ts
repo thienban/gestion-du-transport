@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { ReserverVehicule } from '../../domain/ReserverVehicule';
 import { Collaborateur } from '../../domain/Collaborateur';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ConfirmAnnulationComponent } from '../confirm-annulation/confirm-annulation.component';
 
 @Component({
   selector: 'app-reser-vehicule',
@@ -19,8 +18,8 @@ export class ReserVehiculeComponent implements OnInit {
   heureDepart;
   heureRetour;
   optionChauffeur;
-  reservation: ReserverVehicule;
   vehiculesDispos: VehiculeSociete[];
+  reservation = new ReserverVehicule(new Date(), new Date());
 
   constructor(private dataSvc: DataService, private modalService: NgbModal) {
     this.dataSvc.vehiculesDisponibles.subscribe(
@@ -31,12 +30,6 @@ export class ReserVehiculeComponent implements OnInit {
   ngOnInit() {}
 
   open(content) {
-    this.modalService.open(content);
-  }
-
-  reserver(vehicule: VehiculeSociete) {
-    this.reservation = new ReserverVehicule(new Date(), new Date());
-
     this.reservation.dateReservation = new Date(
       this.dateDepart['year'],
       this.dateDepart['month'] - 1,
@@ -52,6 +45,12 @@ export class ReserVehiculeComponent implements OnInit {
       this.heureRetour['minute']
     );
 
+    this.modalService.open(content);
+  }
+
+  reserver(vehicule: VehiculeSociete) {
+    console.log(this.reservation.dateReservation);
+    console.log(this.reservation.dateRetour);
     this.reservation.vehicule = vehicule;
     this.reservation.optionChauffeur = this.optionChauffeur;
     this.dataSvc.creerReserverVehicule(this.reservation).subscribe();
