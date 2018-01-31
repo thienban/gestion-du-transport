@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { ReserverVehicule } from '../../domain/ReserverVehicule';
 import { Collaborateur } from '../../domain/Collaborateur';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reser-vehicule',
@@ -21,7 +22,11 @@ export class ReserVehiculeComponent implements OnInit {
   vehiculesDispos: VehiculeSociete[];
   reservation = new ReserverVehicule(new Date(), new Date());
 
-  constructor(private dataSvc: DataService, private modalService: NgbModal) {
+  constructor(
+    private dataSvc: DataService,
+    private modalService: NgbModal,
+    private router: Router
+  ) {
     this.dataSvc.vehiculesDisponibles.subscribe(
       reserv => (this.vehiculesDispos = reserv)
     );
@@ -49,10 +54,9 @@ export class ReserVehiculeComponent implements OnInit {
   }
 
   reserver(vehicule: VehiculeSociete) {
-    console.log(this.reservation.dateReservation);
-    console.log(this.reservation.dateRetour);
     this.reservation.vehicule = vehicule;
     this.reservation.optionChauffeur = this.optionChauffeur;
     this.dataSvc.creerReserverVehicule(this.reservation).subscribe();
+    this.router.navigate(['/reservations']);
   }
 }
