@@ -9,6 +9,11 @@ Equipe de 4 personnes de développeur
 lien accès au site
 https://2017-d17.github.io/gestion-du-transport/#/login
 
+Pour tester:
+robertsross@sultraxin.com
+
+pwd : password
+
 Technologie du Front : Angular
 Back : Spring Boot
 
