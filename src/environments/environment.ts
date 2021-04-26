@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   endpoint: 'http://localhost:8080/api',
-  domains: ['localhost:8080', 'gestion-transport-backend.herokuapp.com']
+  domains: ['localhost:8080', 'boiling-lowlands-24811.herokuapp.com']
 };

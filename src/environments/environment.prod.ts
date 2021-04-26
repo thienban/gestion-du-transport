@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  endpoint: 'https://gestion-transport-backend.herokuapp.com/api',
-  domains: ['gestion-transport-backend.herokuapp.com']
+  endpoint: 'https://boiling-lowlands-24811.herokuapp.com/api',
+  domains: ['boiling-lowlands-24811.herokuapp.com']
 };
