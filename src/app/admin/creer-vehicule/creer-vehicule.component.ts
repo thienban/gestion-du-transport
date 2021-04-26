@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Categorie } from '../../domain/categorie';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 import { VehiculeSociete } from '../../domain/VehiculeSociete';
 
 @Component({
